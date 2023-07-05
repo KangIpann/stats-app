@@ -2,11 +2,14 @@ package com.example.statsapp.starter
 
 import Handler.SignupHandler
 import android.content.Intent
+import android.app.AlertDialog
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.statsapp.R
 import com.google.android.material.textfield.TextInputEditText
@@ -29,6 +32,16 @@ class SignUp : AppCompatActivity(), View.OnClickListener {
         signUpButton.setOnClickListener(this)
     }
 
+    private fun showAlertDialog(title: String, message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Perbaiki") { dialog, _ -> dialog.dismiss() }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvLogIn -> {
@@ -36,27 +49,17 @@ class SignUp : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.User_Login -> {
-                // Ambil nilai input dari EditText
                 val name = findViewById<TextInputEditText>(R.id.namaEt).text.toString()
                 val email = findViewById<TextInputEditText>(R.id.emailEt).text.toString()
                 val password = findViewById<TextInputEditText>(R.id.passEt).text.toString()
                 val confirmPassword = findViewById<TextInputEditText>(R.id.passConfirmEt).text.toString()
 
-                //validasi password
                 if (password != confirmPassword) {
-                    val toast = android.widget.Toast.makeText(this, "Password tidak sama", android.widget.Toast.LENGTH_SHORT)
-                    toast.show()
+                    showAlertDialog("Kesalahan", "Password Harus Sama")
                     return
                 }
-                // Buat map data untuk dikirim ke Firestore
-                val data = hashMapOf(
-                    "name" to name,
-                    "email" to email,
-                    "password" to password
-                )
 
-                // Kirim data ke Firestore menggunakan SignupHandler
-                signupHandler.pushDataToFirestore(this, data)
+                signupHandler.registerUserWithEmail(this,email, password, name)
             }
         }
     }
