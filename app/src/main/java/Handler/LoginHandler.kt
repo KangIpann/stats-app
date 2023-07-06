@@ -1,4 +1,0 @@
-package Handler
-
-class LoginHandler {
-}
