@@ -40,10 +40,10 @@
             android:layout_marginRight="45dp">
 
             <ImageButton
+                android:id="@+id/ib_teamlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_daftartim"
-                android:onClick="daftarTim"
                 android:padding="16dp" />
 
             <TextView

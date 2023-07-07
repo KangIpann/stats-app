@@ -21,7 +21,8 @@ class Login : AppCompatActivity(), OnClickListener {
     private lateinit var btnLogin: Button
     private lateinit var pb_login: ProgressBar
 
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -37,6 +38,11 @@ class Login : AppCompatActivity(), OnClickListener {
         auth = FirebaseAuth.getInstance()
         pb_login.visibility = View.GONE
 
+        // Check if the user is already logged in
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            navigateToHome()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -54,19 +60,24 @@ class Login : AppCompatActivity(), OnClickListener {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 pb_login.visibility = View.GONE
-                                val intent = Intent(this, Home::class.java)
-                                startActivity(intent)
+                                navigateToHome()
                             } else {
                                 pb_login.visibility = View.GONE
                                 // Login failed
                                 Toast.makeText(this, "Email atau Password salah", Toast.LENGTH_SHORT).show()
                             }
                         }
-                }else{
+                } else {
                     pb_login.visibility = View.GONE
                     Toast.makeText(this, "Email dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun navigateToHome() {
+        val intent = Intent(this, Home::class.java)
+        startActivity(intent)
+        finish()
     }
 }
