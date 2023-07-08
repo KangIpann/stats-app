@@ -61,7 +61,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="560dp"
+        android:layout_height="660dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,18 +84,19 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linear_delete_team"
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_marginLeft="60dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -111,36 +112,45 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Hapus Tim" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:id="@+id/linear_addteam"
+            android:layout_width="140dp"
             android:layout_height="40dp"
             android:gravity="end"
             android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@id/linear_delete_team">
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="34dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/plus"
-                android:layout_marginRight="10dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Hapus Tim" />
+                android:text="Tambah Tim" />
+
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,12 +17,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/leftText"
+            android:id="@+id/nama_tim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
-            android:text="Tulisan Kiri"
+            android:text="@string/nama_team"
+            android:fontFamily="@font/poppins_medium"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -32,13 +33,14 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/rightText"
+            android:id="@+id/season_tim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="8dp"
             android:paddingEnd="16dp"
-            android:text="Tulisan Kanan"
-            android:textColor="@android:color/black"
+            android:text="@string/tahun_ditambahkan"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/grey_body"
             android:textSize="16sp" />
 
     </LinearLayout>

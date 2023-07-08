@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StatsApp</string>
+    <string name="tahun_ditambahkan">Tahun Ditambahkan</string>
+    <string name="nama_team">Nama Team</string>
 </resources>

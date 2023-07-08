@@ -6,4 +6,6 @@
     <color name="textSf">#02131B</color>
     <color name="grey_body">#181F19</color>
     <color name="bodyLayout">#F3F3F3</color>
+    <color name="button_green">#3EB558</color>
+    <color name="button_red">#F04A4D</color>
 </resources>
