@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
         db = DatabaseHelper(this)
         etEmail = findViewById(R.id.emailLayout)
-        etPassword = findViewById(R.id.passET)
+        etPassword = findViewById(R.id.passEt)
         btnLogin = findViewById(R.id.User_Login)
 
         btnLogin.setOnClickListener {
