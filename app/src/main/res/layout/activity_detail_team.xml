@@ -75,6 +75,7 @@
             android:padding="16dp"
             android:layout_gravity="center_horizontal"
             android:scrollbars="vertical"
+            tools:listitem="@layout/detail_team_row"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team" />
