@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bodyLayout"
-    tools:context="Tim.DetailTeam">
+    tools:context="Tim.DetailPemain"
+    android:background="@color/bodyLayout">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar_detail_team"
         android:layout_width="match_parent"
         android:layout_height="77dp"
@@ -56,9 +56,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.491" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/sv_detail_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,6 +79,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team"
-            tools:listitem="@layout/detail_team_row" />
-    </androidx.core.widget.NestedScrollView>
+            tools:listitem="@layout/detail_pemain_row" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

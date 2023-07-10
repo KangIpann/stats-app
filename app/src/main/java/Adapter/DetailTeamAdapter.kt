@@ -19,17 +19,17 @@ class DetailTeamAdapter(private val query: teamData?) :
 
     inner class DetailTeamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logoTim : ImageView = itemView.findViewById(R.id.iv_logotim_detailteam)
-        val namaTimEditText : EditText = itemView.findViewById(R.id.et_namatim_detailteam)
-        val seasonEditText : EditText = itemView.findViewById(R.id.et_seasontim_detailteam)
-        val coachEditText : EditText = itemView.findViewById(R.id.et_coachtim_detailteam)
-        val asistenTimEditText : EditText = itemView.findViewById(R.id.et_asistentim_detailteam)
-        val warnaJerseyEditText : EditText = itemView.findViewById(R.id.et_warnajersey_detailteam)
-        val instansiTimEditText : EditText = itemView.findViewById(R.id.et_instansitim_detailteam)
-        val alamatTimEditText : EditText = itemView.findViewById(R.id.et_alamattim_detailteam)
-        val KotaKabTimEditText : EditText = itemView.findViewById(R.id.et_kotakabtim_detailteam)
-        val provinsiTimEditText : EditText = itemView.findViewById(R.id.et_provinsitim_detailteam)
-        val negaraTimEditText : EditText = itemView.findViewById(R.id.et_negaratim_detailteam)
-        val emailTimEditText : EditText = itemView.findViewById(R.id.et_emailtim_detailteam)
+        val namaTimEditText : EditText = itemView.findViewById(R.id.et_namapemain_detailpemain)
+        val seasonEditText : EditText = itemView.findViewById(R.id.et_posisipemain_detailpemain)
+        val coachEditText : EditText = itemView.findViewById(R.id.et_nomerpunggung_detailpemain)
+        val asistenTimEditText : EditText = itemView.findViewById(R.id.et_lateralitas_detailpemain)
+        val warnaJerseyEditText : EditText = itemView.findViewById(R.id.et_beratbadan_detailpemain)
+        val instansiTimEditText : EditText = itemView.findViewById(R.id.et_bmi_detailpemain)
+        val alamatTimEditText : EditText = itemView.findViewById(R.id.et_tanggallahir_detailpemain)
+        val KotaKabTimEditText : EditText = itemView.findViewById(R.id.et_jeniskelamin_detailpemain)
+        val provinsiTimEditText : EditText = itemView.findViewById(R.id.et_domisili_detailpemain)
+        val negaraTimEditText : EditText = itemView.findViewById(R.id.et_nomorhp_detailpemain)
+        val emailTimEditText : EditText = itemView.findViewById(R.id.et_emailpemain_detailpemain)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): DetailTeamAdapter.DetailTeamViewHolder {
         val view = LayoutInflater.from(parent.context)

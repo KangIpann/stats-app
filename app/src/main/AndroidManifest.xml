@@ -17,6 +17,10 @@
         <activity
             android:name="Match.MatchList"
             android:exported="false" />
+
+        <activity
+            android:name="Tim.PemainList"
+            android:exported="false" />
         <activity
             android:name="Tim.DetailTeam"
             android:exported="false" />
