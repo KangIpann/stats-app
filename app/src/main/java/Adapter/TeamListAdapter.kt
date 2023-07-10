@@ -83,7 +83,7 @@ class TeamListAdapter(private val query: Query) :
                     document.getString("negara")!!,
                     document.getString("email")!!,
                     document.getString("logo")!!,
-                    document.getString("jersey")!!,
+                    document.getString("jersey")!!
                 )
                 teams.add(team)
             }

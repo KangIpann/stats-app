@@ -2,4 +2,9 @@
     <string name="app_name">StatsApp</string>
     <string name="tahun_ditambahkan">Tahun Ditambahkan</string>
     <string name="nama_team">Nama Team</string>
+    <string name="list_match">List Match</string>
+    <string name="tambah_match">Tambah Match</string>
+    <string name="hapus_match">Hapus Match</string>
+    <string name="match_1">Match 1</string>
+    <string name="_18_03_2003">18/03/2003</string>
 </resources>

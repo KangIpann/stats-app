@@ -66,10 +66,10 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_match"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_match"
-                android:onClick="lihatTim"
                 android:padding="16dp" />
 
             <TextView

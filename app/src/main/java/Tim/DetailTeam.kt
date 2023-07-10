@@ -4,6 +4,7 @@ import Adapter.DetailTeamAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
@@ -21,10 +22,8 @@ class DetailTeam : AppCompatActivity() {
         setContentView(R.layout.activity_detail_team)
 
         val team = intent.getParcelableExtra<teamData>("team")
-        val scrollView = findViewById<ScrollView>(R.id.sv_detail_team)
-        scrollView.post {
-            scrollView.fullScroll(ScrollView.FOCUS_DOWN)
-        }
+        val nestedScrollView = findViewById<NestedScrollView>(R.id.sv_detail_team)
+        nestedScrollView.isFillViewport = true
 
 
         db = FirebaseFirestore.getInstance()
