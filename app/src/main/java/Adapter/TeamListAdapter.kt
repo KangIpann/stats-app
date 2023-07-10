@@ -1,5 +1,7 @@
 package Adapter
 
+import Tim.DetailTeam
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +51,12 @@ class TeamListAdapter(private val query: Query) :
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         val team = teams[position]
         holder.bind(team)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, DetailTeam::class.java)
+            intent.putExtra("team", team)
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -74,12 +82,14 @@ class TeamListAdapter(private val query: Query) :
                     document.getString("provinsi")!!,
                     document.getString("negara")!!,
                     document.getString("email")!!,
-                    document.getString("logo")!!
+                    document.getString("logo")!!,
+                    document.getString("jersey")!!,
                 )
                 teams.add(team)
             }
             notifyDataSetChanged()
         }
+
     }
 
     fun stopListening() {
@@ -90,4 +100,6 @@ class TeamListAdapter(private val query: Query) :
     interface OnItemClickListener {
         fun onItemClick(team: teamData)
     }
+
+
 }

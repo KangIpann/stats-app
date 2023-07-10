@@ -13,10 +13,12 @@ data class teamData(
     val provinsi: String?,
     val negara: String?,
     val email: String?,
-    val logo: String?
+    val logo: String?,
+    val jersey: String?
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -44,6 +46,7 @@ data class teamData(
         parcel.writeString(negara)
         parcel.writeString(email)
         parcel.writeString(logo)
+        parcel.writeString(jersey)
     }
 
     override fun describeContents(): Int {

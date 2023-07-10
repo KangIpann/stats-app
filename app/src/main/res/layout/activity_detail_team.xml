@@ -59,23 +59,25 @@
 </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/sv_detail_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/rv_detail_team"
-            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
             android:scrollbars="vertical"
-            tools:listitem="@layout/detail_team_row"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team" />
+            app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team"
+            tools:listitem="@layout/detail_team_row" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
