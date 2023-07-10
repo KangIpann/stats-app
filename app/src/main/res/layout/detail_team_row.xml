@@ -138,6 +138,210 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_jersey_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_asisten_detailteam">
 
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Warna Jersey:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_warnajersey_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:paddingRight="12dp"
+
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView14" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_instansi_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_jersey_detailteam">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Instansi Team:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_instansitim_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView15" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_alamat_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_instansi_detailteam">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Alamat Team:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_alamattim_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView16" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_kotakab_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_alamat_detailteam">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Kota/Kab Team:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_kotakabtim_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView17" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_provinsi_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_kotakab_detailteam">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Provinsi Team:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_provinsitim_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView18" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    negara-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_negara_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_provinsi_detailteam">
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Negara Team:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_negaratim_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView19" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_email_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_negara_detailteam">
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Email Team:"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_emailtim_detailteam"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/textView20" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

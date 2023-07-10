@@ -1,22 +1,38 @@
 package Adapter
 
-import Data.teamData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
 import com.google.firebase.firestore.Query
+import teamData
 
 class TeamListAdapter(private val query: Query) :
     RecyclerView.Adapter<TeamListAdapter.TeamViewHolder>() {
 
     private var teams: MutableList<teamData> = mutableListOf()
+    private var onItemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
+    }
 
     inner class TeamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val namaTimTextView: TextView = itemView.findViewById(R.id.nama_tim)
         private val seasonTextView: TextView = itemView.findViewById(R.id.season_tim)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val team = teams[position]
+                    onItemClickListener?.onItemClick(team)
+                }
+            }
+        }
 
         fun bind(team: teamData) {
             namaTimTextView.text = team.nama_team
@@ -44,6 +60,7 @@ class TeamListAdapter(private val query: Query) :
             if (exception != null) {
                 return@addSnapshotListener
             }
+            teams.clear()
             for (document in snapshot!!) {
                 val team = teamData(
                     document.id,
@@ -68,5 +85,9 @@ class TeamListAdapter(private val query: Query) :
     fun stopListening() {
         teams.clear()
         notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(team: teamData)
     }
 }

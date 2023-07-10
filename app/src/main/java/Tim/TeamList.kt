@@ -3,6 +3,7 @@ package Tim
 import Adapter.TeamListAdapter
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import teamData
 
 class TeamList : AppCompatActivity(), View.OnClickListener{
     private lateinit var adapter : TeamListAdapter
@@ -71,10 +73,15 @@ class TeamList : AppCompatActivity(), View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+
+    }
+    fun onItemClick(team: teamData) {
+        val intent = Intent(this, DetailTeam::class.java)
+        intent.putExtra("team", team)
+        startActivity(intent)
     }
 
-    override fun onDestroy() {
+        override fun onDestroy() {
         super.onDestroy()
         adapter.stopListening()
     }

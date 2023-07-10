@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bodyLayout"
-    tools:context=".starter.DetailTeam">
+    tools:context="Tim.DetailTeam">
 
 <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topbar_detail_team"
