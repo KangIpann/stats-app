@@ -7,18 +7,6 @@
     android:orientation="vertical"
     android:background="@color/bodyLayout">
 
-
-    <ImageView
-        android:id="@+id/iv_logotim_detailteam"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/placeholder_logotim"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_namatim_detailteam"
         android:layout_width="match_parent"
@@ -33,13 +21,13 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Nama Pemain:"
+            android:text="Nama Match:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_namapemain_detailpemain"
-            android:hint="Nama Lengkap"
+            android:id="@+id/et_namamatch_detailmatch"
+            android:hint="contoh: Match Day 1"
             android:layout_width="189dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
@@ -67,12 +55,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Posisi:"
+            android:text="Home:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_posisipemain_detailpemain"
+            android:id="@+id/et_hometeam_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
@@ -100,12 +88,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Status:"
+            android:text="Away:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_statuspemain_detailpemain"
+            android:id="@+id/et_teamaway_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
@@ -133,15 +121,15 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="No. Punggung:"
+            android:text="Jersey Home:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_nomerpunggung_detailpemain"
+            android:id="@+id/et_jerseyhome_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
-            android:hint="contoh: 00"
+            android:hint="contoh: biru putih"
             android:inputType="number"
             android:layout_marginLeft="16dp"
             android:background="@drawable/klik"
@@ -166,19 +154,17 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Lateralitas:"
+            android:text="Jersey Away:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_lateralitas_detailpemain"
+            android:id="@+id/et_jerseyaway_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
-            android:hint="Pilih ->"
-            android:drawableEnd="@drawable/ic_dropdown"
+            android:hint="contoh: hijau"
             android:layout_marginLeft="16dp"
             android:background="@drawable/klik"
-            android:paddingRight="16dp"
             android:fontFamily="@font/poppins_semibold"
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -186,72 +172,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_jersey_detailteam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_asisten_detailteam">
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="127dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:paddingTop="11dp"
-            android:text="Berat Badan:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/et_beratbadan_detailpemain"
-            android:layout_width="189dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="16dp"
-            android:hint="contoh: 66.7(kg)"
-            android:background="@drawable/klik"
-            android:inputType="numberDecimal"
-            android:fontFamily="@font/poppins_semibold"
-            android:paddingRight="12dp"
-            android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_instansi_detailteam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_jersey_detailteam">
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="127dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:paddingTop="11dp"
-            android:inputType="numberDecimal"
-            android:text="BMI:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/et_bmi_detailpemain"
-            android:layout_width="189dp"
-            android:layout_height="40dp"
-            android:hint="contoh: 22.7"
-            android:layout_marginLeft="16dp"
-            android:background="@drawable/klik"
-            android:fontFamily="@font/poppins_semibold"
-            android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@+id/textView15"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_alamat_detailteam"
@@ -267,12 +188,12 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Tanggal Lahir:"
+            android:text="Tanggal Match:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_tanggallahir_detailpemain"
+            android:id="@+id/et_tanggalmatch_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
             android:hint="klik icon ->"
@@ -302,7 +223,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Jenis Kelamin:"
+            android:text="Waktu Match:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -336,15 +257,15 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Domisili:"
+            android:text="Season:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_domisili_detailpemain"
+            android:id="@+id/et_season_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
-            android:hint="contoh: malang"
+            android:hint="contoh: 2023/2024"
             android:layout_marginLeft="16dp"
             android:background="@drawable/klik"
             android:fontFamily="@font/poppins_semibold"
@@ -369,16 +290,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:paddingTop="11dp"
-            android:text="Nomor Hp:"
+            android:text="Competition:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/et_nomorhp_detailpemain"
+            android:id="@+id/et_namakompetisi_detailmatch"
             android:layout_width="189dp"
             android:layout_height="40dp"
             android:inputType="number"
-            android:hint="contoh: 082237193"
+            android:hint="contoh: Liga 1"
             android:layout_marginLeft="16dp"
             android:background="@drawable/klik"
             android:fontFamily="@font/poppins_semibold"
@@ -387,42 +308,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_email_detailteam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_negara_detailteam">
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="127dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:paddingTop="11dp"
-            android:text="Email:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:hint="contoh: supriyadi@gmail.com"
-            android:id="@+id/et_emailpemain_detailpemain"
-            android:inputType="textEmailAddress"
-            android:layout_width="189dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/klik"
-            android:fontFamily="@font/poppins_semibold"
-            android:textAlignment="center"
-            app:layout_constraintStart_toEndOf="@+id/textView20"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="10dp">
 
     </LinearLayout>
 </LinearLayout>

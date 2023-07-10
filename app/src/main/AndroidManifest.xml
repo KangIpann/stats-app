@@ -15,9 +15,11 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name="Match.DetailMatch"
+            android:exported="false" />
+        <activity
             android:name="Match.MatchList"
             android:exported="false" />
-
         <activity
             android:name="Tim.PemainList"
             android:exported="false" />
