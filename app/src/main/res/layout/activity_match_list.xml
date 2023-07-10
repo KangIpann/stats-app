@@ -47,6 +47,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_match_list"
         android:padding="32sp"
         android:layout_width="match_parent"
         android:layout_height="565dp"
