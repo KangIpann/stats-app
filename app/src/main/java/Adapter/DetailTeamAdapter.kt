@@ -35,6 +35,16 @@ class DetailTeamAdapter(private val query: DocumentReference) :
         val negaraTimEditText: EditText = itemView.findViewById(R.id.et_nomorhp_detailpemain)
         val emailTimEditText: EditText = itemView.findViewById(R.id.et_emailpemain_detailpemain)
 
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val team = teams[position]
+                    onItemClickListener?.onItemClick(team)
+                }
+            }
+        }
+
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): DetailTeamAdapter.DetailTeamViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -48,11 +58,42 @@ class DetailTeamAdapter(private val query: DocumentReference) :
                 return@addSnapshotListener
             }
             teams.clear()
-            if (snapshot != null){
-                val team = snapshot.toObject(teamData::class.java)
-                if (team != null){
-                    teams.add(team)
-                }
+            //get intent from TeamListAdapter
+            val documentId = snapshot?.id
+            val namaTim = snapshot?.getString("nama_team")
+            val season = snapshot?.getString("season")
+            val coach = snapshot?.getString("coach")
+            val asistenTim = snapshot?.getString("asisten")
+            val warnaJersey = snapshot?.getString("jersey")
+            val instansiTim = snapshot?.getString("instansi")
+            val alamatTim = snapshot?.getString("alamat")
+            val kotaKabTim = snapshot?.getString("kota")
+            val provinsiTim = snapshot?.getString("provinsi")
+            val negaraTim = snapshot?.getString("negara")
+            val emailTim = snapshot?.getString("email")
+            val logoTim = snapshot?.getString("logo")
+            val jenisKelamin = snapshot?.getString("jenis_kelamin")
+            val jumlahPemain = snapshot?.getString("jumlah_pemain")
+
+            println("documentId: $documentId")
+            println("namaTim: $namaTim")
+            println("season: $season")
+            println("coach: $coach")
+            println("asistenTim: $asistenTim")
+            println("warnaJersey: $warnaJersey")
+            println("instansiTim: $instansiTim")
+            println("alamatTim: $alamatTim")
+            println("kotaKabTim: $kotaKabTim")
+            println("provinsiTim: $provinsiTim")
+            println("negaraTim: $negaraTim")
+            println("emailTim: $emailTim")
+            println("logoTim: $logoTim")
+            println("jenisKelamin: $jenisKelamin")
+            println("jumlahPemain: $jumlahPemain")
+
+
+            if (documentId != null && namaTim != null && season != null && coach != null && asistenTim != null && warnaJersey != null && instansiTim != null && alamatTim != null && kotaKabTim != null && provinsiTim != null && negaraTim != null && emailTim != null && logoTim != null && jenisKelamin != null && jumlahPemain != null){
+                teams.add(teamData(documentId, namaTim, season, coach, asistenTim, warnaJersey, instansiTim, alamatTim, kotaKabTim, provinsiTim, negaraTim, emailTim, logoTim, jenisKelamin, jumlahPemain))
             }
             notifyDataSetChanged()
         }
@@ -65,6 +106,7 @@ class DetailTeamAdapter(private val query: DocumentReference) :
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, DetailTeam::class.java)
             intent.putExtra("documentId", currentTeam.id)
+            print("Current documentId: ${currentTeam.id}")
             holder.itemView.context.startActivity(intent)
         }
 

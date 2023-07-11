@@ -48,11 +48,14 @@ class TeamListAdapter(private val query: Query) :
         val team = teams[position]
         holder.bind(team)
 
+        val documentId = teams[position].id
+        val context = holder.itemView.context
+        val intent = Intent(context, DetailTeam::class.java)
+        intent.putExtra("documentId", documentId)
         holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, DetailTeam::class.java)
-            intent.putExtra("team", team)
-            it.context.startActivity(intent)
+            context.startActivity(intent)
         }
+        println("documentId yang dikirim: $documentId")
     }
 
     override fun getItemCount(): Int {
@@ -98,4 +101,6 @@ class TeamListAdapter(private val query: Query) :
     interface OnItemClickListener {
         fun onItemClick(team: teamData)
     }
+
+
 }

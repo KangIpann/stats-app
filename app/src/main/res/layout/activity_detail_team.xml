@@ -84,7 +84,7 @@
             android:orientation="vertical"
             android:background="@color/bodyLayout">
             <ImageView
-                android:id="@+id/iv_logotim_detailteam"
+                android:id="@+id/iv_logotim_detailtim"
                 android:layout_width="126dp"
                 android:layout_height="126dp"
                 android:layout_gravity="center_horizontal"
@@ -147,7 +147,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_kelamintim_detailteam"
+                    android:id="@+id/et_kelamintim_detailtim"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:hint="contoh: Laki-laki"
