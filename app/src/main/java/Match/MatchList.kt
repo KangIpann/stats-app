@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class MatchList : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
@@ -19,8 +20,7 @@ class MatchList : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.rv_match_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        //accessing collection "match" open document and open collection "Match 1" and order by "tgl_match" ascending
-        val query = db.collection("match").document("Match 1").collection("match").orderBy("tgl_match", com.google.firebase.firestore.Query.Direction.ASCENDING)
+        val query = db.collection("match").orderBy("tgl_match", Query.Direction.DESCENDING)
         matchAdapter = MatchListAdapter(query)
         recyclerView.adapter = matchAdapter
         matchAdapter.startListening()
