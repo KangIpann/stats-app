@@ -19,50 +19,69 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import teamData
 
-class TeamList : AppCompatActivity(), View.OnClickListener{
-    private lateinit var adapter : TeamListAdapter
-    private lateinit var recyclerview : RecyclerView
+class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
+    private lateinit var adapter: TeamListAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team_list)
 
-        val linearLayout_add = findViewById<LinearLayout>(R.id.linear_addteam)
-        linearLayout_add.setOnClickListener {
-            showAddTeamDialog(this)
+        val linearLayoutAdd = findViewById<LinearLayout>(R.id.linear_addteam)
+        linearLayoutAdd.setOnClickListener {
+            showAddTeamDialog()
         }
-        val btn_back = findViewById<ImageView>(R.id.tim_btn_back)
-        btn_back.setOnClickListener {
+
+        val btnBack = findViewById<ImageView>(R.id.tim_btn_back)
+        btnBack.setOnClickListener {
             finish()
         }
 
-        recyclerview = findViewById(R.id.tim_rv_teams)
-        recyclerview.layoutManager = LinearLayoutManager(this)
+        val recyclerView = findViewById<RecyclerView>(R.id.tim_rv_teams)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         val db = FirebaseFirestore.getInstance()
         val query = db.collection("team").orderBy("nama_team", Query.Direction.ASCENDING)
-        adapter = TeamListAdapter(query)
-        recyclerview.adapter = adapter
+        val adapter = TeamListAdapter(query)
+        recyclerView.adapter = adapter
 
         adapter.startListening()
-
     }
 
-    private fun showAddTeamDialog(context: Context) {
-        val dialogBuilder = AlertDialog.Builder(context)
-        val inflater = LayoutInflater.from(context)
+    private fun showAddTeamDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
         val dialogView = inflater.inflate(R.layout.dialog_add_team, null)
         dialogBuilder.setView(dialogView)
 
-        val editTextTeamName = dialogView.findViewById<EditText>(R.id.editTextTeamName)
-        val buttonAdd = dialogView.findViewById<Button>(R.id.buttonAdd)
-        val buttonCancel = dialogView.findViewById<Button>(R.id.buttonCancel)
+        val editTextTeamName = dialogView.findViewById<EditText>(R.id.et_timname)
+        val buttonAdd = dialogView.findViewById<Button>(R.id.button_add_team)
+        val buttonCancel = dialogView.findViewById<Button>(R.id.button_cancel_team)
 
         val alertDialog = dialogBuilder.create()
 
         buttonAdd.setOnClickListener {
-            val teamName = editTextTeamName.text.toString()
-            // Do something with the teamName, e.g., save to database
-            alertDialog.dismiss()
+            val teamName = editTextTeamName.text.toString().trim()
+            if (teamName.isNotEmpty()) {
+                val newTeam = teamData(
+                    "",
+                    teamName,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "")
+                addTeamToDatabase(newTeam)
+                alertDialog.dismiss()
+            }
         }
 
         buttonCancel.setOnClickListener {
@@ -72,18 +91,24 @@ class TeamList : AppCompatActivity(), View.OnClickListener{
         alertDialog.show()
     }
 
-    override fun onClick(v: View?) {
-
+    private fun addTeamToDatabase(team: teamData) {
+        db.collection("team").add(team)
+            .addOnSuccessListener { documentReference ->
+                // Team berhasil ditambahkan ke database
+            }
+            .addOnFailureListener { e ->
+                // Penanganan jika terjadi kesalahan saat menambahkan team ke database
+            }
     }
-    fun onItemClick(team: teamData) {
+
+    override fun onItemClick(team: teamData) {
         val intent = Intent(this, DetailTeam::class.java)
         intent.putExtra("team", team)
         startActivity(intent)
     }
 
-        override fun onDestroy() {
+    override fun onDestroy() {
         super.onDestroy()
         adapter.stopListening()
     }
-
 }

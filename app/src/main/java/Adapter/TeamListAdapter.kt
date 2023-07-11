@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
@@ -18,9 +17,6 @@ class TeamListAdapter(private val query: Query) :
     private var teams: MutableList<teamData> = mutableListOf()
     private var onItemClickListener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        onItemClickListener = listener
-    }
 
     inner class TeamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val namaTimTextView: TextView = itemView.findViewById(R.id.nama_tim)
@@ -54,7 +50,20 @@ class TeamListAdapter(private val query: Query) :
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, DetailTeam::class.java)
-            intent.putExtra("team", team)
+            intent.putExtra("nama_team", team.nama_team)
+            intent.putExtra("season", team.season)
+            intent.putExtra("coach", team.coach)
+            intent.putExtra("asisten", team.asisten)
+            intent.putExtra("instansi", team.instansi)
+            intent.putExtra("alamat", team.alamat)
+            intent.putExtra("kota", team.kota)
+            intent.putExtra("provinsi", team.provinsi)
+            intent.putExtra("negara", team.negara)
+            intent.putExtra("email", team.email)
+            intent.putExtra("logo", team.logo)
+            intent.putExtra("jersey", team.jersey)
+            intent.putExtra("jenis_kelamin", team.jenis_kelamin)
+            intent.putExtra("jumlah_pemain", team.jumlah_pemain)
             it.context.startActivity(intent)
         }
     }
@@ -83,7 +92,9 @@ class TeamListAdapter(private val query: Query) :
                     document.getString("negara")!!,
                     document.getString("email")!!,
                     document.getString("logo")!!,
-                    document.getString("jersey")!!
+                    document.getString("jersey")!!,
+                    document.getString("jenis_kelamin")!!,
+                    document.getString("jumlah_pemain")!!,
                 )
                 teams.add(team)
             }
@@ -100,6 +111,4 @@ class TeamListAdapter(private val query: Query) :
     interface OnItemClickListener {
         fun onItemClick(team: teamData)
     }
-
-
 }

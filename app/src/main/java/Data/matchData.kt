@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class matchData(
+    val id_match: String?,
     val tim_home: String?,
     val tim_guest: String?,
     val tgl_match: String?,
@@ -18,10 +19,12 @@ data class matchData(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id_match)
         parcel.writeString(tim_home)
         parcel.writeString(tim_guest)
         parcel.writeString(tgl_match)

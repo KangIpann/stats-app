@@ -38,8 +38,8 @@ class MatchListAdapter(private val query: com.google.firebase.firestore.Query)
             }
 
             if(match.tgl_match2.isNullOrEmpty()) {
-                //beri tulisan "tanggal belum ditentukan"
-                TanggalMatchSecondTextView.text = "-----"
+                TanggalMatchSecondTextView.text = "--------"
+                TanggalMatchSecondTextView.setTextColor(itemView.resources.getColor(R.color.grey_body))
             } else {
                 TanggalMatchSecondTextView.visibility = View.VISIBLE
             }
@@ -61,6 +61,7 @@ class MatchListAdapter(private val query: com.google.firebase.firestore.Query)
                 matches.clear()
                 for (document in snapshot) {
                     val matchs = matchData(
+                        document.id,
                         document.getString("tim_home"),
                         document.getString("tim_guest"),
                         document.getString("tgl_match"),
