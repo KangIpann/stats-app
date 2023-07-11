@@ -1,5 +1,7 @@
 package Adapter
 
+import Tim.DetailTeam
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +10,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.DocumentReference
 import teamData
 
-class DetailTeamAdapter(private val query: Query) :
+class DetailTeamAdapter(private val query: DocumentReference) :
     RecyclerView.Adapter<DetailTeamAdapter.DetailTeamViewHolder>() {
 
     private var teams: MutableList<teamData> = mutableListOf()
@@ -46,25 +48,11 @@ class DetailTeamAdapter(private val query: Query) :
                 return@addSnapshotListener
             }
             teams.clear()
-            for (document in snapshot!!){
-                val team = teamData(
-                    document.id,
-                    document.getString("nama_team")!!,
-                    document.getString("season")!!,
-                    document.getString("coach")!!,
-                    document.getString("asisten")!!,
-                    document.getString("instansi")!!,
-                    document.getString("alamat")!!,
-                    document.getString("kota")!!,
-                    document.getString("provinsi")!!,
-                    document.getString("negara")!!,
-                    document.getString("email")!!,
-                    document.getString("logo")!!,
-                    document.getString("jersey")!!,
-                    document.getString("jenis_kelamin")!!,
-                    document.getString("jumlah_pemain")!!,
-                )
-                teams.add(team)
+            if (snapshot != null){
+                val team = snapshot.toObject(teamData::class.java)
+                if (team != null){
+                    teams.add(team)
+                }
             }
             notifyDataSetChanged()
         }
@@ -73,6 +61,12 @@ class DetailTeamAdapter(private val query: Query) :
 
     override fun onBindViewHolder(holder: DetailTeamAdapter.DetailTeamViewHolder, position: Int) {
         val currentTeam = teams[position]
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(holder.itemView.context, DetailTeam::class.java)
+            intent.putExtra("documentId", currentTeam.id)
+            holder.itemView.context.startActivity(intent)
+        }
 
         Glide.with(holder.itemView.context)
             .load(currentTeam.logo)
@@ -102,6 +96,10 @@ class DetailTeamAdapter(private val query: Query) :
     fun setData(team: teamData) {
         teams.add(team)
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(onItemClickListener: DetailTeamAdapter.OnItemClickListener) {
+        this.onItemClickListener = onItemClickListener
     }
 
     interface OnItemClickListener {

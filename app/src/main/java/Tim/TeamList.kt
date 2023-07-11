@@ -53,7 +53,6 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
         val inflater = LayoutInflater.from(this)
         val dialogView = inflater.inflate(R.layout.dialog_add_team, null)
         dialogBuilder.setView(dialogView)
-
         val editTextTeamName = dialogView.findViewById<EditText>(R.id.et_timname)
         val buttonAdd = dialogView.findViewById<Button>(R.id.button_add_team)
         val buttonCancel = dialogView.findViewById<Button>(R.id.button_cancel_team)
@@ -109,6 +108,5 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        adapter.stopListening()
     }
 }

@@ -114,7 +114,7 @@
 
                 <EditText
                     android:hint="contoh: Arema"
-                    android:id="@+id/et_namapemain_detailpemain"
+                    android:id="@+id/et_namatim_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -179,7 +179,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_posisipemain_detailpemain"
+                    android:id="@+id/et_season_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:hint="klik icon ->"
@@ -213,7 +213,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_nomerpunggung_detailpemain"
+                    android:id="@+id/et_coach_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:hint="contoh: dimas"
@@ -245,7 +245,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_lateralitas_detailpemain"
+                    android:id="@+id/et_asisten_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:hint="contoh: Ten Hag"
@@ -308,7 +308,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_beratbadan_detailpemain"
+                    android:id="@+id/et_warnajersey_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -341,7 +341,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_bmi_detailpemain"
+                    android:id="@+id/et_instansi_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -373,7 +373,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_tanggallahir_detailpemain"
+                    android:id="@+id/et_alamat_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="16dp"
@@ -405,7 +405,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_jeniskelamin_detailpemain"
+                    android:id="@+id/et_kotakab_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -437,7 +437,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_domisili_detailpemain"
+                    android:id="@+id/et_provinsi_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -470,7 +470,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_nomorhp_detailpemain"
+                    android:id="@+id/et_negara_detailteam"
                     android:layout_width="189dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="16dp"
@@ -502,7 +502,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/et_emailpemain_detailpemain"
+                    android:id="@+id/et_emailteam_detailteam"
                     android:inputType="textEmailAddress"
                     android:layout_width="189dp"
                     android:layout_height="80dp"

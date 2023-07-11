@@ -2,7 +2,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class teamData(
-    val id: String,
+    var id: String,
     val nama_team: String,
     val season: String,
     val coach: String,
