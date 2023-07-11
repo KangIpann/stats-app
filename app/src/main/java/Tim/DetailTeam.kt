@@ -20,7 +20,17 @@ class DetailTeam : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_team)
 
+        val team = intent.getParcelableExtra<teamData>("team")
+        val teamId = team?.id
 
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_detail_team)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val db = FirebaseFirestore.getInstance()
+        val query = db.collection("team")
+        val detailTeamAdapter = DetailTeamAdapter(query)
+        recyclerView.adapter = detailTeamAdapter
+
+        detailTeamAdapter.startListening()
     }
 
 }

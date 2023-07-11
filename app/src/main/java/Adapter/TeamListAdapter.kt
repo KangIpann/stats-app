@@ -50,20 +50,7 @@ class TeamListAdapter(private val query: Query) :
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, DetailTeam::class.java)
-            intent.putExtra("nama_team", team.nama_team)
-            intent.putExtra("season", team.season)
-            intent.putExtra("coach", team.coach)
-            intent.putExtra("asisten", team.asisten)
-            intent.putExtra("instansi", team.instansi)
-            intent.putExtra("alamat", team.alamat)
-            intent.putExtra("kota", team.kota)
-            intent.putExtra("provinsi", team.provinsi)
-            intent.putExtra("negara", team.negara)
-            intent.putExtra("email", team.email)
-            intent.putExtra("logo", team.logo)
-            intent.putExtra("jersey", team.jersey)
-            intent.putExtra("jenis_kelamin", team.jenis_kelamin)
-            intent.putExtra("jumlah_pemain", team.jumlah_pemain)
+            intent.putExtra("team", team)
             it.context.startActivity(intent)
         }
     }
