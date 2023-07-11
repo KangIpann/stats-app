@@ -76,47 +76,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linear_delete_team"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="60dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/trash"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.123"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Hapus Tim" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_addteam"
-            android:layout_width="140dp"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="end"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/linear_delete_team">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -134,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Tambah Tim" />
+                android:text="Tambah Pemain" />
 
         </LinearLayout>
 
