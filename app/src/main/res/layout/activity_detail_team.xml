@@ -58,27 +58,457 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/sv_detail_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_detail_team"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topbar_detail_team"
-            tools:listitem="@layout/detail_team_row" />
-    </androidx.core.widget.NestedScrollView>
+            android:background="@color/bodyLayout">
+            <ImageView
+                android:id="@+id/iv_logotim_detailteam"
+                android:layout_width="126dp"
+                android:layout_height="126dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/placeholder_logotim"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_namatim_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginLeft="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_logotim_detailteam">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Nama Tim:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:hint="contoh: Arema"
+                    android:id="@+id/et_namapemain_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="10dp"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView10"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_kelamin_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_namatim_detailteam">
+
+                <TextView
+                    android:id="@+id/tv_45"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Jenis Kelamin:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_kelamintim_detailteam"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:hint="contoh: Laki-laki"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:inputType="date"
+                    android:paddingRight="12dp"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/tv_45"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_kategoritim_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_namatim_detailteam">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Season:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_posisipemain_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:hint="klik icon ->"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:inputType="date"
+                    android:paddingRight="12dp"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView11"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_coach_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_kategoritim_detailteam">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Nama Coach:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_nomerpunggung_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:hint="contoh: dimas"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView12"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_asisten_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_coach_detailteam">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Nama Asisten:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_lateralitas_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:hint="contoh: Ten Hag"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/jumlahpemain_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_coach_detailteam">
+
+                <TextView
+                    android:id="@+id/tv13"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Jumlah Pemain:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_jumlahpemain_detailtim"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:hint="contoh: 15"
+                    android:inputType="number"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/tv13"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_jersey_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_asisten_detailteam">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Warna Jersey:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_beratbadan_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingRight="12dp"
+                    android:hint="contoh: biru putih"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView14"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_instansi_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_jersey_detailteam">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Instansi Team:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_bmi_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:hint="contoh: smktelkom"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_alamat_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_instansi_detailteam">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Alamat Team:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_tanggallahir_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="16dp"
+                    android:hint="contoh: jl danau ranau nomer 3"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView16"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_kotakab_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_alamat_detailteam">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Kota/Kab Team:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_jeniskelamin_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:hint="contoh: malang"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView17"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_provinsi_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_kotakab_detailteam">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Provinsi Team:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_domisili_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    android:hint="contoh jawa timur"
+                    app:layout_constraintStart_toEndOf="@+id/textView18"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    negara-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_negara_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_provinsi_detailteam">
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Negara Team:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_nomorhp_detailpemain"
+                    android:layout_width="189dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:hint="contoh: Indonesia"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView19"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_email_detailteam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_negara_detailteam">
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:paddingTop="11dp"
+                    android:text="Email Team:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_emailpemain_detailpemain"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="189dp"
+                    android:layout_height="80dp"
+                    android:hint="contoh: arema@gmail.com"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="60dp"
+                    android:background="@drawable/klik"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/textView20"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
