@@ -2,21 +2,19 @@ package Tim
 
 import Adapter.TeamListAdapter
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import teamData
 
 class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
@@ -40,11 +38,11 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
 
         val recyclerView = findViewById<RecyclerView>(R.id.tim_rv_teams)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
         val db = FirebaseFirestore.getInstance()
-        val query = db.collection("team").orderBy("nama_team", Query.Direction.ASCENDING)
+        val query = db.collection("team")
         val adapter = TeamListAdapter(query)
         recyclerView.adapter = adapter
-
         adapter.startListening()
     }
 
@@ -77,7 +75,8 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
                     "",
                     "",
                     "",
-                    "")
+                    ""
+                )
                 addTeamToDatabase(newTeam)
                 alertDialog.dismiss()
             }
@@ -91,12 +90,14 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
     }
 
     private fun addTeamToDatabase(team: teamData) {
-        db.collection("team").add(team)
-            .addOnSuccessListener { documentReference ->
-                // Team berhasil ditambahkan ke database
+        val db = FirebaseFirestore.getInstance()
+        val teamCollection = db.collection("team")
+        teamCollection.add(team)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Team added successfully", Toast.LENGTH_SHORT).show()
             }
-            .addOnFailureListener { e ->
-                // Penanganan jika terjadi kesalahan saat menambahkan team ke database
+            .addOnFailureListener {
+                Toast.makeText(this, "Error adding team", Toast.LENGTH_SHORT).show()
             }
     }
 

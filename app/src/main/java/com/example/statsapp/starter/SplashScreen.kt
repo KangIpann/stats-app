@@ -18,7 +18,7 @@ class SplashScreen : AppCompatActivity() {
         val background = object :Thread(){
             override fun run() {
                 try {
-                    Thread.sleep(2500)
+                    Thread.sleep(1500)
                     val intent = Intent(baseContext, WelcomePage::class.java)
                     startActivity(intent)
                     overridePendingTransition(androidx.appcompat.R.anim.abc_fade_in, androidx.appcompat.R.anim.abc_fade_out)

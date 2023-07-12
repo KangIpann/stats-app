@@ -20,7 +20,7 @@ class MatchList : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.rv_match_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val query = db.collection("match").orderBy("tgl_match", Query.Direction.DESCENDING)
+        val query = db.collection("match").orderBy("tgl_match", Query.Direction.ASCENDING)
         matchAdapter = MatchListAdapter(query)
         recyclerView.adapter = matchAdapter
         matchAdapter.startListening()

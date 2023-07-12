@@ -1,5 +1,6 @@
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.Spinner
 
 data class teamData(
     var id: String,

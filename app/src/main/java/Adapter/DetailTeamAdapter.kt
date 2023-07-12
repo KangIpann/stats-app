@@ -5,8 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
@@ -17,13 +16,13 @@ class DetailTeamAdapter(private val query: DocumentReference) :
     RecyclerView.Adapter<DetailTeamAdapter.DetailTeamViewHolder>() {
 
     private var teams: MutableList<teamData> = mutableListOf()
-    private var onItemClickListener:OnItemClickListener? = null
+    private var onItemClickListener: OnItemClickListener? = null
 
     inner class DetailTeamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val logoTim: ImageView = itemView.findViewById(R.id.iv_logotim_detailteam)
         val namaTimEditText: EditText = itemView.findViewById(R.id.et_namapemain_detailpemain)
         val seasonEditText: EditText = itemView.findViewById(R.id.et_posisipemain_detailpemain)
-        val jenisKelaminEditText: EditText = itemView.findViewById(R.id.et_kelamintim_detailteam)
+        val jenisKelaminSpinner: Spinner = itemView.findViewById(R.id.et_kelamintim_detailteam)
         val jumlahPemainEditText: EditText = itemView.findViewById(R.id.et_jumlahpemain_detailtim)
         val coachEditText: EditText = itemView.findViewById(R.id.et_nomerpunggung_detailpemain)
         val asistenTimEditText: EditText = itemView.findViewById(R.id.et_lateralitas_detailpemain)
@@ -46,7 +45,8 @@ class DetailTeamAdapter(private val query: DocumentReference) :
         }
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): DetailTeamAdapter.DetailTeamViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailTeamViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.detail_team_row, parent, false)
         return DetailTeamViewHolder(view)
@@ -54,11 +54,10 @@ class DetailTeamAdapter(private val query: DocumentReference) :
 
     fun startListening() {
         query.addSnapshotListener { snapshot, exception ->
-            if (exception != null){
+            if (exception != null) {
                 return@addSnapshotListener
             }
             teams.clear()
-            //get intent from TeamListAdapter
             val documentId = snapshot?.id
             val namaTim = snapshot?.getString("nama_team")
             val season = snapshot?.getString("season")
@@ -75,35 +74,35 @@ class DetailTeamAdapter(private val query: DocumentReference) :
             val jenisKelamin = snapshot?.getString("jenis_kelamin")
             val jumlahPemain = snapshot?.getString("jumlah_pemain")
 
-            println("documentId: $documentId")
-            println("namaTim: $namaTim")
-            println("season: $season")
-            println("coach: $coach")
-            println("asistenTim: $asistenTim")
-            println("warnaJersey: $warnaJersey")
-            println("instansiTim: $instansiTim")
-            println("alamatTim: $alamatTim")
-            println("kotaKabTim: $kotaKabTim")
-            println("provinsiTim: $provinsiTim")
-            println("negaraTim: $negaraTim")
-            println("emailTim: $emailTim")
-            println("logoTim: $logoTim")
-            println("jenisKelamin: $jenisKelamin")
-            println("jumlahPemain: $jumlahPemain")
-
-
-            if (documentId != null && namaTim != null && season != null && coach != null && asistenTim != null && warnaJersey != null && instansiTim != null && alamatTim != null && kotaKabTim != null && provinsiTim != null && negaraTim != null && emailTim != null && logoTim != null && jenisKelamin != null && jumlahPemain != null){
-                teams.add(teamData(documentId, namaTim, season, coach, asistenTim, warnaJersey, instansiTim, alamatTim, kotaKabTim, provinsiTim, negaraTim, emailTim, logoTim, jenisKelamin, jumlahPemain))
+            if (documentId != null && namaTim != null && season != null && coach != null && asistenTim != null && warnaJersey != null && instansiTim != null && alamatTim != null && kotaKabTim != null && provinsiTim != null && negaraTim != null && emailTim != null && logoTim != null && jenisKelamin != null && jumlahPemain != null) {
+                teams.add(
+                    teamData(
+                        documentId,
+                        namaTim,
+                        season,
+                        coach,
+                        asistenTim,
+                        warnaJersey,
+                        instansiTim,
+                        alamatTim,
+                        kotaKabTim,
+                        provinsiTim,
+                        negaraTim,
+                        emailTim,
+                        logoTim,
+                        jenisKelamin,
+                        jumlahPemain
+                    )
+                )
             }
             notifyDataSetChanged()
         }
     }
 
-
-    override fun onBindViewHolder(holder: DetailTeamAdapter.DetailTeamViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DetailTeamViewHolder, position: Int) {
         val currentTeam = teams[position]
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailTeam::class.java)
             intent.putExtra("documentId", currentTeam.id)
             print("Current documentId: ${currentTeam.id}")
@@ -127,20 +126,26 @@ class DetailTeamAdapter(private val query: DocumentReference) :
         holder.negaraTimEditText.setText(currentTeam.negara)
         holder.emailTimEditText.setText(currentTeam.email)
         holder.jumlahPemainEditText.setText(currentTeam.jumlah_pemain)
-        holder.jenisKelaminEditText.setText(currentTeam.jenis_kelamin)
+
+        val genderList = listOf("Laki-Laki", "Wanita")
+        val genderAdapter =
+            ArrayAdapter(holder.itemView.context, android.R.layout.simple_spinner_item, genderList)
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        holder.jenisKelaminSpinner.adapter = genderAdapter
+        val genderIndex = genderList.indexOf(currentTeam.jenis_kelamin)
+        holder.jenisKelaminSpinner.setSelection(genderIndex)
     }
 
     override fun getItemCount(): Int {
         return teams.size
     }
 
-
     fun setData(team: teamData) {
         teams.add(team)
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(onItemClickListener: DetailTeamAdapter.OnItemClickListener) {
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
     }
 

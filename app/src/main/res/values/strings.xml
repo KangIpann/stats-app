@@ -7,4 +7,9 @@
     <string name="hapus_match">Hapus Match</string>
     <string name="match_1">Match 1</string>
     <string name="_18_03_2003">18/03/2003</string>
+    <string-array name="gender_array">
+        <item>Pilih Kelamin</item>
+        <item>Laki-Laki</item>
+        <item>Wanita</item>
+    </string-array>
 </resources>
