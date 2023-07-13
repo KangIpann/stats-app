@@ -2,8 +2,13 @@ package Tim
 
 import Adapter.CustomSpinnerAdapter
 import Adapter.DetailTeamAdapter
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
@@ -11,13 +16,18 @@ import android.widget.Spinner
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import teamData
+import java.io.IOException
 
 class DetailTeam : AppCompatActivity() {
 
     private lateinit var detailTeamAdapter: DetailTeamAdapter
     private lateinit var db: FirebaseFirestore
     private lateinit var documentId: String
+    private lateinit var storageRef: StorageReference
+    private lateinit var selectedImageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +36,19 @@ class DetailTeam : AppCompatActivity() {
         documentId = intent.getStringExtra("documentId").toString()
         db = FirebaseFirestore.getInstance()
 
-        val ivBack = findViewById<ImageView>(R.id.tim_btn_back)
+        val ivLogoTim = findViewById<ImageView>(R.id.iv_logotim_detailtim)
+        ivLogoTim.setOnClickListener {
+            openGallery()
+        }
+
+            val ivBack = findViewById<ImageView>(R.id.tim_btn_back)
         ivBack.setOnClickListener {
             finish()
         }
-
+        storageRef = FirebaseStorage.getInstance().reference
         PullData()
+
+
     }
 
     private fun PullData() {
@@ -98,8 +115,103 @@ class DetailTeam : AppCompatActivity() {
                 val genderIndex = genderAdapter.getPosition(jenisKelamin)
                 etJenisKelamin.setSelection(genderIndex)
 
+                // Add listener for EditText
+                etNamaTim.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newNamaTim = etNamaTim.text.toString()
+                        updateData("nama_team", newNamaTim)
+                    }
+                }
 
+                etSeason.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newSeason = etSeason.text.toString()
+                        updateData("season", newSeason)
+                    }
+                }
+
+                etCoach.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newCoach = etCoach.text.toString()
+                        updateData("coach", newCoach)
+                    }
+                }
+
+                etAsisten.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newAsisten = etAsisten.text.toString()
+                        updateData("asisten", newAsisten)
+                    }
+                }
+
+                etJumlahPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newJumlahPemain = etJumlahPemain.text.toString()
+                        updateData("jumlah_pemain", newJumlahPemain)
+                    }
+                }
+
+                etWarnaJersey.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newWarnaJersey = etWarnaJersey.text.toString()
+                        updateData("jersey", newWarnaJersey)
+                    }
+                }
+
+                etInstansi.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newInstansi = etInstansi.text.toString()
+                        updateData("instansi", newInstansi)
+                    }
+                }
+
+                etAlamat.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newAlamat = etAlamat.text.toString()
+                        updateData("alamat", newAlamat)
+                    }
+                }
+
+                etKotaKab.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newKotaKab = etKotaKab.text.toString()
+                        updateData("kota", newKotaKab)
+                    }
+                }
+
+                etProvinsi.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newProvinsi = etProvinsi.text.toString()
+                        updateData("provinsi", newProvinsi)
+                    }
+                }
+
+                etNegara.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newNegara = etNegara.text.toString()
+                        updateData("negara", newNegara)
+                    }
+                }
+
+                etEmail.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        val newEmail = etEmail.text.toString()
+                        updateData("email", newEmail)
+                    }
+                }
+
+                etJenisKelamin.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        val selectedGender = genderAdapter.getItem(position).toString()
+                        updateData("jenis_kelamin", selectedGender)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        // Do nothing
+                    }
+                })
             }
+
             val logoTimUrl = snapshot?.getString("logo").toString()
             val ivLogoTim = findViewById<ImageView>(R.id.iv_logotim_detailtim)
             Glide.with(this)
@@ -109,7 +221,67 @@ class DetailTeam : AppCompatActivity() {
         }
     }
 
+    private fun updateData(field: String, value: Any) {
+        val docRef = db.collection("team").document(documentId)
+        docRef.update(field, value)
+            .addOnSuccessListener {
+                // Handle success
+            }
+            .addOnFailureListener { exception ->
+                // Handle error
+            }
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_IMAGE_GALLERY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK && data != null) {
+            val selectedImage: Uri? = data.data
+            if (selectedImage != null) {
+                selectedImageUri = selectedImage
+            }
+
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
+                val ivLogoTim = findViewById<ImageView>(R.id.iv_logotim_detailtim)
+                ivLogoTim.setImageBitmap(bitmap)
+
+                uploadLogoToFirebaseStorage()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun uploadLogoToFirebaseStorage() {
+        val logoRef = storageRef.child("logo_tim/logo_${documentId}")
+        val uploadTask = logoRef.putFile(selectedImageUri)
+
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            logoRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+                updateData("logo", downloadUri.toString())
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    companion object {
+        private const val REQUEST_IMAGE_GALLERY = 1
     }
 }
