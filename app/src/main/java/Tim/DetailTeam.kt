@@ -2,6 +2,7 @@ package Tim
 
 import Adapter.CustomSpinnerAdapter
 import Adapter.DetailTeamAdapter
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,15 +10,18 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
+import com.example.statsapp.starter.WelcomePage
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -25,6 +29,7 @@ import teamData
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.lang.Exception
 
 class DetailTeam : AppCompatActivity() {
 
@@ -43,8 +48,7 @@ class DetailTeam : AppCompatActivity() {
 
         val ivDelete = findViewById<ImageView>(R.id.tim_btn_delete)
         ivDelete.setOnClickListener {
-            db.collection("team").document(documentId).delete()
-            finish()
+            showDeleteTeamDialog()
         }
 
         val ivLogoTim = findViewById<ImageView>(R.id.iv_logotim_detailtim)
@@ -61,7 +65,37 @@ class DetailTeam : AppCompatActivity() {
 
 
     }
+    private fun showDeleteTeamDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.dialog_delete_team, null)
+        dialogBuilder.setView(dialogView)
+        val buttonDelete = dialogView.findViewById<Button>(R.id.button_delete_team)
+        val buttonCancel = dialogView.findViewById<Button>(R.id.button_cancel_delete_team)
 
+        val alertDialog = dialogBuilder.create()
+
+        buttonDelete.setOnClickListener {
+            db.collection("team").document(documentId).delete()
+            try {
+                Toast.makeText(this,"Sedang Menghapus Data", Toast.LENGTH_LONG).show()
+                Thread.sleep(1500)
+                val intent = Intent(baseContext, TeamList::class.java)
+                startActivity(intent)
+                Thread.sleep(1500)
+                Toast.makeText(this,"Berhasil Menghapus Data", Toast.LENGTH_LONG).show()
+                overridePendingTransition(androidx.appcompat.R.anim.abc_fade_in, androidx.appcompat.R.anim.abc_fade_out)
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+            alertDialog.dismiss()
+        }
+        buttonCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
     private fun PullData() {
         val docRef = db.collection("team").document(documentId)
         docRef.addSnapshotListener { snapshot, exception ->

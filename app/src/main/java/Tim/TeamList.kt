@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
+import com.example.statsapp.starter.WelcomePage
 import com.google.firebase.firestore.FirebaseFirestore
 import teamData
 
@@ -33,7 +34,8 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
 
         val btnBack = findViewById<ImageView>(R.id.tim_btn_back)
         btnBack.setOnClickListener {
-            finish()
+            val intent = Intent(baseContext, WelcomePage::class.java)
+            startActivity(intent)
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.tim_rv_teams)
