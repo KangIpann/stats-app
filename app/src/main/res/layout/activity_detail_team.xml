@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_daftarpemail"
+        android:id="@+id/iv_daftarpemain"
         android:layout_width="32dp"
         android:layout_height="24dp"
         android:background="@drawable/ic_daftarpemain"
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
-        app:layout_constraintStart_toEndOf="@+id/iv_daftarpemail"
+        app:layout_constraintStart_toEndOf="@+id/iv_daftarpemain"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.528" />
 </androidx.constraintlayout.widget.ConstraintLayout>
