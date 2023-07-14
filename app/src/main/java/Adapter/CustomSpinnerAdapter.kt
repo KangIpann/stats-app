@@ -10,8 +10,7 @@ import android.widget.TextView
 class CustomSpinnerAdapter(context: Context, resource: Int, items: List<String>) :
     ArrayAdapter<String>(context, resource, items) {
 
-    private val inflater: LayoutInflater =
-        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private val resourceLayout: Int = resource
     private val items: List<String> = items
 

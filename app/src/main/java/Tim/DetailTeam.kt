@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
@@ -105,7 +106,6 @@ class DetailTeam : AppCompatActivity() {
                 etNegara.setText(negaraTim)
                 etEmail.setText(emailTim)
 
-                // Set selected item in Spinner
                 val genderAdapter = CustomSpinnerAdapter(
                     this,
                     R.layout.spinner_kelamin_layout,
@@ -225,10 +225,11 @@ class DetailTeam : AppCompatActivity() {
         val docRef = db.collection("team").document(documentId)
         docRef.update(field, value)
             .addOnSuccessListener {
-                // Handle success
+                println("Data yang berhasil diubah: +$field + $value")
+                Toast.makeText(this,"Berhasil ubah data: $field", 1)
             }
             .addOnFailureListener { exception ->
-                // Handle error
+
             }
     }
 
