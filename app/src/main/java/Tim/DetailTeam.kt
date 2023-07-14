@@ -309,31 +309,21 @@ class DetailTeam : AppCompatActivity() {
 
     private fun uploadLogoToFirebaseStorage() {
         val logoRef = storageRef.child("logo_tim/logo_${documentId}")
+        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedImageUri)
+        val compressedBitmap = compressBitmap(bitmap, 500)
+        val baos = ByteArrayOutputStream()
+        compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
 
-        try{
-            val inputStream = contentResolver.openInputStream(selectedImageUri!!)
-            val originalBitmap = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
-
-            //bitmap yang sudah diresize
-            val compressedBitmap = compressBitmap(originalBitmap, 1024)
-
-            val outputStream = ByteArrayOutputStream()
-            compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            val compressedBitmapData = outputStream.toByteArray()
-            outputStream.close()
-
-            val uploadTask = logoRef.putBytes(compressedBitmapData)
-            uploadTask.addOnFailureListener {
-                Toast.makeText(this, "Gagal upload logo", Toast.LENGTH_LONG).show()
-            }.addOnSuccessListener {
-                Toast.makeText(this, "Berhasil upload logo", Toast.LENGTH_LONG).show()
+        val uploadTask = logoRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            Toast.makeText(this, "Gagal upload logo tim", Toast.LENGTH_SHORT).show()
+        }.addOnSuccessListener { taskSnapshot ->
+            Toast.makeText(this, "Berhasil upload logo tim", Toast.LENGTH_SHORT).show()
+            logoRef.downloadUrl.addOnSuccessListener { uri ->
+                val logoUrl = uri.toString()
+                updateData("logo", logoUrl)
             }
-
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 
