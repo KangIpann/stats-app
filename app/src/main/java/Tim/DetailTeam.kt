@@ -3,6 +3,8 @@ package Tim
 import Adapter.CustomSpinnerAdapter
 import Adapter.DetailTeamAdapter
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import teamData
+import java.io.ByteArrayOutputStream
+import java.io.FileNotFoundException
 import java.io.IOException
 
 class DetailTeam : AppCompatActivity() {
@@ -36,6 +40,12 @@ class DetailTeam : AppCompatActivity() {
 
         documentId = intent.getStringExtra("documentId").toString()
         db = FirebaseFirestore.getInstance()
+
+        val ivDelete = findViewById<ImageView>(R.id.tim_btn_delete)
+        ivDelete.setOnClickListener {
+            db.collection("team").document(documentId).delete()
+            finish()
+        }
 
         val ivLogoTim = findViewById<ImageView>(R.id.iv_logotim_detailtim)
         ivLogoTim.setOnClickListener {
@@ -261,23 +271,51 @@ class DetailTeam : AppCompatActivity() {
 
     private fun uploadLogoToFirebaseStorage() {
         val logoRef = storageRef.child("logo_tim/logo_${documentId}")
-        val uploadTask = logoRef.putFile(selectedImageUri)
 
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
+        try{
+            val inputStream = contentResolver.openInputStream(selectedImageUri!!)
+            val originalBitmap = BitmapFactory.decodeStream(inputStream)
+            inputStream?.close()
+
+            //bitmap yang sudah diresize
+            val compressedBitmap = compressBitmap(originalBitmap, 1024)
+
+            val outputStream = ByteArrayOutputStream()
+            compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            val compressedBitmapData = outputStream.toByteArray()
+            outputStream.close()
+
+            val uploadTask = logoRef.putBytes(compressedBitmapData)
+            uploadTask.addOnFailureListener {
+                Toast.makeText(this, "Gagal upload logo", Toast.LENGTH_LONG).show()
+            }.addOnSuccessListener {
+                Toast.makeText(this, "Berhasil upload logo", Toast.LENGTH_LONG).show()
             }
-            logoRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                updateData("logo", downloadUri.toString())
-            }
+
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 
+    private fun compressBitmap(originalBitmap: Bitmap, maxSize: Int): Bitmap {
+        var width = originalBitmap.width
+        var height = originalBitmap.height
+
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        if (bitmapRatio > 1) {
+            width = maxSize
+            val scaledHeight = width / bitmapRatio
+            height = scaledHeight.toInt()
+        } else {
+            height = maxSize
+            val scaledWidth = height * bitmapRatio
+            width = scaledWidth.toInt()
+        }
+
+        return Bitmap.createScaledBitmap(originalBitmap, width, height, true)
+    }
     override fun onDestroy() {
         super.onDestroy()
     }
