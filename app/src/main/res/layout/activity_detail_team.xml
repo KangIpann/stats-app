@@ -92,7 +92,8 @@
                 android:background="@drawable/placeholder_logotim"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="centerCrop"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_namatim_detailteam"

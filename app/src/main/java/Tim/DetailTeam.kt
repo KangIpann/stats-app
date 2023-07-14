@@ -42,7 +42,7 @@ class DetailTeam : AppCompatActivity() {
             openGallery()
         }
 
-            val ivBack = findViewById<ImageView>(R.id.tim_btn_back)
+        val ivBack = findViewById<ImageView>(R.id.tim_btn_back)
         ivBack.setOnClickListener {
             finish()
         }
@@ -226,7 +226,7 @@ class DetailTeam : AppCompatActivity() {
         docRef.update(field, value)
             .addOnSuccessListener {
                 println("Data yang berhasil diubah: +$field + $value")
-                Toast.makeText(this,"Berhasil ubah data: $field", 1)
+                Toast.makeText(this,"Berhasil ubah data: $field", Toast.LENGTH_LONG)
             }
             .addOnFailureListener { exception ->
 
