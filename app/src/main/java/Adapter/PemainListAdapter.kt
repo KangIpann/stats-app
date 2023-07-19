@@ -1,4 +1,6 @@
 import Data.pemainData
+import Tim.DetailPemain
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +44,15 @@ class PemainListAdapter(private val query: Query) :
     override fun onBindViewHolder(holder: PemainViewHolder, position: Int) {
         val pemain = pemains[position]
         holder.bind(pemain)
+
+        val documentId = pemains[position].id
+        val context = holder.itemView.context
+        val intent = Intent(context, DetailPemain::class.java)
+        intent.putExtra("documentId", documentId)
+        holder.itemView.setOnClickListener {
+            context.startActivity(intent)
+        }
+        println("documentId pemain yang dikirim: $documentId")
     }
 
     fun startListening() {
