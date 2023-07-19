@@ -18,6 +18,7 @@ data class pemainData(
     val id_tim_pemain : String = "",
     val foto_pemain : String = "",
     val status_pemain : String = "",
+    val email_pemain : String = "",
 ) {
     companion object {
         fun fromSnapshot(document: QueryDocumentSnapshot): pemainData {
@@ -36,6 +37,8 @@ data class pemainData(
                 nomor_handphone_pemain = document.getString("nomor_handphone_pemain")!!,
                 id_tim_pemain = document.getString("id_tim_pemain")!!,
                 foto_pemain = document.getString("foto_pemain")!!,
+                status_pemain = document.getString("status_pemain")!!,
+                email_pemain = document.getString("email_pemain")!!,
             )
         }
     }

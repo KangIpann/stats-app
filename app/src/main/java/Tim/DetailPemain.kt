@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -26,6 +27,7 @@ class DetailPemain : AppCompatActivity() {
 
         playerDocumentId = intent.getStringExtra("documentId").toString()
         db = FirebaseFirestore.getInstance()
+        println("DocumentId pemain yang diterima: $playerDocumentId")
 
         val ivBack = findViewById<ImageView>(R.id.pemain_btn_back)
         ivBack.setOnClickListener {
@@ -55,6 +57,7 @@ class DetailPemain : AppCompatActivity() {
                     val idTimPemain = document.getString("id_tim_pemain")
                     val fotoPemain = document.getString("foto_pemain")
                     val statusPemain = document.getString("status_pemain")
+                    val emailPemain = document.getString("email_pemain")
 
                     //deklarasi id xml variable
                     val EditTextNamaPemain = findViewById<EditText>(R.id.et_namapemain_detailpemain)
@@ -63,8 +66,30 @@ class DetailPemain : AppCompatActivity() {
                     val EditTextNomorPemain = findViewById<EditText>(R.id.et_nomerpunggung_detailpemain)
                     val EditTextLateralitasPemain = findViewById<EditText>(R.id.et_lateralitas_detailpemain)
                     val EditTextBeratPemain = findViewById<EditText>(R.id.et_beratbadan_detailpemain)
-                    val EditTextTinggiPemain = findViewById<EditText>(R.id.et_tinggibadan_detailpemain)
+                    val EditTextBmiPemain = findViewById<EditText>(R.id.et_bmi_detailpemain)
+                    val EditTextTanggalLahirPemain = findViewById<EditText>(R.id.et_tanggallahir_detailpemain)
+                    val EditTextKelaminPemain = findViewById<EditText>(R.id.et_jeniskelamin_detailpemain)
+                    val EditTextDomisiliPemain = findViewById<EditText>(R.id.et_domisili_detailpemain)
+                    val EditTextNomorHandphonePemain = findViewById<EditText>(R.id.et_nomorhp_detailpemain)
+                    val EditTextEmailPemain = findViewById<EditText>(R.id.et_emailpemain_detailpemain)
 
+                    //set value dari database ke xml
+                    EditTextNamaPemain.setText(namaPemain)
+                    EditTextRolePemain.setText(rolePemain)
+                    EditTextStatusPemain.setText(statusPemain)
+                    EditTextNomorPemain.setText(nomorPemain)
+                    EditTextLateralitasPemain.setText(lateralitasPemain)
+                    EditTextBeratPemain.setText(beratPemain)
+                    EditTextBmiPemain.setText(bmiPemain)
+                    EditTextTanggalLahirPemain.setText(tanggalLahirPemain)
+                    EditTextKelaminPemain.setText(kelaminPemain)
+                    EditTextDomisiliPemain.setText(domisiliPemain)
+                    EditTextNomorHandphonePemain.setText(nomorHandphonePemain)
+                    EditTextEmailPemain.setText(emailPemain)
+
+                    Glide.with(this)
+                        .load(fotoPemain)
+                        .into(findViewById<ImageView>(R.id.iv_logopemain_detailteam))
                 } else {
                     // Handle the case when the document does not exist
                 }

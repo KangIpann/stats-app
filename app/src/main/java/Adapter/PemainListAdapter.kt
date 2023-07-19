@@ -45,14 +45,13 @@ class PemainListAdapter(private val query: Query) :
         val pemain = pemains[position]
         holder.bind(pemain)
 
-        val documentId = pemains[position].id
-        val context = holder.itemView.context
-        val intent = Intent(context, DetailPemain::class.java)
-        intent.putExtra("documentId", documentId)
-        holder.itemView.setOnClickListener {
-            context.startActivity(intent)
+        holder.itemView.setOnClickListener{
+            val documentId = pemains[position].id
+            val intent = Intent(holder.itemView.context, DetailPemain::class.java)
+            intent.putExtra("documentId", documentId)
+            holder.itemView.context.startActivity(intent)
+            println("DocumentId pemain yang dikirim: $documentId")
         }
-        println("documentId pemain yang dikirim: $documentId")
     }
 
     fun startListening() {
