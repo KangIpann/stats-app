@@ -39,7 +39,7 @@
 
         <EditText
             android:hint="contoh: Arema"
-            android:id="@+id/et_namapemain_detailpemain"
+            android:id="@+id/et_nama_pemain_detailpemain"
             android:layout_width="189dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"

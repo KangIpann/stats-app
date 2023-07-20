@@ -62,9 +62,11 @@ class DetailTeam : AppCompatActivity() {
         }
         storageRef = FirebaseStorage.getInstance().reference
         PullData()
+
         val ivDetailPemain = findViewById<ImageView>(R.id.iv_daftarpemain)
         ivDetailPemain.setOnClickListener{
-            val intent = Intent(baseContext, PemainList::class.java)
+            val intent = Intent(this, PemainList::class.java)
+            intent.putExtra("documentId", documentId)
             startActivity(intent)
         }
 
