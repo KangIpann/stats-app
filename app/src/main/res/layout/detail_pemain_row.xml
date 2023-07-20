@@ -86,6 +86,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_statuspemain_detailteam"
         android:layout_width="match_parent"
@@ -150,6 +151,39 @@
             app:layout_constraintStart_toEndOf="@+id/textView12"
             app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- tambah tinggi pemain -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_tinggi_detailteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/cl_statuspemain_detailteam">
+
+        <TextView
+            android:id="@+id/tv12"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="11dp"
+            android:text="Tinggi Badan:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_tinggibadan_detailpemain"
+            android:layout_width="189dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/klik"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="contoh: 170(cm)"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@+id/tv12"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -252,14 +286,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_alamat_detailteam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/cl_instansi_detailteam">
+        app:layout_constraintTop_toBottomOf="@+id/cl_provinsi_detailteam">
 
         <TextView
             android:id="@+id/textView16"

@@ -5,7 +5,6 @@ import Adapter.DetailTeamAdapter
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,13 +19,10 @@ import android.widget.Spinner
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
-import com.example.statsapp.starter.WelcomePage
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import teamData
 import java.io.ByteArrayOutputStream
-import java.io.FileNotFoundException
 import java.io.IOException
 import java.lang.Exception
 
@@ -282,6 +277,7 @@ class DetailTeam : AppCompatActivity() {
 
             }
     }
+    
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
