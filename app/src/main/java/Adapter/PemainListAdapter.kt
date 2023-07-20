@@ -60,16 +60,33 @@ class PemainListAdapter(private val query: Query) :
                 return@addSnapshotListener
             }
 
-            pemains.clear() // Clear the list before adding new data
-
-            for (document in snapshot?.documents!!) {
-                val pemain = document.toObject(pemainData::class.java)
-                pemain?.id = document.id
-                pemains.add(pemain!!)
+            if (snapshot != null) {
+                pemains.clear()
+                for (document in snapshot) {
+                    val pemain = pemainData(
+                        document.id,
+                        document.getString("nama_pemain")!!,
+                        document.getString("role_pemain")!!,
+                        document.getString("no_punggung")!!,
+                        document.getString("lateralitas_pemain")!!,
+                        document.getString("tinggi_pemain")!!,
+                        document.getString("berat_pemain")!!,
+                        document.getString("bmi_pemain")!!,
+                        document.getString("tanggal_lahir_pemain")!!,
+                        document.getString("kelamin_pemain")!!,
+                        document.getString("domisili_pemain")!!,
+                        document.getString("nomor_handphone_pemain")!!,
+                        document.getString("id_tim_pemain")!!,
+                        document.getString("foto_pemain")!!,
+                        document.getString("status_pemain")!!,
+                        document.getString("email_pemain")!!,
+                    )
+                    pemains.add(pemain)
+                }
+                notifyDataSetChanged()
             }
-
-            notifyDataSetChanged()
         }
     }
+
 
 }
