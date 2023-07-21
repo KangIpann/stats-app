@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
@@ -19,6 +20,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -47,6 +49,12 @@ class DetailPemain : AppCompatActivity() {
             onBackPressed()
         }
 
+        val ivDeletePemain = findViewById<ImageView>(R.id.pemain_btn_delete)
+        ivDeletePemain.setOnClickListener {
+            showDeleteTeamDialog()
+        }
+
+
         val ivFotoPemain = findViewById<ImageView>(R.id.iv_logopemain_detailteam)
         ivFotoPemain.setOnClickListener {
             openGallery()
@@ -64,6 +72,42 @@ class DetailPemain : AppCompatActivity() {
 
         storageReference = FirebaseStorage.getInstance().reference
         pullData()
+    }
+
+    private fun showDeleteTeamDialog(){
+        val dialogBuilder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_delete_pemain, null)
+        dialogBuilder.setView(dialogView)
+        val buttonDeleteTeam = dialogView.findViewById<Button>(R.id.button_delete_pemain)
+        val buttonCancelTeam = dialogView.findViewById<Button>(R.id.button_cancel_delete_pemain)
+
+        val alertDialog = dialogBuilder.create()
+
+        buttonDeleteTeam.setOnClickListener{
+            deleteTeam()
+            alertDialog.dismiss()
+        }
+
+        buttonCancelTeam.setOnClickListener{
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+    private fun deleteTeam() {
+        val docRef = db.collection("pemain").document(playerDocumentId)
+        docRef.delete()
+            .addOnSuccessListener {
+                println("DocumentSnapshot successfully deleted!")
+                Toast.makeText(this, "Berhasil menghapus pemain", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+            .addOnFailureListener { e ->
+                println("Error deleting document")
+                Toast.makeText(this, "Gagal menghapus pemain", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun showDatePickerDialog(){
@@ -103,6 +147,7 @@ class DetailPemain : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 println("Error updating document")
+                Toast.makeText(this, "Gagal mengupdate data", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -112,6 +157,17 @@ class DetailPemain : AppCompatActivity() {
         startActivityForResult(intent, 1000)
     }
 
+    private fun calculateBMI(berat: String, tinggi: String): String {
+        if (berat.isNotEmpty() && tinggi.isNotEmpty()) {
+            val beratDouble = berat.toDouble()
+            val tinggiDouble = tinggi.toDouble()
+            val tinggiMeter = tinggiDouble / 100
+            val bmi = beratDouble / (tinggiMeter * tinggiMeter)
+            return String.format("%.2f", bmi)
+        }else{
+            return ""
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val ivFotoPemain = findViewById<ImageView>(R.id.iv_logopemain_detailteam)
         super.onActivityResult(requestCode, resultCode, data)
@@ -135,17 +191,26 @@ class DetailPemain : AppCompatActivity() {
         val image = baos.toByteArray()
 
         val uploadTask = fotoRef.putBytes(image)
-        uploadTask.addOnSuccessListener {
-            fotoRef.downloadUrl.addOnSuccessListener {
-                updateData("foto_pemain", it.toString())
-                Toast.makeText(this, "Foto berhasil diupload", Toast.LENGTH_SHORT).show()
+        uploadTask.addOnFailureListener {
+            Toast.makeText(this, "Gagal mengupload foto", Toast.LENGTH_SHORT).show()
+        }.addOnSuccessListener {
+            fotoRef.downloadUrl.addOnSuccessListener { uri ->
+                // Use Glide to load the image with correct orientation
+                Glide.with(this)
+                    .load(uri)
+                    .into(findViewById<ImageView>(R.id.iv_logopemain_detailteam))
+
+                // Update the 'foto_pemain' field with the download URL
+                updateData("foto_pemain", uri.toString())
             }
         }
     }
 
-    private fun compressBitmap(originalBitmap: Bitmap, maxSize: Int) : Bitmap {
+
+    private fun compressBitmap(originalBitmap: Bitmap, maxSize: Int): Bitmap {
         var width = originalBitmap.width
         var height = originalBitmap.height
+
         val bitmapRatio = width.toFloat() / height.toFloat()
         if (bitmapRatio > 1) {
             width = maxSize
@@ -156,199 +221,240 @@ class DetailPemain : AppCompatActivity() {
             val scaledWidth = height * bitmapRatio
             width = scaledWidth.toInt()
         }
+
         return Bitmap.createScaledBitmap(originalBitmap, width, height, true)
     }
 
     private fun pullData() {
         val docRef = db.collection("pemain").document(playerDocumentId)
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    val namaPemain = document.getString("nama_pemain")
-                    val rolePemain = document.getString("role_pemain")
-                    val nomorPemain = document.getString("no_punggung")
-                    val lateralitasPemain = document.getString("lateralitas_pemain")
-                    val tinggiPemain = document.getString("tinggi_pemain")
-                    val beratPemain = document.getString("berat_pemain")
-                    val bmiPemain = document.getString("bmi_pemain")
-                    val tanggalLahirPemain = document.getString("tanggal_lahir_pemain")
-                    val kelaminPemain = document.getString("kelamin_pemain")
-                    val domisiliPemain = document.getString("domisili_pemain")
-                    val nomorHandphonePemain = document.getString("nomor_handphone_pemain")
-                    val idTimPemain = document.getString("id_tim_pemain")
-                    val fotoPemain = document.getString("foto_pemain")
-                    val statusPemain = document.getString("status_pemain")
-                    val emailPemain = document.getString("email_pemain")
+        docRef.addSnapshotListener{ snapshot, e ->
+            if(e != null){
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.exists()){
+                val namaPemain = snapshot.getString("nama_pemain")
+                val rolePemain = snapshot.getString("role_pemain")
+                val nomorPemain = snapshot.getString("no_punggung")
+                val lateralitasPemain = snapshot.getString("lateralitas_pemain")
+                val tinggiPemain = snapshot.getString("tinggi_pemain")
+                val beratPemain = snapshot.getString("berat_pemain")
+                val bmiPemain = snapshot.getString("bmi_pemain")
+                val tanggalLahirPemain = snapshot.getString("tanggal_lahir_pemain")
+                val kelaminPemain = snapshot.getString("kelamin_pemain")
+                val domisiliPemain = snapshot.getString("domisili_pemain")
+                val nomorHandphonePemain = snapshot.getString("nomor_handphone_pemain")
+                val idTimPemain = snapshot.getString("id_tim_pemain")
+                val fotoPemain = snapshot.getString("foto_pemain")
+                val statusPemain = snapshot.getString("status_pemain")
+                val emailPemain = snapshot.getString("email_pemain")
 
-                    //deklarasi id xml variable
-                    val EditTextNamaPemain = findViewById<EditText>(R.id.et_namapemain_detailpemain)
-                    val EditTextRolePemain = findViewById<Spinner>(R.id.et_posisipemain_detailpemain)
-                    val EditTextStatusPemain = findViewById<Spinner>(R.id.et_statuspemain_detailpemain)
-                    val EditTextNomorPemain = findViewById<EditText>(R.id.et_nomerpunggung_detailpemain)
-                    val EditTextTinggiPemain = findViewById<EditText>(R.id.et_tinggibadan_detailpemain)
-                    val EditTextLateralitasPemain = findViewById<Spinner>(R.id.et_lateralitas_detailpemain)
-                    val EditTextBeratPemain = findViewById<EditText>(R.id.et_beratbadan_detailpemain)
-                    val EditTextBmiPemain = findViewById<EditText>(R.id.et_bmi_detailpemain)
-                    val EditTextTanggalLahirPemain = findViewById<EditText>(R.id.et_tanggallahir_detailpemain)
-                    val EditTextKelaminPemain = findViewById<Spinner>(R.id.et_jeniskelamin_detailpemain)
-                    val EditTextDomisiliPemain = findViewById<EditText>(R.id.et_domisili_detailpemain)
-                    val EditTextNomorHandphonePemain = findViewById<EditText>(R.id.et_nomorhp_detailpemain)
-                    val EditTextEmailPemain = findViewById<EditText>(R.id.et_emailpemain_detailpemain)
+                //deklarasi id xml variable
+                val EditTextNamaPemain = findViewById<EditText>(R.id.et_namapemain_detailpemain)
+                val EditTextRolePemain = findViewById<Spinner>(R.id.et_posisipemain_detailpemain)
+                val EditTextStatusPemain = findViewById<Spinner>(R.id.et_statuspemain_detailpemain)
+                val EditTextNomorPemain = findViewById<EditText>(R.id.et_nomerpunggung_detailpemain)
+                val EditTextTinggiPemain = findViewById<EditText>(R.id.et_tinggibadan_detailpemain)
+                val EditTextLateralitasPemain =
+                    findViewById<Spinner>(R.id.et_lateralitas_detailpemain)
+                val EditTextBeratPemain = findViewById<EditText>(R.id.et_beratbadan_detailpemain)
+                val EditTextBmiPemain = findViewById<EditText>(R.id.et_bmi_detailpemain)
+                val EditTextTanggalLahirPemain =
+                    findViewById<EditText>(R.id.et_tanggallahir_detailpemain)
+                val EditTextKelaminPemain = findViewById<Spinner>(R.id.et_jeniskelamin_detailpemain)
+                val EditTextDomisiliPemain = findViewById<EditText>(R.id.et_domisili_detailpemain)
+                val EditTextNomorHandphonePemain =
+                    findViewById<EditText>(R.id.et_nomorhp_detailpemain)
+                val EditTextEmailPemain = findViewById<EditText>(R.id.et_emailpemain_detailpemain)
 
-                    //set value dari database ke xml
-                    EditTextNamaPemain.setText(namaPemain)
-                    EditTextNomorPemain.setText(nomorPemain)
-                    EditTextTinggiPemain.setText(tinggiPemain)
-                    EditTextBeratPemain.setText(beratPemain)
-                    EditTextBmiPemain.setText(bmiPemain)
-                    EditTextTanggalLahirPemain.setText(tanggalLahirPemain)
-                    EditTextDomisiliPemain.setText(domisiliPemain)
-                    EditTextNomorHandphonePemain.setText(nomorHandphonePemain)
-                    EditTextEmailPemain.setText(emailPemain)
+                //set value dari database ke xml
+                EditTextNamaPemain.setText(namaPemain)
+                EditTextNomorPemain.setText(nomorPemain)
+                EditTextTinggiPemain.setText(tinggiPemain)
+                EditTextBeratPemain.setText(beratPemain)
+                EditTextBmiPemain.setText(bmiPemain)
+                EditTextTanggalLahirPemain.setText(tanggalLahirPemain)
+                EditTextDomisiliPemain.setText(domisiliPemain)
+                EditTextNomorHandphonePemain.setText(nomorHandphonePemain)
+                EditTextEmailPemain.setText(emailPemain)
 
-                    Glide.with(this)
-                        .load(fotoPemain)
-                        .into(findViewById<ImageView>(R.id.iv_logopemain_detailteam))
+                Glide.with(this)
+                    .load(fotoPemain)
+                    .into(findViewById<ImageView>(R.id.iv_logopemain_detailteam))
 
-                    //adapter posisi pemain
-                    val posisiAdapter = CustomSpinnerAdapter(
-                        this,
-                        R.layout.spinner_kelamin_layout,
-                        resources.getStringArray(R.array.posisi_array).toList()
-                    )
-                    EditTextRolePemain.adapter = posisiAdapter
-                    val posisiIndex = posisiAdapter.getPosition(rolePemain)
-                    EditTextRolePemain.setSelection(posisiIndex)
+                //adapter posisi pemain
+                val posisiAdapter = CustomSpinnerAdapter(
+                    this,
+                    R.layout.spinner_kelamin_layout,
+                    resources.getStringArray(R.array.posisi_array).toList()
+                )
+                EditTextRolePemain.adapter = posisiAdapter
+                val posisiIndex = posisiAdapter.getPosition(rolePemain)
+                EditTextRolePemain.setSelection(posisiIndex)
 
-                    //adapter status pemain
-                    val statusAdapter = CustomSpinnerAdapter(
-                        this,
-                        R.layout.spinner_kelamin_layout,
-                        resources.getStringArray(R.array.status_array).toList()
-                    )
-                    EditTextStatusPemain.adapter = statusAdapter
-                    val statusIndex = statusAdapter.getPosition(statusPemain)
-                    EditTextStatusPemain.setSelection(statusIndex)
+                //adapter status pemain
+                val statusAdapter = CustomSpinnerAdapter(
+                    this,
+                    R.layout.spinner_kelamin_layout,
+                    resources.getStringArray(R.array.status_array).toList()
+                )
+                EditTextStatusPemain.adapter = statusAdapter
+                val statusIndex = statusAdapter.getPosition(statusPemain)
+                EditTextStatusPemain.setSelection(statusIndex)
 
-                    //adapter lateralitas pemain
-                    val lateralitasAdapter = CustomSpinnerAdapter(
-                        this,
-                        R.layout.spinner_kelamin_layout,
-                        resources.getStringArray(R.array.lateralitas_array).toList()
-                    )
-                    EditTextLateralitasPemain.adapter = lateralitasAdapter
-                    val lateralitasIndex = lateralitasAdapter.getPosition(lateralitasPemain)
-                    EditTextLateralitasPemain.setSelection(lateralitasIndex)
+                //adapter lateralitas pemain
+                val lateralitasAdapter = CustomSpinnerAdapter(
+                    this,
+                    R.layout.spinner_kelamin_layout,
+                    resources.getStringArray(R.array.lateralitas_array).toList()
+                )
+                EditTextLateralitasPemain.adapter = lateralitasAdapter
+                val lateralitasIndex = lateralitasAdapter.getPosition(lateralitasPemain)
+                EditTextLateralitasPemain.setSelection(lateralitasIndex)
 
-                    //adapter untuk jenis kelamin
-                    val kelaminAdapter = CustomSpinnerAdapter(
-                        this,
-                        R.layout.spinner_kelamin_layout,
-                        resources.getStringArray(R.array.gender_array).toList()
-                    )
-                    EditTextKelaminPemain.adapter = kelaminAdapter
-                    val kelaminIndex = kelaminAdapter.getPosition(kelaminPemain)
-                    EditTextKelaminPemain.setSelection(kelaminIndex)
+                //adapter untuk jenis kelamin
+                val kelaminAdapter = CustomSpinnerAdapter(
+                    this,
+                    R.layout.spinner_kelamin_layout,
+                    resources.getStringArray(R.array.gender_array).toList()
+                )
+                EditTextKelaminPemain.adapter = kelaminAdapter
+                val kelaminIndex = kelaminAdapter.getPosition(kelaminPemain)
+                EditTextKelaminPemain.setSelection(kelaminIndex)
 
-                    EditTextNamaPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("nama_pemain", EditTextNamaPemain.text.toString())
-                        }
+                EditTextNamaPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData("nama_pemain", EditTextNamaPemain.text.toString())
                     }
-
-                    EditTextNomorPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("no_punggung", EditTextNomorPemain.text.toString())
-                        }
-                    }
-
-                    EditTextTinggiPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("tinggi_pemain", EditTextTinggiPemain.text.toString())
-                        }
-                    }
-
-                    EditTextBeratPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("berat_pemain", EditTextBeratPemain.text.toString())
-                        }
-                    }
-
-                    EditTextBmiPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("bmi_pemain", EditTextBmiPemain.text.toString())
-                        }
-                    }
-
-                    EditTextTanggalLahirPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("tanggal_lahir_pemain", EditTextTanggalLahirPemain.text.toString())
-                        }
-                    }
-
-                    EditTextDomisiliPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("domisili_pemain", EditTextDomisiliPemain.text.toString())
-                        }
-                    }
-
-                    EditTextNomorHandphonePemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("nomor_handphone_pemain", EditTextNomorHandphonePemain.text.toString())
-                        }
-                    }
-
-                    EditTextEmailPemain.setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            updateData("email_pemain", EditTextEmailPemain.text.toString())
-                        }
-                    }
-
-                    EditTextRolePemain.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            updateData("role_pemain", parent?.getItemAtPosition(position).toString())
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            //do nothing
-                        }
-                    })
-
-                    EditTextStatusPemain.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            updateData("status_pemain", parent?.getItemAtPosition(position).toString())
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            //do nothing
-                        }
-                    })
-
-                    EditTextLateralitasPemain.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            updateData("lateralitas_pemain", parent?.getItemAtPosition(position).toString())
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            //do nothing
-                        }
-                    })
-
-                    EditTextKelaminPemain.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener{
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            updateData("kelamin_pemain", parent?.getItemAtPosition(position).toString())
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            //do nothing
-                        }
-                    })
-                } else {
-                    // Handle the case when the document does not exist
                 }
+
+                EditTextNomorPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData("no_punggung", EditTextNomorPemain.text.toString())
+                    }
+                }
+
+                EditTextTinggiPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData("tinggi_pemain", EditTextTinggiPemain.text.toString())
+                    }
+                }
+
+                EditTextBeratPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData("berat_pemain", EditTextBeratPemain.text.toString())
+                    }
+                }
+
+                EditTextBmiPemain.setText(
+                    calculateBMI(
+                        EditTextBeratPemain.text.toString(),
+                        EditTextTinggiPemain.text.toString()
+                    )
+                )
+                updateData(
+                    "bmi_pemain",
+                    calculateBMI(
+                        EditTextBeratPemain.text.toString(),
+                        EditTextTinggiPemain.text.toString()
+                    )
+                )
+
+                EditTextTanggalLahirPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData(
+                            "tanggal_lahir_pemain",
+                            EditTextTanggalLahirPemain.text.toString()
+                        )
+                    }
+                }
+
+                EditTextDomisiliPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData("domisili_pemain", EditTextDomisiliPemain.text.toString())
+                    }
+                }
+
+                EditTextNomorHandphonePemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData(
+                            "nomor_handphone_pemain",
+                            EditTextNomorHandphonePemain.text.toString()
+                        )
+                    }
+                }
+
+                EditTextEmailPemain.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        updateData("email_pemain", EditTextEmailPemain.text.toString())
+                    }
+                }
+
+                EditTextRolePemain.setOnItemSelectedListener(object :
+                    AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        updateData("role_pemain", parent?.getItemAtPosition(position).toString())
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        //do nothing
+                    }
+                })
+
+                EditTextStatusPemain.setOnItemSelectedListener(object :
+                    AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        updateData("status_pemain", parent?.getItemAtPosition(position).toString())
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        //do nothing
+                    }
+                })
+
+                EditTextLateralitasPemain.setOnItemSelectedListener(object :
+                    AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        updateData(
+                            "lateralitas_pemain",
+                            parent?.getItemAtPosition(position).toString()
+                        )
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        //do nothing
+                    }
+                })
+
+                EditTextKelaminPemain.setOnItemSelectedListener(object :
+                    AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        updateData("kelamin_pemain", parent?.getItemAtPosition(position).toString())
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    }
+                })
             }
-            .addOnFailureListener { exception ->
-                // Handle any errors that occur during the retrieval
-            }
+        }
     }
 }
