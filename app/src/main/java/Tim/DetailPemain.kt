@@ -3,20 +3,25 @@ package Tim
 import Adapter.CustomSpinnerAdapter
 import Adapter.DetailPemainAdapter
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import java.util.Calendar
 
 class DetailPemain : AppCompatActivity() {
@@ -40,6 +45,11 @@ class DetailPemain : AppCompatActivity() {
         val ivBack = findViewById<ImageView>(R.id.pemain_btn_back)
         ivBack.setOnClickListener {
             onBackPressed()
+        }
+
+        val ivFotoPemain = findViewById<ImageView>(R.id.iv_logopemain_detailteam)
+        ivFotoPemain.setOnClickListener {
+            openGallery()
         }
 
         etTanggalLahirPemain = findViewById(R.id.et_tanggallahir_detailpemain)
@@ -96,7 +106,58 @@ class DetailPemain : AppCompatActivity() {
             }
     }
 
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 1000)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val ivFotoPemain = findViewById<ImageView>(R.id.iv_logopemain_detailteam)
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1000) {
+                selectedImageUri = data?.data!!
+                Glide.with(this)
+                    .load(selectedImageUri)
+                    .into(ivFotoPemain)
+                uploadImageToFirebase(selectedImageUri)
+            }
+        }
+    }
+
+    private fun uploadImageToFirebase(selectedImageUri: Uri) {
+        val fotoRef = storageReference.child("foto_pemain/$playerDocumentId")
+        val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, selectedImageUri)
+        val compressedBitmap = compressBitmap(bitmap, 500)
+        val baos = java.io.ByteArrayOutputStream()
+        compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val image = baos.toByteArray()
+
+        val uploadTask = fotoRef.putBytes(image)
+        uploadTask.addOnSuccessListener {
+            fotoRef.downloadUrl.addOnSuccessListener {
+                updateData("foto_pemain", it.toString())
+                Toast.makeText(this, "Foto berhasil diupload", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun compressBitmap(originalBitmap: Bitmap, maxSize: Int) : Bitmap {
+        var width = originalBitmap.width
+        var height = originalBitmap.height
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        if (bitmapRatio > 1) {
+            width = maxSize
+            val scaledHeight = width / bitmapRatio
+            height = scaledHeight.toInt()
+        } else {
+            height = maxSize
+            val scaledWidth = height * bitmapRatio
+            width = scaledWidth.toInt()
+        }
+        return Bitmap.createScaledBitmap(originalBitmap, width, height, true)
+    }
 
     private fun pullData() {
         val docRef = db.collection("pemain").document(playerDocumentId)
