@@ -63,7 +63,7 @@
       app:layout_constraintTop_toBottomOf="@+id/textView3">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passEt"
+        android:id="@+id/emailEt"
         style="@style/LoginTextInputInnerFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
       app:passwordToggleEnabled="true">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/passET"
+        android:id="@+id/passEt"
         style="@style/LoginTextInputInnerFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
       app:layout_constraintTop_toBottomOf="@+id/emailLayout" />
 
   <androidx.appcompat.widget.AppCompatButton
-      android:id="@+id/User_Login"
+      android:id="@+id/btn_login"
       android:layout_width="323dp"
       android:layout_height="wrap_content"
       android:background="@drawable/login_container"
@@ -163,4 +163,15 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/User_Login"
       app:layout_constraintVertical_bias="0.503" />
+
+  <ProgressBar
+      android:id="@+id/pb_login"
+      style="?android:attr/progressBarStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="32dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/emailLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
