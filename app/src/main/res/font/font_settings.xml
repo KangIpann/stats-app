@@ -20,4 +20,8 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/inter_semi_bold"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/sfpro_bold"/>
 </font-family>
