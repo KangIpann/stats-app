@@ -3,6 +3,7 @@ package Match
 import Adapter.MatchListAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
@@ -17,12 +18,9 @@ class MatchList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match_list)
 
-        db = FirebaseFirestore.getInstance()
-        recyclerView = findViewById(R.id.rv_match_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val query = db.collection("match").orderBy("tgl_match", Query.Direction.ASCENDING)
-        matchAdapter = MatchListAdapter(query)
-        recyclerView.adapter = matchAdapter
-        matchAdapter.startListening()
+        val ivBack = findViewById<ImageView>(R.id.match_btn_back)
+        ivBack.setOnClickListener{
+            finish()
+        }
     }
 }

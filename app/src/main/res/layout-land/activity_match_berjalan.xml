@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/league_date"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="150dp"
@@ -43,7 +43,7 @@
             android:layout_marginStart="77dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/league_name"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:fontFamily="@font/inter_semi_bold"
@@ -67,7 +67,7 @@
 
 
         <TextView
-            android:id="@+id/textView222"
+            android:id="@+id/matchday"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:fontFamily="@font/inter_semi_bold"
@@ -97,6 +97,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_back">
 
             <TextView
+                android:id="@+id/goal_team_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semi_bold"
@@ -106,6 +107,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/team_name_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -207,6 +209,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_back">
 
             <TextView
+                android:id="@+id/goal_team_away"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semi_bold"
@@ -216,6 +219,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/team_name_away"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -255,7 +259,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/timeout_timer_home"
+                    android:id="@+id/timeout_timer_away"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -376,7 +380,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semi_bold"
-                android:text="Home"
+                android:text="Away"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="10sp"
@@ -533,7 +537,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_goal_player1_number"
+                        android:id="@+id/tv_goal_player1_number_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sfpro_bold"
@@ -546,7 +550,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_goal_player1_name"
+                        android:id="@+id/tv_goal_player1_name_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sfpro_bold"
@@ -556,7 +560,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number_home" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -591,7 +595,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player2_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -604,7 +608,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player2_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -614,7 +618,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -649,7 +653,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player3_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -662,7 +666,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player3_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -672,7 +676,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -745,7 +749,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player5_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -758,7 +762,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player5_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -771,7 +775,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player5_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -779,12 +783,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player5_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player5_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player5_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -794,7 +798,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player5_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -803,7 +807,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player6_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -816,7 +820,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player6_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -829,7 +833,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player6_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -837,12 +841,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player6_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player6_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player6_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -852,7 +856,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player6_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -861,7 +865,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player7_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -874,7 +878,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player7_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -887,7 +891,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player7_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -895,12 +899,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player7_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player7_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player7_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -910,7 +914,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player7_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -924,7 +928,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player8_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -937,7 +941,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player8_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -950,7 +954,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player8_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -958,12 +962,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player8_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player8_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player8_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -973,7 +977,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player8_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -982,7 +986,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player9_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -995,7 +999,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player9_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1008,7 +1012,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player9_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1016,12 +1020,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player9_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player9_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player9_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1031,7 +1035,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player9_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1040,7 +1044,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player10_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1053,7 +1057,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player10_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1066,7 +1070,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player10_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1074,12 +1078,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player10_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player10_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player10_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1089,7 +1093,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player10_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1098,7 +1102,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player3_home"
+                    android:id="@+id/tv_foul_player11_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1111,7 +1115,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_home"
+                    android:id="@+id/tv_goal_player11_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1124,7 +1128,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_number"
+                    android:id="@+id/tv_goal_player11_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1132,12 +1136,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player11_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player11_home"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player3_name"
+                    android:id="@+id/tv_goal_player11_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1147,7 +1151,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player11_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
@@ -1169,7 +1173,7 @@
             android:background="@drawable/select_green">
 
             <TextView
-                android:id="@+id/tv_foul_player2_home"
+                android:id="@+id/tv_foul_player3_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -1182,7 +1186,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player2_home"
+                android:id="@+id/tv_goal_player3_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1195,7 +1199,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player2_number"
+                android:id="@+id/tv_goal_player3_number_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1203,12 +1207,12 @@
                 android:text="1"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_away"
+                app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_away"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player2_name"
+                android:id="@+id/tv_goal_player3_name_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1218,7 +1222,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number_away" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="85dp"
@@ -1227,7 +1231,7 @@
             android:background="@drawable/select_green">
 
             <TextView
-                android:id="@+id/tv_foul_player2_home"
+                android:id="@+id/tv_foul_player2_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -1240,7 +1244,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player2_home"
+                android:id="@+id/tv_goal_player2_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1253,7 +1257,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player2_number"
+                android:id="@+id/tv_goal_player2_number_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1261,12 +1265,12 @@
                 android:text="1"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_away"
+                app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_away"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player2_name"
+                android:id="@+id/tv_goal_player2_name_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1276,7 +1280,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number_away" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="174dp"
@@ -1285,7 +1289,7 @@
             android:background="@drawable/button_dark_green">
 
             <TextView
-                android:id="@+id/tv_foul_player1_home"
+                android:id="@+id/tv_foul_player1_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -1298,7 +1302,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player1_home"
+                android:id="@+id/tv_goal_player1_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1311,7 +1315,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_goal_player1_number"
+                android:id="@+id/tv_goal_player1_number_away"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sfpro_bold"
@@ -1319,8 +1323,8 @@
                 android:text="1"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player1_home"
-                app:layout_constraintStart_toEndOf="@+id/tv_foul_player1_home"
+                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player1_away"
+                app:layout_constraintStart_toEndOf="@+id/tv_foul_player1_away"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -1334,7 +1338,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number_away" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
@@ -1350,7 +1354,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player4_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1363,7 +1367,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player4_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1376,7 +1380,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player4_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1384,12 +1388,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player4_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player4_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player4_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1399,7 +1403,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player4_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1408,7 +1412,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player5_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1421,7 +1425,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player5_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1434,7 +1438,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player5_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1442,12 +1446,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player5_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player5_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player5_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1457,7 +1461,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player5_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1466,7 +1470,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player6_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1479,7 +1483,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player6_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1492,7 +1496,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player6_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1500,12 +1504,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player6_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player6_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player6_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1515,7 +1519,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player6_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1524,7 +1528,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player7_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1537,7 +1541,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player7_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1550,7 +1554,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player7_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1558,12 +1562,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player7_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player7_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player7_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1573,7 +1577,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player7_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -1589,7 +1593,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player8_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1602,7 +1606,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player8_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1615,7 +1619,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player8_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1623,12 +1627,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player8_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player8_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player8_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1638,7 +1642,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player8_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1647,7 +1651,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player9_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1660,7 +1664,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player9_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1673,7 +1677,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player9_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1681,12 +1685,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player9_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player9_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player9_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1696,7 +1700,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player9_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1705,7 +1709,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player10_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1718,7 +1722,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player10_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1731,7 +1735,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player10_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1739,12 +1743,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player10_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player10_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player10_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1754,7 +1758,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player10_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
@@ -1763,7 +1767,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player2_home"
+                    android:id="@+id/tv_foul_player11_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -1776,7 +1780,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_home"
+                    android:id="@+id/tv_goal_player11_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1789,7 +1793,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_number"
+                    android:id="@+id/tv_goal_player11_number_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1797,12 +1801,12 @@
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
-                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player11_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player11_away"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player2_name"
+                    android:id="@+id/tv_goal_player11_name_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -1812,16 +1816,17 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player11_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="252dp" />
+        app:layout_constraintGuide_end="538dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -1835,6 +1840,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="388dp" />
+        app:layout_constraintGuide_percent="0.5037594" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
