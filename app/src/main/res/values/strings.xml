@@ -7,13 +7,32 @@
     <string name="hapus_match">Hapus Match</string>
     <string name="match_1">Match 1</string>
     <string name="_18_03_2003">18/03/2003</string>
-    
+    <string name="tambah_match_text">Tambah Match</string>
+    <string name="nama_match">Nama Match:</string>
+    <string name="hint_nama_tim">nama tim</string>
+    <string name="jersey_home">Jersey Home:</string>
+    <string name="tim_away">Tim Away:</string>
+    <string name="tim_home">Tim Home:</string>
+    <string name="button_back">Button Back</string>
+    <string name="jersey_away">Jersey Away:</string>
+    <string name="hint_tanggal_match">DD-MM-YY</string>
+    <string name="tanggal_match">Tanggal Match:</string>
+    <string name="season">Season:\n</string>
+    <string name="hint_season">Season 2 (contoh)</string>
+    <string name="competition">"Competition: "</string>
+    <string name="hint_competition">Liga Reguler (contoh)</string>
+    <string name="mulai_match">Mulai Match</string>
+    <string name="button_start_match">Button Start Match</string>
+    <string name="dd_mm_yy">DD-MM-YY</string>
+    <string name="waktu_match">Waktu Match:\n</string>
+    <string name="_00_00_minutes">00:00 Minutes</string>
+
     <string-array name="gender_array">
         <item>Pilih Kelamin</item>
         <item>Laki-Laki</item>
         <item>Wanita</item>
     </string-array>
-    
+
     <string-array name="posisi_array">
         <item>Pilih Posisi</item>
         <item>Goal Keeper</item>
@@ -27,13 +46,13 @@
         <item>Right Winger</item>
         <item>Centre Forward</item>
     </string-array>
-    
+
     <string-array name="status_array">
         <item>Pilih Status</item>
         <item>Pemain Aktif</item>
         <item>Pemain Cadangan</item>
     </string-array>
-    
+
     <string-array name="lateralitas_array">
         <item>Pilih Lateralitas</item>
         <item>Unilateral</item>

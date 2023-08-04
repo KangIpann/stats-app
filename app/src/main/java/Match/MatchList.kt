@@ -1,9 +1,11 @@
 package Match
 
 import Adapter.MatchListAdapter
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.statsapp.R
@@ -21,6 +23,12 @@ class MatchList : AppCompatActivity() {
         val ivBack = findViewById<ImageView>(R.id.match_btn_back)
         ivBack.setOnClickListener{
             finish()
+        }
+
+        val linearAdTeam = findViewById<LinearLayout>(R.id.linear_addteam)
+        linearAdTeam.setOnClickListener{
+            val intent = Intent(this, TambahMatch::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -12,7 +12,6 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -20,10 +19,8 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import java.util.Calendar
 
 class DetailPemain : AppCompatActivity() {

@@ -3,7 +3,13 @@
 
     <style name="CustomSpinnerItemText" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
         <item name="android:fontFamily">@font/poppins_semibold</item>
-        <!-- Atur properti teks lainnya sesuai kebutuhan -->
+        <!-- Add other text properties as needed -->
+    </style>
+
+    <!-- Style for a button with white background -->
+    <style name="ButtonWhiteBackground" parent="Widget.AppCompat.Button">
+        <item name="android:background">@android:color/white</item>
+        <!-- Add other button properties as needed -->
     </style>
 
 </resources>
