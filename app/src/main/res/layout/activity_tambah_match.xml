@@ -336,7 +336,6 @@
                     android:hint="Start Time"
                     android:background="@drawable/klik"
                     android:focusable="false"
-                    android:onClick="showStartTimePicker"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp"
                     android:inputType="none" />
@@ -349,7 +348,6 @@
                     android:background="@drawable/klik"
                     android:hint="End Time"
                     android:focusable="false"
-                    android:onClick="showEndTimePicker"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp"
                     android:inputType="none" />
