@@ -4,6 +4,7 @@ import Adapter.CustomSpinnerAdapter
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -49,6 +50,11 @@ class TambahMatch : AppCompatActivity() {
         // handler ketika tombol tanggal N klik
         tvTanggalMatch.setOnClickListener {
             showDatePickerDialog()
+        }
+
+        LinearStartMatch.setOnClickListener {
+            val intent = Intent(this, MatchBerjalan::class.java)
+            startActivity(intent)
         }
 
         val spinnerTeamHome = findViewById<Spinner>(R.id.spinner_tim_home)
