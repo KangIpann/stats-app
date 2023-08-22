@@ -6,6 +6,7 @@ import android.text.InputType
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.statsapp.starter.Login
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -20,7 +21,6 @@ class SignupHandler {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    sendEmailVerification(context, email, password, name)
                     pushDataToFirestore(context, email, password, name)
                 } else {
                     // Registration failed
@@ -34,12 +34,15 @@ class SignupHandler {
         val data = hashMapOf(
             "name" to name,
             "email" to email,
+            "userId" to generateUserId(),
             "password" to password
         )
         if (uid != null) {
             db.collection("users").document(uid).set(data)
                 .addOnSuccessListener {
                     showToast(context, "Berhasil mendaftar pengguna")
+                    val intent = Intent(context, Login::class.java)
+                    context.startActivity(intent)
                 }
                 .addOnFailureListener { e ->
                     showToast(context, "Gagal mendaftar pengguna: ${e.message}")
@@ -47,24 +50,14 @@ class SignupHandler {
         }
     }
 
-    private fun sendEmailVerification(context: Context, email: String, password: String, name: String) {
-        val user = auth.currentUser
-        user?.sendEmailVerification()?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // Email verification sent successfully
-                showToast(context, "Kode verifikasi telah dikirim melalui email")
-
-                // Redirect the user to the Verify activity
-                val intent = Intent(context, Verify::class.java)
-                intent.putExtra("email", email)
-                intent.putExtra("password", password)
-                intent.putExtra("name", name)
-                context.startActivity(intent)
-            } else {
-                // Failed to send email verification
-                showToast(context, "Gagal mengirim kode verifikasi melalui email")
-            }
+    //buatkan fungsi untuk membuat UserId menggunakan angka dan huruf secara acak
+    fun generateUserId(): String {
+        val chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        var userId = ""
+        for (i in 0..19) {
+            userId += chars[Math.floor(Math.random() * chars.length).toInt()]
         }
+        return userId
     }
 
     private fun showToast(context: Context, message: String) {
