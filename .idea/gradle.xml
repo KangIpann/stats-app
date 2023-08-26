@@ -4,8 +4,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+<<<<<<< Updated upstream
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
+=======
+        <option name="gradleHome" value="$USER_HOME$/OneDrive/Dokumen/gradle-6.6-all/gradle-6.6" />
+        <option name="gradleJvm" value="Embedded JDK" />
+>>>>>>> Stashed changes
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
