@@ -59,6 +59,7 @@ class DetailTeamAdapter(private val query: DocumentReference) :
             }
             teams.clear()
             val documentId = snapshot?.id
+            val dataOwner = snapshot?.getString("data_owner")
             val namaTim = snapshot?.getString("nama_team")
             val season = snapshot?.getString("season")
             val coach = snapshot?.getString("coach")
@@ -78,6 +79,7 @@ class DetailTeamAdapter(private val query: DocumentReference) :
                 teams.add(
                     teamData(
                         documentId,
+                        dataOwner.toString(),
                         namaTim,
                         season,
                         coach,

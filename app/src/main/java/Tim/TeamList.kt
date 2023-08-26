@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
 import com.example.statsapp.starter.WelcomePage
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import teamData
 
@@ -43,7 +44,8 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         val db = FirebaseFirestore.getInstance()
-        val query = db.collection("team")
+        val dataOwner = FirebaseAuth.getInstance().currentUser?.uid
+        val query = db.collection("team").whereEqualTo("data_owner", dataOwner)
         val adapter = TeamListAdapter(query)
         recyclerView.adapter = adapter
         adapter.startListening()
@@ -57,14 +59,17 @@ class TeamList : AppCompatActivity(), TeamListAdapter.OnItemClickListener {
         val editTextTeamName = dialogView.findViewById<EditText>(R.id.et_timname)
         val buttonAdd = dialogView.findViewById<Button>(R.id.button_add_team)
         val buttonCancel = dialogView.findViewById<Button>(R.id.button_cancel_team)
-
+        val dataOwner = FirebaseAuth.getInstance().currentUser?.uid
         val alertDialog = dialogBuilder.create()
+
+        println("dataOwner: $dataOwner")
 
         buttonAdd.setOnClickListener {
             val teamName = editTextTeamName.text.toString().trim()
             if (teamName.isNotEmpty()) {
                 val newTeam = teamData(
                     "",
+                    dataOwner.toString(),
                     teamName,
                     "",
                     "",

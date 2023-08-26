@@ -165,6 +165,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newNamaTim = etNamaTim.text.toString()
                         updateData("nama_team", newNamaTim)
+                    }else{
+                        etNamaTim.setSelection(etNamaTim.text.length)
                     }
                 }
 
@@ -172,6 +174,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newSeason = etSeason.text.toString()
                         updateData("season", newSeason)
+                    }else{
+                        etSeason.setSelection(etSeason.text.length)
                     }
                 }
 
@@ -179,6 +183,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newCoach = etCoach.text.toString()
                         updateData("coach", newCoach)
+                    }else{
+                        etCoach.setSelection(etCoach.text.length)
                     }
                 }
 
@@ -186,6 +192,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newAsisten = etAsisten.text.toString()
                         updateData("asisten", newAsisten)
+                    }else{
+                        etAsisten.setSelection(etAsisten.text.length)
                     }
                 }
 
@@ -193,6 +201,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newJumlahPemain = etJumlahPemain.text.toString()
                         updateData("jumlah_pemain", newJumlahPemain)
+                    }else{
+                        etJumlahPemain.setSelection(etJumlahPemain.text.length)
                     }
                 }
 
@@ -200,6 +210,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newWarnaJersey = etWarnaJersey.text.toString()
                         updateData("jersey", newWarnaJersey)
+                    }else{
+                        etWarnaJersey.setSelection(etWarnaJersey.text.length)
                     }
                 }
 
@@ -207,6 +219,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newInstansi = etInstansi.text.toString()
                         updateData("instansi", newInstansi)
+                    }else{
+                        etInstansi.setSelection(etInstansi.text.length)
                     }
                 }
 
@@ -214,6 +228,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newAlamat = etAlamat.text.toString()
                         updateData("alamat", newAlamat)
+                    }else{
+                        etAlamat.setSelection(etAlamat.text.length)
                     }
                 }
 
@@ -221,6 +237,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newKotaKab = etKotaKab.text.toString()
                         updateData("kota", newKotaKab)
+                    }else{
+                        etKotaKab.setSelection(etKotaKab.text.length)
                     }
                 }
 
@@ -228,6 +246,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newProvinsi = etProvinsi.text.toString()
                         updateData("provinsi", newProvinsi)
+                    }else{
+                        etProvinsi.setSelection(etProvinsi.text.length)
                     }
                 }
 
@@ -235,6 +255,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newNegara = etNegara.text.toString()
                         updateData("negara", newNegara)
+                    }else{
+                        etNegara.setSelection(etNegara.text.length)
                     }
                 }
 
@@ -242,6 +264,8 @@ class DetailTeam : AppCompatActivity() {
                     if (!hasFocus) {
                         val newEmail = etEmail.text.toString()
                         updateData("email", newEmail)
+                    }else{
+                        etEmail.setSelection(etEmail.text.length)
                     }
                 }
 
@@ -252,7 +276,8 @@ class DetailTeam : AppCompatActivity() {
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
-                        // Do nothing
+                        val selectedGender = genderAdapter.getItem(0).toString()
+                        updateData("jenis_kelamin", selectedGender)
                     }
                 })
             }

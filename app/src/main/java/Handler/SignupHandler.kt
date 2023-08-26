@@ -28,14 +28,13 @@ class SignupHandler {
                 }
             }
     }
-    fun pushDataToFirestore(context: Context, email: String, password: String, name: String) {
-        val user = auth.currentUser
-        val uid = user?.uid
+    private fun pushDataToFirestore(context: Context, email: String, password: String, name: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
         val data = hashMapOf(
-            "name" to name,
-            "email" to email,
-            "userId" to generateUserId(),
-            "password" to password
+                "name" to name,
+                "email" to email,
+                "userId" to uid,
+                "password" to password
         )
         if (uid != null) {
             db.collection("users").document(uid).set(data)
@@ -48,16 +47,6 @@ class SignupHandler {
                     showToast(context, "Gagal mendaftar pengguna: ${e.message}")
                 }
         }
-    }
-
-    //buatkan fungsi untuk membuat UserId menggunakan angka dan huruf secara acak
-    fun generateUserId(): String {
-        val chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        var userId = ""
-        for (i in 0..19) {
-            userId += chars[Math.floor(Math.random() * chars.length).toInt()]
-        }
-        return userId
     }
 
     private fun showToast(context: Context, message: String) {

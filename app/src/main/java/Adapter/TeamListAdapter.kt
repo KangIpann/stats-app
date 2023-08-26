@@ -71,6 +71,7 @@ class TeamListAdapter(private val query: Query) :
             for (document in snapshot!!) {
                 val team = teamData(
                     document.id,
+                    document.getString("data_owner")!!,
                     document.getString("nama_team")!!,
                     document.getString("season")!!,
                     document.getString("coach")!!,

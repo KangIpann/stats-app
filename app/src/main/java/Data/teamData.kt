@@ -4,6 +4,7 @@ import android.widget.Spinner
 
 data class teamData(
     var id: String,
+    var data_owner: String,
     val nama_team: String,
     val season: String,
     val coach: String,
@@ -34,11 +35,13 @@ data class teamData(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
+        parcel.readString()!!,
         parcel.readString()!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
+        parcel.writeString(data_owner)
         parcel.writeString(nama_team)
         parcel.writeString(season)
         parcel.writeString(coach)
