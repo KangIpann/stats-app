@@ -45,6 +45,7 @@
         <item>Left Winger</item>
         <item>Right Winger</item>
         <item>Centre Forward</item>
+        <item>Second Striker</item>
     </string-array>
 
     <string-array name="status_array">

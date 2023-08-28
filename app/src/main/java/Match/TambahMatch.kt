@@ -1,7 +1,5 @@
 package Match
 
-import Adapter.CustomSpinnerAdapter
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -17,7 +15,6 @@ import android.widget.TextView
 import com.example.statsapp.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
-import teamData
 import java.util.Calendar
 
 class TambahMatch : AppCompatActivity() {
@@ -53,9 +50,9 @@ class TambahMatch : AppCompatActivity() {
         }
 
         LinearStartMatch.setOnClickListener {
-            val intent = Intent(this, MatchBerjalan::class.java)
-            startActivity(intent)
+            startMatch()
         }
+
 
         val spinnerTeamHome = findViewById<Spinner>(R.id.spinner_tim_home)
         val spinnerTeamAway = findViewById<Spinner>(R.id.spinner_tim_away)
@@ -106,7 +103,8 @@ class TambahMatch : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val teamName = parent?.getItemAtPosition(position).toString()
-                println("teamName yang dipilih: $teamName")
+                intent.putExtra("teamHome", teamName)
+                println("Team Home yang dipilih: $teamName")
                 if (teamName != "Pilih Tim") {
                     val teamRef = db.collection("team").whereEqualTo("nama_team", teamName)
                     teamRef.get()
@@ -124,7 +122,6 @@ class TambahMatch : AppCompatActivity() {
             }
         }
 
-        //handler ketika spinner team away dipilih
         spinnerTeamAway.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 println("Nothing Selected")
@@ -132,6 +129,7 @@ class TambahMatch : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val teamName = parent?.getItemAtPosition(position).toString()
+                intent.putExtra("teamAway", teamName)
                 println("teamName yang dipilih: $teamName")
                 if (teamName != "Pilih Tim") {
                     val teamRef = db.collection("team").whereEqualTo("nama_team", teamName)
@@ -191,7 +189,7 @@ class TambahMatch : AppCompatActivity() {
                 calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, minute)
                 startTimeEditText.text =
-                    hour.toString() + ":" + minute + ":00" + "     -"
+                    String.format("%02d:%02d:00", hour, minute) // Format the time
             }
         val timePickerDialog = TimePickerDialog(
             this, timeSetListener,
@@ -210,7 +208,7 @@ class TambahMatch : AppCompatActivity() {
                 calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, minute)
                 endTimeEditText.text =
-                    hour.toString() + ":" + minute + ":00"
+                    String.format("%02d:%02d:00", hour, minute) // Format the time
             }
         val timePickerDialog = TimePickerDialog(
             this, timeSetListener,
@@ -220,6 +218,8 @@ class TambahMatch : AppCompatActivity() {
         )
         timePickerDialog.show()
     }
+
+
     private fun getHomeTeamPlayers() {
         val teamName = spinnerTeamHome.selectedItem.toString()
 
@@ -282,5 +282,70 @@ class TambahMatch : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 // Handle the error
             }
+    }
+
+    fun getMatchDuration(): String {
+        val startTime = etStartTime.text.toString()
+        val endTime = etEndTime.text.toString()
+
+        val startCalendar = Calendar.getInstance()
+        val endCalendar = Calendar.getInstance()
+
+        val startTimeParts = startTime.split(":")
+        val endTimeParts = endTime.split(":")
+
+        if(startTimeParts.size == 3 && endTimeParts.size == 3){
+            startCalendar.set(Calendar.HOUR_OF_DAY, startTimeParts[0].toInt())
+            startCalendar.set(Calendar.MINUTE, startTimeParts[1].toInt())
+            startCalendar.set(Calendar.SECOND, startTimeParts[2].toInt())
+
+            endCalendar.set(Calendar.HOUR_OF_DAY, endTimeParts[0].toInt())
+            endCalendar.set(Calendar.MINUTE, endTimeParts[1].toInt())
+            endCalendar.set(Calendar.SECOND, endTimeParts[2].toInt())
+
+            val timeDifferenceInMillis = endCalendar.timeInMillis - startCalendar.timeInMillis
+            val hours = timeDifferenceInMillis / (1000 * 60 * 60)
+            val minutes = (timeDifferenceInMillis % (1000 * 60 * 60)) / (1000 * 60)
+            val seconds = (timeDifferenceInMillis % (1000 * 60)) / 1000
+
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            return ""
+        }
+    }
+
+
+    fun startMatch() {
+
+        //inisialisasi variabel
+        val matchName = etNamaMatch.text.toString()
+        val matchDate = tvTanggalMatch.text.toString()
+        val matchSeason = etSeason.text.toString()
+        val matchCompetition = etCompetitions.text.toString()
+        val matchHomeTeam = intent.getStringExtra("teamHome")
+        val matchAwayTeam = intent.getStringExtra("teamAway")
+        val matchStartTime = etStartTime.text.toString()
+        val matchEndTime = etEndTime.text.toString()
+        val matchDuration = getMatchDuration()
+
+        //print variabel untuk mengecek apa yang diambil
+        println("Match Name: $matchName")
+        println("Match Date: $matchDate")
+        println("Match Season: $matchSeason")
+        println("Match Competition: $matchCompetition")
+        println("Match Home Team: $matchHomeTeam")
+        println("Match Away Team: $matchAwayTeam")
+        println("Match Duration: $matchDuration")
+
+        val intent = Intent(this, MatchBerjalan::class.java)
+        intent.putExtra("matchName", matchName)
+        intent.putExtra("matchDate", matchDate)
+        intent.putExtra("matchSeason", matchSeason)
+        intent.putExtra("matchCompetition", matchCompetition)
+        intent.putExtra("matchHomeTeam", matchHomeTeam)
+        intent.putExtra("matchAwayTeam", matchAwayTeam)
+        intent.putExtra("matchDuration", matchDuration)
+        startActivity(intent)
+
     }
 }
