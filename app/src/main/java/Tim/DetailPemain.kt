@@ -274,9 +274,13 @@ class DetailPemain : AppCompatActivity() {
                 EditTextNomorHandphonePemain.setText(nomorHandphonePemain)
                 EditTextEmailPemain.setText(emailPemain)
 
-                Glide.with(this)
-                    .load(fotoPemain)
-                    .into(findViewById<ImageView>(R.id.iv_logopemain_detailteam))
+                if (fotoPemain != null) {
+                    Glide.with(this)
+                        .load(fotoPemain)
+                        .into(findViewById<ImageView>(R.id.iv_logopemain_detailteam))
+                }else{
+                    Toast.makeText(this, "Gagal mengambil foto", Toast.LENGTH_SHORT).show()
+                }
 
                 //adapter posisi pemain
                 val posisiAdapter = CustomSpinnerAdapter(
