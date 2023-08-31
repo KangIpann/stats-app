@@ -20,7 +20,6 @@ class Login : AppCompatActivity(), OnClickListener {
     private lateinit var et_password: EditText
     private lateinit var btnLogin: Button
     private lateinit var pb_login: ProgressBar
-
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
