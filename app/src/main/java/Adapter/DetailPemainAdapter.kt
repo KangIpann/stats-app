@@ -96,7 +96,7 @@ class DetailPemainAdapter(private val query: DocumentReference) :
 
         val posisiList = listOf(
             "Goal Keeper", "Centre Back", "Left Back", "Right Back", "Defensive Midfielder",
-            "Central Midfielder", "Attacking Midfielder", "Left Winger", "Right Winger", "Centre Forward"
+            "Central Midfielder", "Attacking Midfielder", "Left Winger", "Right Winger", "Centre Forward", "Second Striker"
         )
         val posisiAdapter =
             ArrayAdapter(holder.itemView.context, android.R.layout.simple_spinner_dropdown_item, posisiList)

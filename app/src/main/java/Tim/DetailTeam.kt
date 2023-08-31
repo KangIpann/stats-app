@@ -284,10 +284,13 @@ class DetailTeam : AppCompatActivity() {
 
             val logoTimUrl = snapshot?.getString("logo").toString()
             val ivLogoTim = findViewById<ImageView>(R.id.iv_logotim_detailtim)
-            Glide.with(this)
-                .load(logoTimUrl)
-                .transition(com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade())
-                .into(ivLogoTim)
+            if (this.isFinishing) {
+                return@addSnapshotListener
+            } else {
+                Glide.with(this)
+                    .load(logoTimUrl)
+                    .into(ivLogoTim)
+            }
         }
     }
 
