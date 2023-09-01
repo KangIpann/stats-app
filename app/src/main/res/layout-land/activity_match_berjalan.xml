@@ -6,59 +6,62 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="8dp"
     android:paddingTop="8dp"
+    android:layout_gravity="center"
     tools:context="Match.MatchBerjalan">
-
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="15dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:id="@+id/layout_top"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginBottom="1dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="15dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="32dp"
-            android:background="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/league_date"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginLeft="150dp"
             android:fontFamily="@font/inter_semi_bold"
             android:text="00/00/00"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/textView21"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="77dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/league_name"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/inter_semi_bold"
-                android:textAlignment="center"
                 android:text="Judul Liga"
+                android:textAlignment="center"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textAlignment="center"
                 android:text="+00:00"
+                android:textAlignment="center"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,10 +73,10 @@
             android:id="@+id/matchday"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
+            android:layout_marginStart="70dp"
             android:fontFamily="@font/inter_semi_bold"
             android:text="Match Day"
             android:textSize="16sp"
-            android:layout_marginStart="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView21"
             app:layout_constraintTop_toTopOf="parent" />
@@ -82,16 +85,16 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/layout_top"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_top">
 
         <LinearLayout
-            android:layout_width="167dp"
+            android:layout_width="168dp"
             android:layout_height="92dp"
-
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_back">
@@ -146,7 +149,6 @@
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp">
@@ -173,7 +175,61 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_redCard_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="0"
+                    android:textColor="@color/button_red"
+                    android:layout_marginHorizontal="12dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@@+id/tv_yellowCard_home"
+                    android:textColor="@color/button_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="0"
+                    android:layout_marginHorizontal="24dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="Cards"
+                    android:layout_marginHorizontal="12dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_redCard_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="0"
+                    android:textColor="@color/button_yellow"
+                    android:layout_marginHorizontal="24dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_yellowCard_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="0"
+                    android:textColor="@color/button_red"
+                    android:layout_marginHorizontal="12dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -205,6 +261,7 @@
             android:layout_height="92dp"
 
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_back">
 
@@ -233,11 +290,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="83dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="136dp"
@@ -259,7 +316,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/timeout_timer_away"
+                    android:id="@+id/timeout_timer_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -362,10 +419,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="67dp"
+            android:layout_width="68dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="9dp"
-            android:layout_marginEnd="9dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
             android:background="@drawable/button_black">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -495,73 +552,78 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="350dp"
         android:layout_height="126dp"
-        android:orientation="vertical"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="174dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/button_dark_green">
 
-                    <TextView
-                        android:id="@+id/tv_foul_player1_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="10sp"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="4dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="174dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_dark_green">
 
-                    <TextView
-                        android:id="@+id/tv_goal_player1_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="4dp"
-                        android:text="0"
-                        android:textSize="10sp"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_foul_player1_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_goal_player1_number_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:textStyle="bold"
-                        android:text="1"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_goal_player1_home"
-                        app:layout_constraintStart_toEndOf="@+id/tv_foul_player1_home"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_goal_player1_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_goal_player1_name_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:text="Dika"
-                        android:textSize="8sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number_home" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_goal_player1_number_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player1_home"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player1_home"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_goal_player1_name_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="Dika"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number_home" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -572,12 +634,12 @@
                     android:id="@+id/tv_foul_player2_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -585,12 +647,12 @@
                     android:id="@+id/tv_goal_player2_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -599,10 +661,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -613,29 +675,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player3_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -643,12 +706,12 @@
                     android:id="@+id/tv_goal_player3_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -657,10 +720,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -671,35 +734,37 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="87dp"
-                android:layout_marginStart="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player4_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -707,12 +772,12 @@
                     android:id="@+id/tv_goal_player4_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -721,10 +786,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player4_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player4_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -735,29 +800,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player4_number" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player5_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -765,12 +831,12 @@
                     android:id="@+id/tv_goal_player5_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -779,10 +845,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player5_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player5_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -793,29 +859,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player5_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player6_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -823,12 +890,12 @@
                     android:id="@+id/tv_goal_player6_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -837,10 +904,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player6_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player6_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -851,29 +918,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player6_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player7_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -881,12 +949,12 @@
                     android:id="@+id/tv_goal_player7_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -895,10 +963,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player7_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player7_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -909,19 +977,21 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player7_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="87dp"
                 android:layout_height="match_parent"
@@ -931,12 +1001,12 @@
                     android:id="@+id/tv_foul_player8_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -944,12 +1014,12 @@
                     android:id="@+id/tv_goal_player8_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -958,10 +1028,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player8_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player8_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -972,29 +1042,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player8_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player9_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1002,12 +1073,12 @@
                     android:id="@+id/tv_goal_player9_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1016,10 +1087,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player9_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player9_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1030,29 +1101,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player9_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player10_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1060,12 +1132,12 @@
                     android:id="@+id/tv_goal_player10_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1074,10 +1146,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player10_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player10_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1088,29 +1160,30 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player10_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
-                android:layout_marginStart="2dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
                 android:background="@drawable/select_green">
 
                 <TextView
                     android:id="@+id/tv_foul_player11_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1118,12 +1191,12 @@
                     android:id="@+id/tv_goal_player11_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1132,10 +1205,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player11_home"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player11_home"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1146,8 +1219,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1155,198 +1228,218 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="67dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="350dp"
         android:layout_height="126dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
+        android:layout_marginStart="7dp"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:background="@drawable/select_green">
 
-            <TextView
-                android:id="@+id/tv_foul_player3_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="10sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/sfpro_bold"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_goal_player3_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp"
-                android:text="0"
-                android:textSize="10sp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/select_green">
 
-            <TextView
-                android:id="@+id/tv_goal_player3_number_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:textStyle="bold"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_away"
-                app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_away"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_foul_player3_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_goal_player3_name_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:text="Dika"
-                android:textSize="8sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number_away" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="85dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:background="@drawable/select_green">
+                <TextView
+                    android:id="@+id/tv_goal_player3_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_foul_player2_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="10sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/sfpro_bold"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_goal_player3_number_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player3_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player3_away"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_goal_player2_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp"
-                android:text="0"
-                android:textSize="10sp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_goal_player3_name_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="Dika"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player3_number_away" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_goal_player2_number_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:textStyle="bold"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_away"
-                app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_away"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/select_green">
 
-            <TextView
-                android:id="@+id/tv_goal_player2_name_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:text="Dika"
-                android:textSize="8sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number_away" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="174dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:background="@drawable/button_dark_green">
+                <TextView
+                    android:id="@+id/tv_foul_player2_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_foul_player1_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="10sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/sfpro_bold"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_goal_player2_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_goal_player1_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp"
-                android:text="0"
-                android:textSize="10sp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_goal_player2_number_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player2_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player2_away"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_goal_player1_number_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:textStyle="bold"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_goal_player1_away"
-                app:layout_constraintStart_toEndOf="@+id/tv_foul_player1_away"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tv_goal_player2_name_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="Dika"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player2_number_away" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_goal_player1_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_bold"
-                android:text="Dika"
-                android:textSize="8sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number_away" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="174dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/button_dark_green">
+
+                <TextView
+                    android:id="@+id/tv_foul_player1_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_goal_player1_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_goal_player1_number_away"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_goal_player1_away"
+                    app:layout_constraintStart_toEndOf="@+id/tv_foul_player1_away"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_goal_player1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="Dika"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player1_number_away" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1357,12 +1450,12 @@
                     android:id="@+id/tv_foul_player4_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1370,12 +1463,12 @@
                     android:id="@+id/tv_goal_player4_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1384,10 +1477,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player4_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player4_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1398,13 +1491,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player4_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1415,12 +1509,12 @@
                     android:id="@+id/tv_foul_player5_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1428,12 +1522,12 @@
                     android:id="@+id/tv_goal_player5_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1442,10 +1536,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player5_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player5_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1456,13 +1550,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player5_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1473,12 +1568,12 @@
                     android:id="@+id/tv_foul_player6_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1486,12 +1581,12 @@
                     android:id="@+id/tv_goal_player6_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1500,10 +1595,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player6_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player6_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1514,13 +1609,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player6_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1531,12 +1627,12 @@
                     android:id="@+id/tv_foul_player7_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1544,12 +1640,12 @@
                     android:id="@+id/tv_goal_player7_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1558,10 +1654,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player7_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player7_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1572,8 +1668,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1586,6 +1682,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="2dp"
             android:orientation="horizontal">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1596,12 +1693,12 @@
                     android:id="@+id/tv_foul_player8_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1609,12 +1706,12 @@
                     android:id="@+id/tv_goal_player8_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1623,10 +1720,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player8_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player8_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1637,13 +1734,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player8_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1654,12 +1752,12 @@
                     android:id="@+id/tv_foul_player9_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1667,12 +1765,12 @@
                     android:id="@+id/tv_goal_player9_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1681,10 +1779,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player9_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player9_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1695,13 +1793,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player9_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1712,12 +1811,12 @@
                     android:id="@+id/tv_foul_player10_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1725,12 +1824,12 @@
                     android:id="@+id/tv_goal_player10_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1739,10 +1838,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player10_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player10_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1753,13 +1852,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_goal_player10_number_away" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
@@ -1770,12 +1870,12 @@
                     android:id="@+id/tv_foul_player11_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sfpro_bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1783,12 +1883,12 @@
                     android:id="@+id/tv_goal_player11_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfpro_bold"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/sfpro_bold"
                     android:text="0"
-                    android:textSize="10sp"
                     android:textColor="@color/white"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1797,10 +1897,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
-                    android:textStyle="bold"
                     android:text="1"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/tv_goal_player11_away"
                     app:layout_constraintStart_toEndOf="@+id/tv_foul_player11_away"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -1811,8 +1911,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
                     android:text="Dika"
-                    android:textSize="8sp"
                     android:textColor="@color/white"
+                    android:textSize="8sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -10,4 +10,5 @@
     <color name="button_red">#F04A4D</color>
     <color name="button_dark_green">#386641</color>
     <color name="gray">#181F19</color>
+    <color name="button_yellow">#FFC700</color>
 </resources>
