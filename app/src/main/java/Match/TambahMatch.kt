@@ -26,6 +26,7 @@ class TambahMatch : AppCompatActivity() {
     private lateinit var spinnerTeamAway: Spinner
     private lateinit var spinnerJerseyHome: Spinner
     private lateinit var spinnerJerseyAway: Spinner
+    private lateinit var matchId : String
     private lateinit var etStartTime: TextInputEditText
     private lateinit var etEndTime: TextInputEditText
     private lateinit var etSeason: EditText
@@ -337,15 +338,54 @@ class TambahMatch : AppCompatActivity() {
         println("Match Away Team: $matchAwayTeam")
         println("Match Duration: $matchDuration")
 
-        val intent = Intent(this, MatchBerjalan::class.java)
-        intent.putExtra("matchName", matchName)
-        intent.putExtra("matchDate", matchDate)
-        intent.putExtra("matchSeason", matchSeason)
-        intent.putExtra("matchCompetition", matchCompetition)
-        intent.putExtra("matchHomeTeam", matchHomeTeam)
-        intent.putExtra("matchAwayTeam", matchAwayTeam)
-        intent.putExtra("matchDuration", matchDuration)
-        startActivity(intent)
+        //upload data ke firestore
+        val match = hashMapOf(
+            "id_match" to "",
+            "nama_match" to matchName,
+            "tanggal_match" to matchDate,
+            "musim_match" to matchSeason,
+            "kompetisi_match" to matchCompetition,
+            "tim_home_match" to matchHomeTeam,
+            "tim_away_match" to matchAwayTeam,
+            "waktu_mulai_match" to matchStartTime,
+            "waktu_selesai_match" to matchEndTime,
+            "durasi_match" to matchDuration
+        )
+
+        db.collection("match")
+            .add(match)
+            .addOnSuccessListener { documentReference ->
+                println("DocumentSnapshot added with ID: ${documentReference.id}")
+                matchId = documentReference.id
+
+                val intent = Intent(this, MatchBerjalan::class.java)
+                intent.putExtra("matchId", matchId)
+                intent.putExtra("matchName", matchName)
+                intent.putExtra("matchDate", matchDate)
+                intent.putExtra("matchSeason", matchSeason)
+                intent.putExtra("matchCompetition", matchCompetition)
+                intent.putExtra("matchHomeTeam", matchHomeTeam)
+                intent.putExtra("matchAwayTeam", matchAwayTeam)
+                intent.putExtra("matchDuration", matchDuration)
+                startActivity(intent)
+
+                db.collection("match").document(matchId)
+                    .update("id_match", matchId)
+                    .addOnSuccessListener {
+                        println("DocumentSnapshot successfully updated!")
+                    }
+                    .addOnFailureListener { e ->
+                        println("Error updating document: $e")
+                    }
+            }
+            .addOnFailureListener { e ->
+                println("Error adding document: $e")
+            }
+
+
+
 
     }
+
+
 }

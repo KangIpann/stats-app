@@ -26,6 +26,12 @@
     <string name="dd_mm_yy">DD-MM-YY</string>
     <string name="waktu_match">Waktu Match:\n</string>
     <string name="_00_00_minutes">00:00 Minutes</string>
+    <string name="aksi_pemain_pemain"><![CDATA[Aksi Pemain : <Pemain>]]></string>
+    <string name="shoot_fail">Shoot Fail</string>
+    <string name="shoot_goal">Shoot Goal</string>
+    <string name="assist">Assist</string>
+    <string name="_10m_fail">10M Fail</string>
+    <string name="_10m_goal">10M Goal</string>
 
     <string-array name="gender_array">
         <item>Pilih Kelamin</item>
