@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_tendangan_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Tendangan Goal"
+        android:textAlignment="center"
+        android:fontFamily="@font/poppins_semibold"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tendangan_goal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/button_goal_shoot"
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Shoot"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/button_goal_Heal"
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Heal"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/button_goa_valley"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Valley"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/button_goal_long"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Long"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/button_goal_healed"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Healed"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/button_goal_lob"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Lob"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/button_goal_foul"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Foul"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/button_goal_reverse"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Reverse"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/button_goal_Scissors"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Scissors"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/button_goal_other"                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_grey_dialog"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="Other"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_cancel_goalPlayer"
+        android:layout_width="175dp"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_red"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Batal"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+</androidx.constraintlayout.widget.ConstraintLayout>
