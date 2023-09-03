@@ -753,6 +753,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_rightback"
                 android:layout_width="87dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="0dp"
@@ -812,6 +813,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_defensive_midfielder"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -871,6 +873,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_central_midfielder"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -930,6 +933,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_attacking_midfielder"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -996,6 +1000,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_left_winger"
                 android:layout_width="87dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/select_green">
@@ -1054,6 +1059,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_right_winger"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
