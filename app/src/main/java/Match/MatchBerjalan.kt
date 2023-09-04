@@ -103,6 +103,7 @@ class MatchBerjalan : AppCompatActivity() {
         getHomeTeamDocumentId()
         getAwayTeamDocumentId()
         setDatabase()
+        setHomePlayerGoal()
     }
 
     private fun setDatabase() {
@@ -10556,388 +10557,6 @@ class MatchBerjalan : AppCompatActivity() {
         }
     }
 
-
-    private fun setLeagueDate() {
-        matchDate = intent.getStringExtra("matchDate").toString()
-        println("Tanggal Match Yang Diterima: $matchDate")
-
-        tvLeagueDate = findViewById<TextView>(R.id.league_date)
-        tvLeagueDate.text = matchDate
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setLeagueName() {
-        matchName = intent.getStringExtra("matchName").toString()
-        println("Nama Match Yang Diterima: $matchName")
-
-        tvLeagueName = findViewById<TextView>(R.id.league_name)
-        tvLeagueName.text = matchName
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setHomeTeam() {
-        homeTeam = intent.getStringExtra("matchHomeTeam").toString()
-        println("Nama Home Team Yang Diterima: $homeTeam")
-
-        tvTeamHome = findViewById<TextView>(R.id.team_name_home)
-        tvTeamHome.text = homeTeam
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setAwayTeam() {
-        awayTeam = intent.getStringExtra("matchAwayTeam").toString()
-        Log.d("Away Team: ", awayTeam.toString())
-
-        tvTeamAway = findViewById<TextView>(R.id.team_name_away)
-        tvTeamAway.text = awayTeam
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setMatchDuration() {
-        matchDuration = intent.getStringExtra("matchDuration").toString()
-        Log.d("Durasi Match: ", matchDuration.toString())
-
-        val durationParts = matchDuration.split(":")
-        if (durationParts.size == 3) {
-            val hours = durationParts[0].toLong()
-            val minutes = durationParts[1].toLong()
-            val seconds = durationParts[2].toLong()
-
-            val totalMilliseconds = hours * 3600000 + minutes * 60000 + seconds * 1000
-
-            object : CountDownTimer(totalMilliseconds, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
-                    val remainingSeconds = millisUntilFinished / 1000
-                    val remainingMinutes = remainingSeconds / 60
-                    val remainingHours = remainingMinutes / 60
-                    val formattedTime = String.format(
-                        "%02d:%02d:%02d",
-                        remainingHours,
-                        remainingMinutes % 60,
-                        remainingSeconds % 60
-                    )
-                    tvTimer.text = formattedTime
-                }
-
-                @SuppressLint("SetTextI18n")
-                override fun onFinish() {
-                    tvTimer = findViewById<TextView>(R.id.timerTextView)
-                    tvTimer.text = "00:00:00"
-                }
-            }.start()
-        } else {
-            tvTimer = findViewById<TextView>(R.id.timerTextView)
-            tvTimer.text = "Time Not Found"
-            Log.d("Error", "Error getting times")
-        }
-    }
-
-    private fun getHomeTeamGoalKeeper(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Goal Keeper")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeGoalKeeper = document.getString("nama_pemain").toString()
-                    Log.d("Home Goal Keeper: ", teamHomeGoalKeeper)
-
-                    tvHomeGoalKeeperName = findViewById<TextView>(R.id.tv_goal_player1_name_home)
-                    tvHomeGoalKeeperName.text = teamHomeGoalKeeper
-
-                    val gkConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home)
-                    gkConstraint.setOnClickListener() {
-                        showGoalKeeperDialog()
-                    }
-
-                    val namaHomeGoalKeeper = "${tvHomeGoalKeeperName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_goal_keeper", namaHomeGoalKeeper)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-                }
-            }
-
-    }
-
-    private fun getHomeTeamCentreBack(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Centre Back")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeCentreBack = document.getString("nama_pemain").toString()
-                    Log.d("Home Centre Back: ", teamHomeCentreBack)
-
-                    tvHomeCentreBackName = findViewById<TextView>(R.id.tv_goal_player2_name_home)
-                    tvHomeCentreBackName.text = teamHomeCentreBack
-
-                    val centreBackConstraint =
-                        findViewById<ConstraintLayout>(R.id.gk_constraint_home_centreback)
-                    centreBackConstraint.setOnClickListener() {
-                        showHomeCentreBackDialog()
-                    }
-
-                    val namaHomeCentreBack = "${tvHomeCentreBackName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_centre_back", namaHomeCentreBack)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getHomeTeamLeftBack(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Left Back")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeLeftBack = document.getString("nama_pemain").toString()
-                    Log.d("Home Left Back: ", teamHomeLeftBack)
-
-                    tvHomeLeftBackName = findViewById<TextView>(R.id.tv_goal_player3_name_home)
-                    tvHomeLeftBackName.text = teamHomeLeftBack
-
-                    val leftBackConstraint =
-                        findViewById<ConstraintLayout>(R.id.gk_constraint_home_lefback)
-                    leftBackConstraint.setOnClickListener() {
-                        showHomeLeftBackDialog()
-                    }
-
-                    val namaHomeLeftBack = "${tvHomeLeftBackName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_left_back", namaHomeLeftBack)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getHomeTeamRightBack(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Right Back")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeRightBack = document.getString("nama_pemain").toString()
-                    Log.d("Home Right Back: ", teamHomeRightBack)
-
-                    tvHomeRightBackName = findViewById<TextView>(R.id.tv_goal_player4_name)
-                    tvHomeRightBackName.text = teamHomeRightBack
-
-                    val rightBackConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_rightback)
-                    rightBackConstraint.setOnClickListener() {
-                        showHomeRightBackDialog()
-                    }
-
-                    val namaHomeRightBack = "${tvHomeRightBackName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_right_back", namaHomeRightBack)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getHomeTeamDefensiveMidfielder(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Defensive Midfielder")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeDefensiveMidfielder = document.getString("nama_pemain").toString()
-                    Log.d("Home Defensive Midfielder: ", teamHomeDefensiveMidfielder)
-
-                    tvHomeDefensiveMidfielderName = findViewById<TextView>(R.id.tv_goal_player5_name_home)
-                    tvHomeDefensiveMidfielderName.text = teamHomeDefensiveMidfielder
-
-                    val defensiveMidfielderConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_defensive_midfielder)
-                    defensiveMidfielderConstraint.setOnClickListener() {
-                        showHomeDefensiveMidfielderDialog()
-                    }
-                    val nameHomeDefensiveMidfielder = "${tvHomeDefensiveMidfielderName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_defensive_midfielder", nameHomeDefensiveMidfielder)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getHomeTeamCentralMidfielder(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Central Midfielder")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeCentralMidfielder = document.getString("nama_pemain").toString()
-                    Log.d("Home Central Midfielder: ", teamHomeCentralMidfielder)
-
-                    tvHomeCentralMidfielderName = findViewById<TextView>(R.id.tv_goal_player6_name_home)
-                    tvHomeCentralMidfielderName.text = teamHomeCentralMidfielder
-
-                    val centralMidfielderConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_central_midfielder)
-                    centralMidfielderConstraint.setOnClickListener() {
-                        showHomeCentralMidfielderDialog()
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getHomeTeamAttackingMidfielder(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Attacking Midfielder")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeAttackingMidfielder = document.getString("nama_pemain").toString()
-                    Log.d("Home Attacking Midfielder: ", teamHomeAttackingMidfielder)
-
-                    tvHomeAttackingMidfielderName = findViewById<TextView>(R.id.tv_goal_player7_name_home)
-                    tvHomeAttackingMidfielderName.text = teamHomeAttackingMidfielder
-
-                    val attackingMidfielderConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_attacking_midfielder)
-                    attackingMidfielderConstraint.setOnClickListener() {
-                        showHomeAttackingMidfielderDialog()
-                    }
-
-                    val nameHomeAttackingMidfielder = "${tvHomeAttackingMidfielderName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_attacking_midfielder", nameHomeAttackingMidfielder)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-    private fun getHomeTeamLeftWinger(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Left Winger")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeLeftWinger = document.getString("nama_pemain").toString()
-                    Log.d("Home Left Winger: ", teamHomeLeftWinger)
-
-                    tvHomeLeftWingerName = findViewById<TextView>(R.id.tv_goal_player8_name_home)
-                    tvHomeLeftWingerName.text = teamHomeLeftWinger
-
-                    val leftWingerConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_left_winger)
-                    leftWingerConstraint.setOnClickListener() {
-                        showHomeLeftWingerDialog()
-                    }
-
-                    val nameHomeLeftWinger = "${tvHomeLeftWingerName.text}"
-                    val documentId = documentId
-                    db.collection("matchStats").document(documentId)
-                        .update("${tvTeamHome.text}_left_winger", nameHomeLeftWinger)
-                        .addOnSuccessListener {
-                            Log.d("Success", "DocumentSnapshot successfully updated!")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
-
-    private fun getHomeTeamRightWinger(teamHomeDocId: String) {
-        db.collection("pemain")
-            .whereEqualTo("id_tim_pemain", teamHomeDocId)
-            .whereEqualTo("role_pemain", "Right Winger")
-            .whereEqualTo("status_pemain", "Pemain Aktif")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    teamHomeRightWinger = document.getString("nama_pemain").toString()
-                    Log.d("Home Right Winger: ", teamHomeRightWinger)
-
-                    tvHomeRightWingerName = findViewById<TextView>(R.id.tv_goal_player9_name_home)
-                    tvHomeRightWingerName.text = teamHomeRightWinger
-
-                    val rightWingerConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_right_winger)
-                    rightWingerConstraint.setOnClickListener() {
-                        showHomeRightWingerDialog()
-                    }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Error", "Error getting documents: ", exception)
-            }
-    }
-
     private fun showHomeRightWingerDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
@@ -11906,8 +11525,8 @@ class MatchBerjalan : AppCompatActivity() {
                                 )
                                 alertDialog.dismiss()
                             }.addOnFailureListener() { e ->
-                            Log.w("Error", "Error adding document", e)
-                        }
+                                Log.w("Error", "Error adding document", e)
+                            }
 
                         //masukkan data time ke dalam field ${tvHomeRightWingerName.text}_lob_goal_times dalam bentuk Array
                         db.collection(collectionName).document(documentId).update(
@@ -11941,8 +11560,8 @@ class MatchBerjalan : AppCompatActivity() {
                                 Log.d("Success", "DocumentSnapshot successfully updated!")
                                 alertDialog.dismiss()
                             }.addOnFailureListener(){ e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
+                                Log.w("Error", "Error updating document", e)
+                            }
 
                         db.collection(collectionName).document(documentId)
                             .update("${tvHomeRightWingerName.text}_long_goal", homeRightWingerGoal)
@@ -11950,8 +11569,8 @@ class MatchBerjalan : AppCompatActivity() {
                                 Log.d("Success", "DocumentSnapshot successfully updated!")
                                 alertDialog.dismiss()
                             }.addOnFailureListener(){ e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
+                                Log.w("Error", "Error updating document", e)
+                            }
 
                         val tvTimer = findViewById<TextView>(R.id.timerTextView)
                         val goalTime = tvTimer.text.toString()
@@ -11999,8 +11618,8 @@ class MatchBerjalan : AppCompatActivity() {
                                 Log.d("Success", "DocumentSnapshot successfully updated!")
                                 alertDialog.dismiss()
                             }.addOnFailureListener(){ e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
+                                Log.w("Error", "Error updating document", e)
+                            }
 
                         db.collection(collectionName).document(documentId)
                             .update("${tvHomeRightWingerName.text}_heal_goal", homeRightWingerGoal)
@@ -12008,8 +11627,8 @@ class MatchBerjalan : AppCompatActivity() {
                                 Log.d("Success", "DocumentSnapshot successfully updated!")
                                 alertDialog.dismiss()
                             }.addOnFailureListener(){ e ->
-                            Log.w("Error", "Error updating document", e)
-                        }
+                                Log.w("Error", "Error updating document", e)
+                            }
 
                         val tvTimer = findViewById<TextView>(R.id.timerTextView)
                         val goalTime = tvTimer.text.toString()
@@ -12040,6 +11659,548 @@ class MatchBerjalan : AppCompatActivity() {
         }
     }
 
+
+
+    private fun setLeagueDate() {
+        matchDate = intent.getStringExtra("matchDate").toString()
+        println("Tanggal Match Yang Diterima: $matchDate")
+
+        tvLeagueDate = findViewById<TextView>(R.id.league_date)
+        tvLeagueDate.text = matchDate
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setLeagueName() {
+        matchName = intent.getStringExtra("matchName").toString()
+        println("Nama Match Yang Diterima: $matchName")
+
+        tvLeagueName = findViewById<TextView>(R.id.league_name)
+        tvLeagueName.text = matchName
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setHomeTeam() {
+        homeTeam = intent.getStringExtra("matchHomeTeam").toString()
+        println("Nama Home Team Yang Diterima: $homeTeam")
+
+        tvTeamHome = findViewById<TextView>(R.id.team_name_home)
+        tvTeamHome.text = homeTeam
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setAwayTeam() {
+        awayTeam = intent.getStringExtra("matchAwayTeam").toString()
+        Log.d("Away Team: ", awayTeam.toString())
+
+        tvTeamAway = findViewById<TextView>(R.id.team_name_away)
+        tvTeamAway.text = awayTeam
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setMatchDuration() {
+        matchDuration = intent.getStringExtra("matchDuration").toString()
+        Log.d("Durasi Match: ", matchDuration.toString())
+
+        val durationParts = matchDuration.split(":")
+        if (durationParts.size == 3) {
+            val hours = durationParts[0].toLong()
+            val minutes = durationParts[1].toLong()
+            val seconds = durationParts[2].toLong()
+
+            val totalMilliseconds = hours * 3600000 + minutes * 60000 + seconds * 1000
+
+            object : CountDownTimer(totalMilliseconds, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val remainingSeconds = millisUntilFinished / 1000
+                    val remainingMinutes = remainingSeconds / 60
+                    val remainingHours = remainingMinutes / 60
+                    val formattedTime = String.format(
+                        "%02d:%02d:%02d",
+                        remainingHours,
+                        remainingMinutes % 60,
+                        remainingSeconds % 60
+                    )
+                    tvTimer.text = formattedTime
+                }
+
+                @SuppressLint("SetTextI18n")
+                override fun onFinish() {
+                    tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    tvTimer.text = "00:00:00"
+                }
+            }.start()
+        } else {
+            tvTimer = findViewById<TextView>(R.id.timerTextView)
+            tvTimer.text = "Time Not Found"
+            Log.d("Error", "Error getting times")
+        }
+    }
+
+    private fun getHomeTeamGoalKeeper(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Goal Keeper")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeGoalKeeper = document.getString("nama_pemain").toString()
+                    Log.d("Home Goal Keeper: ", teamHomeGoalKeeper)
+
+                    tvHomeGoalKeeperName = findViewById<TextView>(R.id.tv_goal_player1_name_home)
+                    tvHomeGoalKeeperName.text = teamHomeGoalKeeper
+
+                    val gkConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home)
+                    gkConstraint.setOnClickListener() {
+                        showGoalKeeperDialog()
+                    }
+
+                    val namaHomeGoalKeeper = "${tvHomeGoalKeeperName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_goal_keeper", namaHomeGoalKeeper)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    val role = "Goal Keeper"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player1_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+                }
+            }
+
+    }
+
+
+    private fun getHomeTeamCentreBack(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Centre Back")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeCentreBack = document.getString("nama_pemain").toString()
+                    Log.d("Home Centre Back: ", teamHomeCentreBack)
+
+                    tvHomeCentreBackName = findViewById<TextView>(R.id.tv_goal_player2_name_home)
+                    tvHomeCentreBackName.text = teamHomeCentreBack
+
+                    val centreBackConstraint =
+                        findViewById<ConstraintLayout>(R.id.gk_constraint_home_centreback)
+                    centreBackConstraint.setOnClickListener() {
+                        showHomeCentreBackDialog()
+                    }
+
+                    val namaHomeCentreBack = "${tvHomeCentreBackName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_centre_back", namaHomeCentreBack)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Centre Back"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player2_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getHomeTeamLeftBack(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Left Back")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeLeftBack = document.getString("nama_pemain").toString()
+                    Log.d("Home Left Back: ", teamHomeLeftBack)
+
+                    tvHomeLeftBackName = findViewById<TextView>(R.id.tv_goal_player3_name_home)
+                    tvHomeLeftBackName.text = teamHomeLeftBack
+
+                    val leftBackConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_lefback)
+                    leftBackConstraint.setOnClickListener() {
+                        showHomeLeftBackDialog()
+                    }
+
+                    val namaHomeLeftBack = "${tvHomeLeftBackName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_left_back", namaHomeLeftBack)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Left Back"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player3_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getHomeTeamRightBack(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Right Back")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeRightBack = document.getString("nama_pemain").toString()
+                    Log.d("Home Right Back: ", teamHomeRightBack)
+
+                    tvHomeRightBackName = findViewById<TextView>(R.id.tv_goal_player4_name_home)
+                    tvHomeRightBackName.text = teamHomeRightBack
+
+                    val rightBackConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_rightback)
+                    rightBackConstraint.setOnClickListener() {
+                        showHomeRightBackDialog()
+                    }
+
+                    val namaHomeRightBack = "${tvHomeRightBackName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_right_back", namaHomeRightBack)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Right Back"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player4_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getHomeTeamDefensiveMidfielder(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Defensive Midfielder")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeDefensiveMidfielder = document.getString("nama_pemain").toString()
+                    Log.d("Home Defensive Midfielder: ", teamHomeDefensiveMidfielder)
+
+                    tvHomeDefensiveMidfielderName = findViewById<TextView>(R.id.tv_goal_player5_name_home)
+                    tvHomeDefensiveMidfielderName.text = teamHomeDefensiveMidfielder
+
+                    val defensiveMidfielderConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_defensive_midfielder)
+                    defensiveMidfielderConstraint.setOnClickListener() {
+                        showHomeDefensiveMidfielderDialog()
+                    }
+                    val nameHomeDefensiveMidfielder = "${tvHomeDefensiveMidfielderName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_defensive_midfielder", nameHomeDefensiveMidfielder)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Defensive Midfielder"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player5_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getHomeTeamCentralMidfielder(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Central Midfielder")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeCentralMidfielder = document.getString("nama_pemain").toString()
+                    Log.d("Home Central Midfielder: ", teamHomeCentralMidfielder)
+
+                    tvHomeCentralMidfielderName = findViewById<TextView>(R.id.tv_goal_player6_name_home)
+                    tvHomeCentralMidfielderName.text = teamHomeCentralMidfielder
+
+                    val centralMidfielderConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_central_midfielder)
+                    centralMidfielderConstraint.setOnClickListener() {
+                        showHomeCentralMidfielderDialog()
+                    }
+
+                    val nameHomeCentralMidfielder = "${tvHomeCentralMidfielderName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_central_midfielder", nameHomeCentralMidfielder)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Central Midfielder"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player6_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getHomeTeamAttackingMidfielder(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Attacking Midfielder")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeAttackingMidfielder = document.getString("nama_pemain").toString()
+                    Log.d("Home Attacking Midfielder: ", teamHomeAttackingMidfielder)
+
+                    tvHomeAttackingMidfielderName = findViewById<TextView>(R.id.tv_goal_player7_name_home)
+                    tvHomeAttackingMidfielderName.text = teamHomeAttackingMidfielder
+
+                    val attackingMidfielderConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_attacking_midfielder)
+                    attackingMidfielderConstraint.setOnClickListener() {
+                        showHomeAttackingMidfielderDialog()
+                    }
+
+                    val nameHomeAttackingMidfielder = "${tvHomeAttackingMidfielderName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_attacking_midfielder", nameHomeAttackingMidfielder)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Attacking Midfielder"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player7_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getHomeTeamLeftWinger(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Left Winger")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeLeftWinger = document.getString("nama_pemain").toString()
+                    Log.d("Home Left Winger: ", teamHomeLeftWinger)
+
+                    tvHomeLeftWingerName = findViewById<TextView>(R.id.tv_goal_player8_name_home)
+                    tvHomeLeftWingerName.text = teamHomeLeftWinger
+
+                    val leftWingerConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_left_winger)
+                    leftWingerConstraint.setOnClickListener() {
+                        showHomeLeftWingerDialog()
+                    }
+
+                    val nameHomeLeftWinger = "${tvHomeLeftWingerName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_left_winger", nameHomeLeftWinger)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Left Winger"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player8_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+
+    private fun getHomeTeamRightWinger(teamHomeDocId: String) {
+        db.collection("pemain")
+            .whereEqualTo("id_tim_pemain", teamHomeDocId)
+            .whereEqualTo("role_pemain", "Right Winger")
+            .whereEqualTo("status_pemain", "Pemain Aktif")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    teamHomeRightWinger = document.getString("nama_pemain").toString()
+                    Log.d("Home Right Winger: ", teamHomeRightWinger)
+
+                    tvHomeRightWingerName = findViewById<TextView>(R.id.tv_goal_player9_name_home)
+                    tvHomeRightWingerName.text = teamHomeRightWinger
+
+                    val rightWingerConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_right_winger)
+                    rightWingerConstraint.setOnClickListener() {
+                        showHomeRightWingerDialog()
+                    }
+
+                    val nameHomeRightWinger = "${tvHomeRightWingerName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_right_winger", nameHomeRightWinger)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Right Winger"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player9_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Error", "Error getting documents: ", exception)
+            }
+    }
+
+
     private fun getHomeTeamCentreForward(teamHomeDocId: String) {
         db.collection("pemain")
             .whereEqualTo("id_tim_pemain", teamHomeDocId)
@@ -12051,14 +12212,1129 @@ class MatchBerjalan : AppCompatActivity() {
                     teamHomeCentreForward = document.getString("nama_pemain").toString()
                     Log.d("Home Centre Forward: ", teamHomeCentreForward)
 
-                    tvHomeCentreForwardName =
-                        findViewById<TextView>(R.id.tv_goal_player10_name_home)
+                    tvHomeCentreForwardName = findViewById<TextView>(R.id.tv_goal_player10_name_home)
                     tvHomeCentreForwardName.text = teamHomeCentreForward
+
+                    val centreForwardConstraint = findViewById<ConstraintLayout>(R.id.gk_constraint_home_centre_forward)
+                    centreForwardConstraint.setOnClickListener() {
+                        showHomeCentreForwardDialog()
+                    }
+
+                    val nameHomeCentreForward = "${tvHomeCentreForwardName.text}"
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_centre_forward", nameHomeCentreForward)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Centre Forward"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            val tvPlayerNumber = findViewById<TextView>(R.id.tv_goal_player10_number_home)
+                            for (document in it){
+                                val playerNumber = document.getString("no_punggung").toString()
+                                tvPlayerNumber.text = playerNumber
+                            }
+                        }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("Error", "Error getting documents: ", exception)
             }
+    }
+
+    private fun showHomeCentreForwardDialog(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_match_aksi_landscape, null)
+        dialogBuilder.setView(dialogView)
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+
+        //inisialisasi nama pemain
+        val tvHomeCentreForwardName = findViewById<TextView>(R.id.tv_goal_player10_name_home)
+        val homeCentreForwardName = tvHomeCentreForwardName.text.toString()
+        val tvNamaPemain = dialogView.findViewById<TextView>(R.id.tv_tendangan_goal)
+        tvNamaPemain.text = "Aksi Pemain: $homeCentreForwardName"
+
+        //handler shootFail
+        val btnShootFail = dialogView.findViewById<TextView>(R.id.button_shootFail)
+        btnShootFail.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "shoot_fail"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentShootFail = it.getLong("${tvTeamHome.text}_shoot_fail") ?: 0
+                    val currentCentreForwardShootFail = it.getLong("${tvHomeCentreForwardName.text}_shoot_fail") ?: 0
+                    val homeShootFail = currentShootFail + 1
+                    val homeCentreForwardShootFail = currentCentreForwardShootFail + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_shoot_fail", homeShootFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeCentreForwardName.text}_shoot_fail", homeCentreForwardShootFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val shootFailTime = tvTimer.text.toString()
+                    val shootFailData = hashMapOf(
+                        "time" to shootFailTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "shoot_fail",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(shootFailData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_shoot_fail_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_shoot_fail_times", FieldValue.arrayUnion(shootFailTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler assist
+        val btnAssist = dialogView.findViewById<TextView>(R.id.button_assist)
+        btnAssist.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "assist"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentAssist = it.getLong("${tvTeamHome.text}_assist") ?: 0
+                    val currentCentreForwardAssist = it.getLong("${tvHomeCentreForwardName.text}_assist") ?: 0
+                    val homeAssist = currentAssist + 1
+                    val homeCentreForwardAssist = currentCentreForwardAssist + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_assist", homeAssist)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeCentreForwardName.text}_assist", homeCentreForwardAssist)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val assistTime = tvTimer.text.toString()
+                    val assistData = hashMapOf(
+                        "time" to assistTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "assist",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(assistData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_assist_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_assist_times", FieldValue.arrayUnion(assistTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler 10mGoal
+        val btn10mGoal = dialogView.findViewById<TextView>(R.id.button_10mGoal)
+        btn10mGoal.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "10m_goal"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                    val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_10m_goal") ?: 0
+                    val homeGoal = currentGoal + 1
+                    val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_goal", homeGoal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeCentreForwardName.text}_10m_goal", homeCentreForwardGoal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val goalTime = tvTimer.text.toString()
+                    val goalData = hashMapOf(
+                        "time" to goalTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "10m_goal",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(goalData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_10m_goal_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_10m_goal_times", FieldValue.arrayUnion(goalTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler yellowCard
+        val btnYellowCard = dialogView.findViewById<TextView>(R.id.button_yellowCard)
+        btnYellowCard.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "violations_card"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener() {
+                    val currentYellowCard = it.getLong("${tvTeamHome.text}_yellow_card") ?: 0
+                    val currentCentreForwardYellowCard =
+                        it.getLong("${tvHomeCentreForwardName.text}_yellow_card") ?: 0
+                    val homeYellowCard = currentYellowCard + 1
+                    val homeCentreForwardYellowCard = currentCentreForwardYellowCard + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_yellow_card", homeYellowCard)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener() { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update(
+                            "${tvHomeCentreForwardName.text}_yellow_card",
+                            homeCentreForwardYellowCard
+                        )
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener() { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val yellowCardTime = tvTimer.text.toString()
+                    val yellowCardData = hashMapOf(
+                        "time" to yellowCardTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "yellow_card",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(yellowCardData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_yellow_card_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_yellow_card_times", FieldValue.arrayUnion(yellowCardTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler penalty
+        val btnPenalty = dialogView.findViewById<TextView>(R.id.button_penalty)
+        btnPenalty.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "penalty"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentPenalty = it.getLong("${tvTeamHome.text}_penalty") ?: 0
+                    val currentCentreForwardPenalty = it.getLong("${tvHomeCentreForwardName.text}_penalty") ?: 0
+                    val homePenalty = currentPenalty + 1
+                    val homeCentreForwardPenalty = currentCentreForwardPenalty + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_penalty", homePenalty)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeCentreForwardName.text}_penalty", homeCentreForwardPenalty)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val penaltyTime = tvTimer.text.toString()
+                    val penaltyData = hashMapOf(
+                        "time" to penaltyTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "penalty",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(penaltyData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_penalty_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_penalty_times", FieldValue.arrayUnion(penaltyTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler offside
+        val btnOffside = dialogView.findViewById<TextView>(R.id.button_offside)
+        btnOffside.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "offside"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentOffside = it.getLong("${tvTeamHome.text}_offside") ?: 0
+                    val currentCentreForwardOffside = it.getLong("${tvHomeCentreForwardName.text}_offside") ?: 0
+                    val homeOffside = currentOffside + 1
+                    val homeCentreForwardOffside = currentCentreForwardOffside + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_offside", homeOffside)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeCentreForwardName.text}_offside", homeCentreForwardOffside)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val offsideTime = tvTimer.text.toString()
+                    val offsideData = hashMapOf(
+                        "time" to offsideTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "offside",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(offsideData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_offside_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_offside_times", FieldValue.arrayUnion(offsideTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler steal
+        val btnSteal = dialogView.findViewById<TextView>(R.id.button_steal)
+        btnSteal.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "steal"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentSteal = it.getLong("${tvTeamHome.text}_steal") ?: 0
+                    val currentCentreForwardSteal = it.getLong("${tvHomeCentreForwardName.text}_steal") ?: 0
+                    val homeSteal = currentSteal + 1
+                    val homeCentreForwardSteal = currentCentreForwardSteal + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_steal", homeSteal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeCentreForwardName.text}_steal", homeCentreForwardSteal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val stealTime = tvTimer.text.toString()
+                    val stealData = hashMapOf(
+                        "time" to stealTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "steal",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(stealData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_steal_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_steal_times", FieldValue.arrayUnion(stealTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler redCard
+        val btnRedCard = dialogView.findViewById<TextView>(R.id.button_redCard)
+        btnRedCard.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "violations_card"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentRedCard = it.getLong("${tvTeamHome.text}_red_card") ?: 0
+                    val currentCentreForwardRedCard = it.getLong("${tvHomeCentreForwardName.text}_red_card") ?: 0
+                    val homeRedCard = currentRedCard + 1
+                    val homeCentreForwardRedCard = currentCentreForwardRedCard + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_red_card", homeRedCard)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update(
+                            "${tvHomeCentreForwardName.text}_red_card",
+                            homeCentreForwardRedCard
+                        )
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val redCardTime = tvTimer.text.toString()
+                    val redCardData = hashMapOf(
+                        "time" to redCardTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "red_card",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(redCardData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_red_card_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_red_card_times", FieldValue.arrayUnion(redCardTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler 10mfail
+        val btn10mFail = dialogView.findViewById<TextView>(R.id.button_10mfail)
+        btn10mFail.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "10m_fail"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener() {
+                    val current10mFail = it.getLong("${tvTeamHome.text}_10m_fail") ?: 0
+                    val currentCentreForward10mFail =
+                        it.getLong("${tvHomeCentreForwardName.text}_10m_fail") ?: 0
+                    val home10mFail = current10mFail + 1
+                    val homeCentreForward10mFail = currentCentreForward10mFail + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_10m_fail", home10mFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener() { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update(
+                            "${tvHomeCentreForwardName.text}_10m_fail",
+                            homeCentreForward10mFail
+                        )
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener() { e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val fail10mTime = tvTimer.text.toString()
+                    val fail10mData = hashMapOf(
+                        "time" to fail10mTime,
+                        "player" to "${tvHomeCentreForwardName.text}",
+                        "action" to "10m_fail",
+                    )
+                    db.collection(collectionName).document(documentId)
+                        .collection(collectionBranchName).add(fail10mData)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                "Success",
+                                "DocumentSnapshot added with ID: ${documentReference.id}"
+                            )
+                            alertDialog.dismiss()
+                        }.addOnFailureListener() { e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_10m_fail_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update(
+                        "${tvHomeCentreForwardName.text}_10m_fail_times",
+                        FieldValue.arrayUnion(fail10mTime)
+                    ).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener() {
+                        Log.w("Error", "Error updating document", it)
+                    }
+                }
+        }
+
+        //handler toogleShoot
+        val btnToogleShoot = dialogView.findViewById<TextView>(R.id.button_shootGoal)
+        btnToogleShoot.setOnClickListener(){
+            val dialogBuilder = AlertDialog.Builder(this)
+            val inflater = this.layoutInflater
+            val dialogView = inflater.inflate(R.layout.dialog_match_goal, null)
+            val alertDialog = dialogBuilder.create()
+            alertDialog.setView(dialogView)
+            alertDialog.show()
+
+            //handler shootGoal
+            val btnShootGoal = dialogView.findViewById<TextView>(R.id.button_goal_shoot)
+            btnShootGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val goalTime = tvTimer.text.toString()
+                        val goalData = hashMapOf(
+                            "time" to goalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(goalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_goal_times", FieldValue.arrayUnion(goalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+            //handler valleyGoal
+            val btnValleyGoal = dialogView.findViewById<TextView>(R.id.button_goal_valley)
+            btnValleyGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_valley_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_valley_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val valleyGoalTime = tvTimer.text.toString()
+                        val valleyGoalData = hashMapOf(
+                            "time" to valleyGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "valley_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(valleyGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_valley_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_valley_goal_times", FieldValue.arrayUnion(valleyGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler healedGoal
+            val btnHealedGoal = dialogView.findViewById<TextView>(R.id.button_goal_healed)
+            btnHealedGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_healed_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_healed_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val healedGoalTime = tvTimer.text.toString()
+                        val healedGoalData = hashMapOf(
+                            "time" to healedGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "healed_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(healedGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_healed_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_healed_goal_times", FieldValue.arrayUnion(healedGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler foulGoal
+            val btnFoulGoal = dialogView.findViewById<TextView>(R.id.button_goal_foul)
+            btnFoulGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_foul_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_foul_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val foulGoalTime = tvTimer.text.toString()
+                        val foulGoalData = hashMapOf(
+                            "time" to foulGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "foul_goal",
+                        )
+
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(foulGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_foul_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_foul_goal_times", FieldValue.arrayUnion(foulGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler scissorsGoal
+            val btnScissorsGoal = dialogView.findViewById<TextView>(R.id.button_goal_Scissors)
+            btnScissorsGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_scissors_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_scissors_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val scissorsGoalTime = tvTimer.text.toString()
+                        val scissorsGoalData = hashMapOf(
+                            "time" to scissorsGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "scissors_goal",
+                        )
+
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(scissorsGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_scissors_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_scissors_goal_times", FieldValue.arrayUnion(scissorsGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler otherGoal
+            val btnOtherGoal = dialogView.findViewById<TextView>(R.id.button_goal_other)
+            btnOtherGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_other_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_other_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val otherGoalTime = tvTimer.text.toString()
+                        val otherGoalData = hashMapOf(
+                            "time" to otherGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "other_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(otherGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_other_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_other_goal_times", FieldValue.arrayUnion(otherGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler reverseGoal
+            val btnReverseGoal = dialogView.findViewById<TextView>(R.id.button_goal_reverse)
+            btnReverseGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_reverse_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_reverse_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val reverseGoalTime = tvTimer.text.toString()
+                        val reverseGoalData = hashMapOf(
+                            "time" to reverseGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "reverse_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(reverseGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_reverse_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_reverse_goal_times", FieldValue.arrayUnion(reverseGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler lobGoal
+            val btnLobGoal = dialogView.findViewById<TextView>(R.id.button_goal_lob)
+            btnLobGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_lob_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_lob_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val lobGoalTime = tvTimer.text.toString()
+                        val lobGoalData = hashMapOf(
+                            "time" to lobGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "lob_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(lobGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_lob_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_lob_goal_times", FieldValue.arrayUnion(lobGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+                    }
+            }
+
+            //handler longGoal
+            val btnLongGoal = dialogView.findViewById<TextView>(R.id.button_goal_long)
+            btnLongGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_long_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeCentreForwardName.text}_long_goal", homeCentreForwardGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val longGoalTime = tvTimer.text.toString()
+                        val longGoalData = hashMapOf(
+                            "time" to longGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "long_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(longGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_long_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_long_goal_times", FieldValue.arrayUnion(longGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler healGoal
+            val btnHealGoal = dialogView.findViewById<TextView>(R.id.button_goal_Heal)
+            btnHealGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentCentreForwardGoal = it.getLong("${tvHomeCentreForwardName.text}_heal_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeCentreForwardGoal = currentCentreForwardGoal + 1
+                        db.collection(collectionName).document(documentId).update("${tvTeamHome.text}_goal", homeGoal).addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_heal_goal", homeCentreForwardGoal).addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val healGoalTime = tvTimer.text.toString()
+                        val healGoalData = hashMapOf(
+                            "time" to healGoalTime,
+                            "player" to "${tvHomeCentreForwardName.text}",
+                            "action" to "heal_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(healGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeCentreForwardName.text}_heal_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeCentreForwardName.text}_heal_goal_times", FieldValue.arrayUnion(healGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+        }
     }
 
     private fun getHomeSecondStriker(teamHomeDocId: String) {
@@ -12072,14 +13348,1108 @@ class MatchBerjalan : AppCompatActivity() {
                     teamHomeSecondStriker = document.getString("nama_pemain").toString()
                     Log.d("Home Second Striker: ", teamHomeSecondStriker)
 
-                    tvHomeSecondStrikerName =
-                        findViewById<TextView>(R.id.tv_goal_player11_name_home)
+                    tvHomeSecondStrikerName = findViewById<TextView>(R.id.tv_goal_player11_name_home)
                     tvHomeSecondStrikerName.text = teamHomeSecondStriker
+
+                    val btnHomeSecondStrikerGoal = findViewById<ConstraintLayout>(R.id.gk_constraint_home_second_striker)
+                    btnHomeSecondStrikerGoal.setOnClickListener(){
+                        showHomeSecondStrikerDialog()
+                    }
+
+                    val nameSecondStriker = tvHomeSecondStrikerName.text.toString()
+                    val documentId = documentId
+                    db.collection("matchStats").document(documentId)
+                        .update("${tvTeamHome.text}_second_striker", nameSecondStriker)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val role = "Second Striker"
+                    val teamHomeDocumentId = teamHomeDocId
+                    db.collection("pemain")
+                        .whereEqualTo("id_tim_pemain", teamHomeDocumentId)
+                        .whereEqualTo("role_pemain", role)
+                        .whereEqualTo("status_pemain", "Pemain Aktif")
+                        .get()
+                        .addOnSuccessListener(){
+                            for (document in it){
+                                val tvSecondStrikerNumber = findViewById<TextView>(R.id.tv_goal_player11_number_home)
+                                tvSecondStrikerNumber.text = document.getString("no_punggung").toString()
+                            }
+                        }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("Error", "Error getting documents: ", exception)
             }
+    }
+
+    private fun showHomeSecondStrikerDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_match_aksi_landscape, null)
+        dialogBuilder.setView(dialogView)
+        var alertDialog = dialogBuilder.create()
+        alertDialog.show()
+
+        //handler shootFail
+        val btnShootFail = dialogView.findViewById<TextView>(R.id.button_shootFail)
+        btnShootFail.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "shoot_fail"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentShootFail = it.getLong("${tvTeamHome.text}_shoot_fail")
+                    val homeShootFail = currentShootFail?.plus(1)
+                    val currentSecondStrikerShootFail = it.getLong("${tvHomeSecondStrikerName.text}_shoot_fail")
+                    val homeSecondStrikerShootFail = currentSecondStrikerShootFail?.plus(1)
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_shoot_fail", homeShootFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_shoot_fail", homeSecondStrikerShootFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val shootFailTime = tvTimer.text.toString()
+                    val shootFailData = hashMapOf(
+                        "time" to shootFailTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "shoot_fail",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(shootFailData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_shoot_fail_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_shoot_fail_times", FieldValue.arrayUnion(shootFailTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler assist
+        val btnAssist = dialogView.findViewById<TextView>(R.id.button_assist)
+        btnAssist.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "assist"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentAssist = it.getLong("${tvTeamHome.text}_assist")
+                    val homeAssist = currentAssist?.plus(1)
+                    val currentSecondStrikerAssist = it.getLong("${tvHomeSecondStrikerName.text}_assist")
+                    val homeSecondStrikerAssist = currentSecondStrikerAssist?.plus(1)
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_assist", homeAssist)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_assist", homeSecondStrikerAssist)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val assistTime = tvTimer.text.toString()
+                    val assistData = hashMapOf(
+                        "time" to assistTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "assist",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(assistData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_assist_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_assist_times", FieldValue.arrayUnion(assistTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler 10mGoal
+        val btn10mGoal = dialogView.findViewById<TextView>(R.id.button_10mGoal)
+        btn10mGoal.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "goals"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentGoal = it.getLong("${tvTeamHome.text}_10m_goal") ?: 0
+                    val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_10m_goal") ?: 0
+                    val homeGoal = currentGoal + 1
+                    val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_10m_goal", homeGoal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_10m_goal", homeSecondStrikerGoal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val goal10mTime = tvTimer.text.toString()
+                    val goal10mData = hashMapOf(
+                        "time" to goal10mTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "10m_goal",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(goal10mData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_10m_goal_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_10m_goal_times", FieldValue.arrayUnion(goal10mTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler YellowCard
+        val btnYellowCard = dialogView.findViewById<TextView>(R.id.button_yellowCard)
+        btnYellowCard.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "violations_card"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentYellowCard = it.getLong("${tvTeamHome.text}_yellow_card") ?: 0
+                    val currentSecondStrikerYellowCard = it.getLong("${tvHomeSecondStrikerName.text}_yellow_card") ?: 0
+                    val homeYellowCard = currentYellowCard + 1
+                    val homeSecondStrikerYellowCard = currentSecondStrikerYellowCard + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_yellow_card", homeYellowCard)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_yellow_card", homeSecondStrikerYellowCard)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val yellowCardTime = tvTimer.text.toString()
+                    val yellowCardData = hashMapOf(
+                        "time" to yellowCardTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "yellow_card",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(yellowCardData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_yellow_card_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_yellow_card_times", FieldValue.arrayUnion(yellowCardTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+                }
+        }
+
+        //handler redCard
+        val btnRedCard = dialogView.findViewById<TextView>(R.id.button_redCard)
+        btnRedCard.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "violations_card"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentRedCard = it.getLong("${tvTeamHome.text}_red_card") ?: 0
+                    val currentSecondStrikerRedCard = it.getLong("${tvHomeSecondStrikerName.text}_red_card") ?: 0
+                    val homeRedCard = currentRedCard + 1
+                    val homeSecondStrikerRedCard = currentSecondStrikerRedCard + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_red_card", homeRedCard)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_red_card", homeSecondStrikerRedCard)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val redCardTime = tvTimer.text.toString()
+                    val redCardData = hashMapOf(
+                        "time" to redCardTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "red_card",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(redCardData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_red_card_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_red_card_times", FieldValue.arrayUnion(redCardTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler penalty
+        val btnPenalty = dialogView.findViewById<TextView>(R.id.button_penalty)
+        btnPenalty.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "penalty"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentPenalty = it.getLong("${tvTeamHome.text}_penalty") ?: 0
+                    val currentSecondStrikerPenalty = it.getLong("${tvHomeSecondStrikerName.text}_penalty") ?: 0
+                    val homePenalty = currentPenalty + 1
+                    val homeSecondStrikerPenalty = currentSecondStrikerPenalty + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_penalty", homePenalty)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_penalty", homeSecondStrikerPenalty)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val penaltyTime = tvTimer.text.toString()
+                    val penaltyData = hashMapOf(
+                        "time" to penaltyTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "penalty",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(penaltyData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_penalty_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_penalty_times", FieldValue.arrayUnion(penaltyTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+
+                }
+        }
+
+        //handler offside
+        val btnOffside = dialogView.findViewById<TextView>(R.id.button_offside)
+        btnOffside.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "offside"
+            db.collection(documentId).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentOffside = it.getLong("${tvTeamHome.text}_offside") ?: 0
+                    val currentSecondStrikerOffside = it.getLong("${tvHomeSecondStrikerName.text}_offside") ?: 0
+                    val homeOffside = currentOffside + 1
+                    val homeSecondStrikerOffside = currentSecondStrikerOffside + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_offside", homeOffside)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_offside", homeSecondStrikerOffside)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val offsideTime = tvTimer.text.toString()
+                    val offsideData = hashMapOf(
+                        "time" to offsideTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "offside",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(offsideData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_offside_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_offside_times", FieldValue.arrayUnion(offsideTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler steal
+        val btnSteal = dialogView.findViewById<TextView>(R.id.button_steal)
+        btnSteal.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "steal"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentSteal = it.getLong("${tvTeamHome.text}_steal") ?: 0
+                    val currentSecondStrikerSteal = it.getLong("${tvHomeSecondStrikerName.text}_steal") ?: 0
+                    val homeSteal = currentSteal + 1
+                    val homeSecondStrikerSteal = currentSecondStrikerSteal + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_steal", homeSteal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_steal", homeSecondStrikerSteal)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val stealTime = tvTimer.text.toString()
+                    val stealData = hashMapOf(
+                        "time" to stealTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "steal",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(stealData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_steal_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_steal_times", FieldValue.arrayUnion(stealTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler 10mFail
+        val btn10mFail = dialogView.findViewById<TextView>(R.id.button_10mfail)
+        btn10mFail.setOnClickListener(){
+            val documentId = documentId
+            val collectionName = "matchStats"
+            val collectionBranchName = "10m_fail"
+            db.collection(collectionName).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val current10mFail = it.getLong("${tvTeamHome.text}_10m_fail") ?: 0
+                    val currentSecondStriker10mFail = it.getLong("${tvHomeSecondStrikerName.text}_10m_fail") ?: 0
+                    val home10mFail = current10mFail + 1
+                    val homeSecondStriker10mFail = currentSecondStriker10mFail + 1
+                    db.collection(collectionName).document(documentId)
+                        .update("${tvTeamHome.text}_10m_fail", home10mFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+                    db.collection(documentId).document(documentId)
+                        .update("${tvHomeSecondStrikerName.text}_10m_fail", homeSecondStriker10mFail)
+                        .addOnSuccessListener {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error updating document", e)
+                        }
+
+                    val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                    val fail10mTime = tvTimer.text.toString()
+                    val fail10mData = hashMapOf(
+                        "time" to fail10mTime,
+                        "player" to "${tvHomeSecondStrikerName.text}",
+                        "action" to "10m_fail",
+                    )
+                    db.collection(collectionName).document(documentId).collection(collectionBranchName).add(fail10mData).addOnSuccessListener { documentReference ->
+                        Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){ e ->
+                        Log.w("Error", "Error adding document", e)
+                    }
+
+                    //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_10m_fail_times dalam bentuk Array
+                    db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_10m_fail_times", FieldValue.arrayUnion(fail10mTime)).addOnSuccessListener() {
+                        Log.d("Success", "DocumentSnapshot successfully updated!")
+                        alertDialog.dismiss()
+                    }.addOnFailureListener(){
+                        Log.w("Error", "Error updating document", it)
+                    }
+
+                }
+        }
+
+        //handler toogleShootGoal
+        val btnToogleShootGoal = dialogView.findViewById<TextView>(R.id.button_shootGoal)
+        btnToogleShootGoal.setOnClickListener(){
+            var dialogBuilder = AlertDialog.Builder(this)
+            var inflater = this.layoutInflater
+            var dialogView = inflater.inflate(R.layout.dialog_match_goal, null)
+            dialogBuilder.setView(dialogView)
+            var alertDialog = dialogBuilder.create()
+            alertDialog.show()
+
+            //handler shootGoal
+            val btnShootGoal = dialogView.findViewById<TextView>(R.id.button_goal_shoot)
+            btnShootGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_shoot_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_shoot_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val shootGoalTime = tvTimer.text.toString()
+                        val shootGoalData = hashMapOf(
+                            "time" to shootGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "shoot_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(shootGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_shoot_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_shoot_goal_times", FieldValue.arrayUnion(shootGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler valleyGoal
+            val btnValleyGoal = dialogView.findViewById<TextView>(R.id.button_goal_valley)
+            btnValleyGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_valley_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_valley_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val valleyGoalTime = tvTimer.text.toString()
+                        val valleyGoalData = hashMapOf(
+                            "time" to valleyGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "valley_goal",
+                        )
+
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(valleyGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_valley_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_valley_goal_times", FieldValue.arrayUnion(valleyGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler healedGoal
+            val btnHealedGoal = dialogView.findViewById<TextView>(R.id.button_goal_healed)
+            btnHealedGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_healed_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_healed_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val healedGoalTime = tvTimer.text.toString()
+                        val healedGoalData = hashMapOf(
+                            "time" to healedGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "healed_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(healedGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_healed_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_healed_goal_times", FieldValue.arrayUnion(healedGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler foulGoal
+            val btnFoulGoal = dialogView.findViewById<TextView>(R.id.button_goal_foul)
+            btnFoulGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_foul_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_foul_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val foulGoalTime = tvTimer.text.toString()
+                        val foulGoalData = hashMapOf(
+                            "time" to foulGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "foul_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(foulGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_foul_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_foul_goal_times", FieldValue.arrayUnion(foulGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler scissorsGoal
+            val btnScissorsGoal = dialogView.findViewById<TextView>(R.id.button_goal_Scissors)
+            btnScissorsGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_scissors_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_scissors_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val scissorsGoalTime = tvTimer.text.toString()
+                        val scissorsGoalData = hashMapOf(
+                            "time" to scissorsGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "scissors_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(scissorsGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_scissors_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_scissors_goal_times", FieldValue.arrayUnion(scissorsGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler otherGoal
+            val btnOtherGoal = dialogView.findViewById<TextView>(R.id.button_goal_other)
+            btnOtherGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_other_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_other_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val otherGoalTime = tvTimer.text.toString()
+                        val otherGoalData = hashMapOf(
+                            "time" to otherGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "other_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(otherGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_other_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_other_goal_times", FieldValue.arrayUnion(otherGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler reverseGoal
+            val btnReverseGoal = dialogView.findViewById<TextView>(R.id.button_goal_reverse)
+            btnReverseGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_reverse_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_reverse_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val reverseGoalTime = tvTimer.text.toString()
+                        val reverseGoalData = hashMapOf(
+                            "time" to reverseGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "reverse_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(reverseGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_reverse_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_reverse_goal_times", FieldValue.arrayUnion(reverseGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler lobGoal
+            val btnLobGoal = dialogView.findViewById<TextView>(R.id.button_goal_lob)
+            btnLobGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_lob_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_lob_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val lobGoalTime = tvTimer.text.toString()
+                        val lobGoalData = hashMapOf(
+                            "time" to lobGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "lob_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(lobGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_lob_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_lob_goal_times", FieldValue.arrayUnion(lobGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler longGoal
+            val btnLongGoal = dialogView.findViewById<TextView>(R.id.button_goal_long)
+            btnLongGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_long_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_long_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val longGoalTime = tvTimer.text.toString()
+                        val longGoalData = hashMapOf(
+                            "time" to longGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "long_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(longGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_long_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_long_goal_times", FieldValue.arrayUnion(longGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+
+            //handler healGoal
+            val btnHealGoal = dialogView.findViewById<TextView>(R.id.button_goal_Heal)
+            btnHealGoal.setOnClickListener(){
+                val documentId = documentId
+                val collectionName = "matchStats"
+                val collectionBranchName = "goals"
+                db.collection(collectionName).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${tvTeamHome.text}_goal") ?: 0
+                        val currentSecondStrikerGoal = it.getLong("${tvHomeSecondStrikerName.text}_heal_goal") ?: 0
+                        val homeGoal = currentGoal + 1
+                        val homeSecondStrikerGoal = currentSecondStrikerGoal + 1
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvTeamHome.text}_goal", homeGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+                        db.collection(collectionName).document(documentId)
+                            .update("${tvHomeSecondStrikerName.text}_heal_goal", homeSecondStrikerGoal)
+                            .addOnSuccessListener {
+                                Log.d("Success", "DocumentSnapshot successfully updated!")
+                                alertDialog.dismiss()
+                            }.addOnFailureListener(){ e ->
+                                Log.w("Error", "Error updating document", e)
+                            }
+
+                        val tvTimer = findViewById<TextView>(R.id.timerTextView)
+                        val healGoalTime = tvTimer.text.toString()
+                        val healGoalData = hashMapOf(
+                            "time" to healGoalTime,
+                            "player" to "${tvHomeSecondStrikerName.text}",
+                            "action" to "heal_goal",
+                        )
+                        db.collection(collectionName).document(documentId).collection(collectionBranchName).add(healGoalData).addOnSuccessListener { documentReference ->
+                            Log.d("Success", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){ e ->
+                            Log.w("Error", "Error adding document", e)
+                        }
+
+                        //masukkan data time ke dalam field ${tvHomeSecondStrikerName.text}_heal_goal_times dalam bentuk Array
+                        db.collection(collectionName).document(documentId).update("${tvHomeSecondStrikerName.text}_heal_goal_times", FieldValue.arrayUnion(healGoalTime)).addOnSuccessListener() {
+                            Log.d("Success", "DocumentSnapshot successfully updated!")
+                            alertDialog.dismiss()
+                        }.addOnFailureListener(){
+                            Log.w("Error", "Error updating document", it)
+                        }
+
+                    }
+            }
+        }
     }
 
     private fun getHomeTeamDocumentId() {
@@ -12362,8 +14732,7 @@ class MatchBerjalan : AppCompatActivity() {
                     teamAwaySecondStriker = document.getString("nama_pemain").toString()
                     Log.d("Away Second Striker: ", teamAwaySecondStriker)
 
-                    tvAwaySecondStrikerName =
-                        findViewById<TextView>(R.id.tv_goal_player11_name_away)
+                    tvAwaySecondStrikerName = findViewById<TextView>(R.id.tv_goal_player11_name_away)
                     tvAwaySecondStrikerName.text = teamAwaySecondStriker
 
                 }
@@ -12371,5 +14740,217 @@ class MatchBerjalan : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("Error", "Error getting documents: ", exception)
             }
+    }
+
+    private fun setHomePlayerGoal(){
+
+        //variabel untuk menampilkan data jumlah goal setiap pemain
+        val goalKeeperGoalNumber = findViewById<TextView>(R.id.tv_goal_player1_home)
+        val centreBackGoalNumber = findViewById<TextView>(R.id.tv_goal_player2_home)
+        val leftBackGoalNumber = findViewById<TextView>(R.id.tv_goal_player3_home)
+        val rightBackGoalNumber = findViewById<TextView>(R.id.tv_goal_player4_home)
+        val defensiveMidfielderGoalNumber = findViewById<TextView>(R.id.tv_goal_player5_home)
+        val centralMidfielderGoalNumber = findViewById<TextView>(R.id.tv_goal_player6_home)
+        val attackingMidfielderGoalNumber = findViewById<TextView>(R.id.tv_goal_player7_home)
+        val leftWingerGoalNumber = findViewById<TextView>(R.id.tv_goal_player8_home)
+        val rightWingerGoalNumber = findViewById<TextView>(R.id.tv_goal_player9_home)
+        val centreForwardGoalNumber = findViewById<TextView>(R.id.tv_goal_player10_home)
+        val secondStrikerGoalNumber = findViewById<TextView>(R.id.tv_goal_player11_home)
+
+        //variabel untuk menyimpan nama pemain
+        val goalKeeperName = findViewById<TextView>(R.id.tv_goal_player1_name_home)
+        val centreBackName = findViewById<TextView>(R.id.tv_goal_player2_name_home)
+        val leftBackName = findViewById<TextView>(R.id.tv_goal_player3_name_home)
+        val rightBackName = findViewById<TextView>(R.id.tv_goal_player4_name_home)
+        val defensiveMidfielderName = findViewById<TextView>(R.id.tv_goal_player5_name_home)
+        val centralMidfielderName = findViewById<TextView>(R.id.tv_goal_player6_name_home)
+        val attackingMidfielderName = findViewById<TextView>(R.id.tv_goal_player7_name_home)
+        val leftWingerName = findViewById<TextView>(R.id.tv_goal_player8_name_home)
+        val rightWingerName = findViewById<TextView>(R.id.tv_goal_player9_name_home)
+        val centreForwardName = findViewById<TextView>(R.id.tv_goal_player10_name_home)
+        val secondStrikerName = findViewById<TextView>(R.id.tv_goal_player11_name_home)
+
+        val goalKeeperNameStr = goalKeeperName.text.toString()
+        val centreBackNameStr = centreBackName.text.toString()
+        val leftBackNameStr = leftBackName.text.toString()
+        val rightBackNameStr = rightBackName.text.toString()
+        val defensiveMidfielderNameStr = defensiveMidfielderName.text.toString()
+        val centralMidfielderNameStr = centralMidfielderName.text.toString()
+        val attackingMidfielderNameStr = attackingMidfielderName.text.toString()
+        val leftWingerNameStr = leftWingerName.text.toString()
+        val rightWingerNameStr = rightWingerName.text.toString()
+        val centreForwardNameStr = centreForwardName.text.toString()
+        val secondStrikerNameStr = secondStrikerName.text.toString()
+
+        val matchDocumentId = intent.getStringExtra("matchId")
+        Toast.makeText(this, matchDocumentId, Toast.LENGTH_SHORT).show()
+
+        val docRef = db.collection("matchStats").whereEqualTo("match_id", matchDocumentId)
+        docRef.addSnapshotListener() { snapshot, e ->
+            if (e != null) {
+                Log.w("Error", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null){
+                for (document in snapshot){
+
+                    //handler untuk goalKeeper team home
+                    val goalKeeperShootGoal = document.getLong("${goalKeeperName.text}_Shoot_goal") ?: 0
+                    val goalKeeperScissorsGoal = document.getLong("${goalKeeperName.text}_Scissors_goal") ?: 0
+                    val goalKeeperOtherGoal = document.getLong("${goalKeeperName.text}_Other_goal") ?: 0
+                    val goalKeeperReverseGoal = document.getLong("${goalKeeperName.text}_Reverse_goal") ?: 0
+                    val goalKeeperLobGoal = document.getLong("${goalKeeperName.text}_Lob_goal") ?: 0
+                    val goalKeeperLongGoal = document.getLong("${goalKeeperName.text}_Long_goal") ?: 0
+                    val goalKeeperHealGoal = document.getLong("${goalKeeperName.text}_Heal_goal") ?: 0
+                    val goalKeeperHealedGoal = document.getLong("${goalKeeperName.text}_Healed_goal") ?: 0
+                    val goalKeeperFoulGoal = document.getLong("${goalKeeperName.text}_Foul_goal") ?: 0
+                    val goalKeeperValleyGoal = document.getLong("${goalKeeperName.text}_Valley_goal") ?: 0
+                    val goalKeeperShootGoalNumber = goalKeeperShootGoal + goalKeeperScissorsGoal + goalKeeperOtherGoal + goalKeeperReverseGoal + goalKeeperLobGoal + goalKeeperLongGoal + goalKeeperHealGoal + goalKeeperHealedGoal + goalKeeperFoulGoal + goalKeeperValleyGoal
+                    goalKeeperGoalNumber.text = goalKeeperShootGoalNumber.toString()
+
+                    //handler untuk centreBack team home
+                    val centreBackShootGoal = document.getLong("${centreBackName.text}_shoot_goal") ?: 0
+                    val centreBackScissorsGoal = document.getLong("${centreBackName.text}_scissors_goal") ?: 0
+                    val centreBackOtherGoal = document.getLong("${centreBackName.text}_other_goal") ?: 0
+                    val centreBackReverseGoal = document.getLong("${centreBackName.text}_reverse_goal") ?: 0
+                    val centreBackLobGoal = document.getLong("${centreBackName.text}_lob_goal") ?: 0
+                    val centreBackLongGoal = document.getLong("${centreBackName.text}_long_goal") ?: 0
+                    val centreBackHealGoal = document.getLong("${centreBackName.text}_heal_goal") ?: 0
+                    val centreBackHealedGoal = document.getLong("${centreBackName.text}_healed_goal") ?: 0
+                    val centreBackFoulGoal = document.getLong("${centreBackName.text}_foul_goal") ?: 0
+                    val centreBackValleyGoal = document.getLong("${centreBackName.text}_valley_goal") ?: 0
+                    val centreBackShootGoalNumber = centreBackShootGoal + centreBackScissorsGoal + centreBackOtherGoal + centreBackReverseGoal + centreBackLobGoal + centreBackLongGoal + centreBackHealGoal + centreBackHealedGoal + centreBackFoulGoal + centreBackValleyGoal
+                    centreBackGoalNumber.text = centreBackShootGoalNumber.toString()
+
+                    //handler untuk leftBack team home
+                    val leftBackShootGoal = document.getLong("${leftBackName.text}_shoot_goal") ?: 0
+                    val leftBackScissorsGoal = document.getLong("${leftBackName.text}_scissors_goal") ?: 0
+                    val leftBackOtherGoal = document.getLong("${leftBackName.text}_other_goal") ?: 0
+                    val leftBackReverseGoal = document.getLong("${leftBackName.text}_reverse_goal") ?: 0
+                    val leftBackLobGoal = document.getLong("${leftBackName.text}_lob_goal") ?: 0
+                    val leftBackLongGoal = document.getLong("${leftBackName.text}_long_goal") ?: 0
+                    val leftBackHealGoal = document.getLong("${leftBackName.text}_heal_goal") ?: 0
+                    val leftBackHealedGoal = document.getLong("${leftBackName.text}_healed_goal") ?: 0
+                    val leftBackFoulGoal = document.getLong("${leftBackName.text}_foul_goal") ?: 0
+                    val leftBackValleyGoal = document.getLong("${leftBackName.text}_valley_goal") ?: 0
+                    val leftBackShootGoalNumber = leftBackShootGoal + leftBackScissorsGoal + leftBackOtherGoal + leftBackReverseGoal + leftBackLobGoal + leftBackLongGoal + leftBackHealGoal + leftBackHealedGoal + leftBackFoulGoal + leftBackValleyGoal
+                    leftBackGoalNumber.text = leftBackShootGoalNumber.toString()
+
+                    //handler untuk rightBack team home
+                    val rightBackShootGoal = document.getLong("${rightBackName.text}_shoot_goal") ?: 0
+                    val rightBackScissorsGoal = document.getLong("${rightBackName.text}_scissors_goal") ?: 0
+                    val rightBackOtherGoal = document.getLong("${rightBackName.text}_other_goal") ?: 0
+                    val rightBackReverseGoal = document.getLong("${rightBackName.text}_reverse_goal") ?: 0
+                    val rightBackLobGoal = document.getLong("${rightBackName.text}_lob_goal") ?: 0
+                    val rightBackLongGoal = document.getLong("${rightBackName.text}_long_goal") ?: 0
+                    val rightBackHealGoal = document.getLong("${rightBackName.text}_heal_goal") ?: 0
+                    val rightBackHealedGoal = document.getLong("${rightBackName.text}_healed_goal") ?: 0
+                    val rightBackFoulGoal = document.getLong("${rightBackName.text}_foul_goal") ?: 0
+                    val rightBackValleyGoal = document.getLong("${rightBackName.text}_valley_goal") ?: 0
+                    val rightBackShootGoalNumber = rightBackShootGoal + rightBackScissorsGoal + rightBackOtherGoal + rightBackReverseGoal + rightBackLobGoal + rightBackLongGoal + rightBackHealGoal + rightBackHealedGoal + rightBackFoulGoal + rightBackValleyGoal
+                    rightBackGoalNumber.text = rightBackShootGoalNumber.toString()
+
+                    //handler untuk defensiveMidfielder team home
+                    val defensiveMidfielderShootGoal = document.getLong("${defensiveMidfielderName.text}_shoot_goal") ?: 0
+                    val defensiveMidfielderScissorsGoal = document.getLong("${defensiveMidfielderName.text}_scissors_goal") ?: 0
+                    val defensiveMidfielderOtherGoal = document.getLong("${defensiveMidfielderName.text}_other_goal") ?: 0
+                    val defensiveMidfielderReverseGoal = document.getLong("${defensiveMidfielderName.text}_reverse_goal") ?: 0
+                    val defensiveMidfielderLobGoal = document.getLong("${defensiveMidfielderName.text}_lob_goal") ?: 0
+                    val defensiveMidfielderLongGoal = document.getLong("${defensiveMidfielderName.text}_long_goal") ?: 0
+                    val defensiveMidfielderHealGoal = document.getLong("${defensiveMidfielderName.text}_heal_goal") ?: 0
+                    val defensiveMidfielderHealedGoal = document.getLong("${defensiveMidfielderName.text}_healed_goal") ?: 0
+                    val defensiveMidfielderFoulGoal = document.getLong("${defensiveMidfielderName.text}_foul_goal") ?: 0
+                    val defensiveMidfielderValleyGoal = document.getLong("${defensiveMidfielderName.text}_valley_goal") ?: 0
+                    val defensiveMidfielderShootGoalNumber = defensiveMidfielderShootGoal + defensiveMidfielderScissorsGoal + defensiveMidfielderOtherGoal + defensiveMidfielderReverseGoal + defensiveMidfielderLobGoal + defensiveMidfielderLongGoal + defensiveMidfielderHealGoal + defensiveMidfielderHealedGoal + defensiveMidfielderFoulGoal + defensiveMidfielderValleyGoal
+                    defensiveMidfielderGoalNumber.text = defensiveMidfielderShootGoalNumber.toString()
+
+                    //handler untuk centralMidfielder team home
+                    val centralMidfielderShootGoal = document.getLong("${centralMidfielderName.text}_shoot_goal") ?: 0
+                    val centralMidfielderScissorsGoal = document.getLong("${centralMidfielderName.text}_scissors_goal") ?: 0
+                    val centralMidfielderOtherGoal = document.getLong("${centralMidfielderName.text}_other_goal") ?: 0
+                    val centralMidfielderReverseGoal = document.getLong("${centralMidfielderName.text}_reverse_goal") ?: 0
+                    val centralMidfielderLobGoal = document.getLong("${centralMidfielderName.text}_lob_goal") ?: 0
+                    val centralMidfielderLongGoal = document.getLong("${centralMidfielderName.text}_long_goal") ?: 0
+                    val centralMidfielderHealGoal = document.getLong("${centralMidfielderName.text}_heal_goal") ?: 0
+                    val centralMidfielderHealedGoal = document.getLong("${centralMidfielderName.text}_healed_goal") ?: 0
+                    val centralMidfielderFoulGoal = document.getLong("${centralMidfielderName.text}_foul_goal") ?: 0
+                    val centralMidfielderValleyGoal = document.getLong("${centralMidfielderName.text}_valley_goal") ?: 0
+                    val centralMidfielderShootGoalNumber = centralMidfielderShootGoal + centralMidfielderScissorsGoal + centralMidfielderOtherGoal + centralMidfielderReverseGoal + centralMidfielderLobGoal + centralMidfielderLongGoal + centralMidfielderHealGoal + centralMidfielderHealedGoal + centralMidfielderFoulGoal + centralMidfielderValleyGoal
+                    centralMidfielderGoalNumber.text = centralMidfielderShootGoalNumber.toString()
+
+                    //handler untuk attackingMidfielder team home
+                    val attackingMidfielderShootGoal = document.getLong("${attackingMidfielderName.text}_shoot_goal") ?: 0
+                    val attackingMidfielderScissorsGoal = document.getLong("${attackingMidfielderName.text}_scissors_goal") ?: 0
+                    val attackingMidfielderOtherGoal = document.getLong("${attackingMidfielderName.text}_other_goal") ?: 0
+                    val attackingMidfielderReverseGoal = document.getLong("${attackingMidfielderName.text}_reverse_goal") ?: 0
+                    val attackingMidfielderLobGoal = document.getLong("${attackingMidfielderName.text}_lob_goal") ?: 0
+                    val attackingMidfielderLongGoal = document.getLong("${attackingMidfielderName.text}_long_goal") ?: 0
+                    val attackingMidfielderHealGoal = document.getLong("${attackingMidfielderName.text}_heal_goal") ?: 0
+                    val attackingMidfielderHealedGoal = document.getLong("${attackingMidfielderName.text}_healed_goal") ?: 0
+                    val attackingMidfielderFoulGoal = document.getLong("${attackingMidfielderName.text}_foul_goal") ?: 0
+                    val attackingMidfielderValleyGoal = document.getLong("${attackingMidfielderName.text}_valley_goal") ?: 0
+                    val attackingMidfielderShootGoalNumber = attackingMidfielderShootGoal + attackingMidfielderScissorsGoal + attackingMidfielderOtherGoal + attackingMidfielderReverseGoal + attackingMidfielderLobGoal + attackingMidfielderLongGoal + attackingMidfielderHealGoal + attackingMidfielderHealedGoal + attackingMidfielderFoulGoal + attackingMidfielderValleyGoal
+                    attackingMidfielderGoalNumber.text = attackingMidfielderShootGoalNumber.toString()
+
+                    //handler untuk leftWinger team home
+                    val leftWingerShootGoal = document.getLong("${leftWingerName.text}_shoot_goal") ?: 0
+                    val leftWingerScissorsGoal = document.getLong("${leftWingerName.text}_scissors_goal") ?: 0
+                    val leftWingerOtherGoal = document.getLong("${leftWingerName.text}_other_goal") ?: 0
+                    val leftWingerReverseGoal = document.getLong("${leftWingerName.text}_reverse_goal") ?: 0
+                    val leftWingerLobGoal = document.getLong("${leftWingerName.text}_lob_goal") ?: 0
+                    val leftWingerLongGoal = document.getLong("${leftWingerName.text}_long_goal") ?: 0
+                    val leftWingerHealGoal = document.getLong("${leftWingerName.text}_heal_goal") ?: 0
+                    val leftWingerHealedGoal = document.getLong("${leftWingerName.text}_healed_goal") ?: 0
+                    val leftWingerFoulGoal = document.getLong("${leftWingerName.text}_foul_goal") ?: 0
+                    val leftWingerValleyGoal = document.getLong("${leftWingerName.text}_valley_goal") ?: 0
+                    val leftWingerShootGoalNumber = leftWingerShootGoal + leftWingerScissorsGoal + leftWingerOtherGoal + leftWingerReverseGoal + leftWingerLobGoal + leftWingerLongGoal + leftWingerHealGoal + leftWingerHealedGoal + leftWingerFoulGoal + leftWingerValleyGoal
+                    leftWingerGoalNumber.text = leftWingerShootGoalNumber.toString()
+
+                    //handler untuk rightWinger team home
+                    val rightWingerShootGoal = document.getLong("${rightWingerName.text}_shoot_goal") ?: 0
+                    val rightWingerScissorsGoal = document.getLong("${rightWingerName.text}_scissors_goal") ?: 0
+                    val rightWingerOtherGoal = document.getLong("${rightWingerName.text}_other_goal") ?: 0
+                    val rightWingerReverseGoal = document.getLong("${rightWingerName.text}_reverse_goal") ?: 0
+                    val rightWingerLobGoal = document.getLong("${rightWingerName.text}_lob_goal") ?: 0
+                    val rightWingerLongGoal = document.getLong("${rightWingerName.text}_long_goal") ?: 0
+                    val rightWingerHealGoal = document.getLong("${rightWingerName.text}_heal_goal") ?: 0
+                    val rightWingerHealedGoal = document.getLong("${rightWingerName.text}_healed_goal") ?: 0
+                    val rightWingerFoulGoal = document.getLong("${rightWingerName.text}_foul_goal") ?: 0
+                    val rightWingerValleyGoal = document.getLong("${rightWingerName.text}_valley_goal") ?: 0
+                    val rightWingerShootGoalNumber = rightWingerShootGoal + rightWingerScissorsGoal + rightWingerOtherGoal + rightWingerReverseGoal + rightWingerLobGoal + rightWingerLongGoal + rightWingerHealGoal + rightWingerHealedGoal + rightWingerFoulGoal + rightWingerValleyGoal
+                    rightWingerGoalNumber.text = rightWingerShootGoalNumber.toString()
+
+                    //handler untuk centreForward team home
+                    val centreForwardShootGoal = document.getLong("${centreForwardName.text}_shoot_goal") ?: 0
+                    val centreForwardScissorsGoal = document.getLong("${centreForwardName.text}_scissors_goal") ?: 0
+                    val centreForwardOtherGoal = document.getLong("${centreForwardName.text}_other_goal") ?: 0
+                    val centreForwardReverseGoal = document.getLong("${centreForwardName.text}_reverse_goal") ?: 0
+                    val centreForwardLobGoal = document.getLong("${centreForwardName.text}_lob_goal") ?: 0
+                    val centreForwardLongGoal = document.getLong("${centreForwardName.text}_long_goal") ?: 0
+                    val centreForwardHealGoal = document.getLong("${centreForwardName.text}_heal_goal") ?: 0
+                    val centreForwardHealedGoal = document.getLong("${centreForwardName.text}_healed_goal") ?: 0
+                    val centreForwardFoulGoal = document.getLong("${centreForwardName.text}_foul_goal") ?: 0
+                    val centreForwardValleyGoal = document.getLong("${centreForwardName.text}_valley_goal") ?: 0
+                    val centreForwardShootGoalNumber = centreForwardShootGoal + centreForwardScissorsGoal + centreForwardOtherGoal + centreForwardReverseGoal + centreForwardLobGoal + centreForwardLongGoal + centreForwardHealGoal + centreForwardHealedGoal + centreForwardFoulGoal + centreForwardValleyGoal
+                    centreForwardGoalNumber.text = centreForwardShootGoalNumber.toString()
+
+                    //handler untuk secondStriker team home
+                    val secondStrikerShootGoal = document.getLong("${secondStrikerName.text}_shoot_goal") ?: 0
+                    val secondStrikerScissorsGoal = document.getLong("${secondStrikerName.text}_scissors_goal") ?: 0
+                    val secondStrikerOtherGoal = document.getLong("${secondStrikerName.text}_other_goal") ?: 0
+                    val secondStrikerReverseGoal = document.getLong("${secondStrikerName.text}_reverse_goal") ?: 0
+                    val secondStrikerLobGoal = document.getLong("${secondStrikerName.text}_lob_goal") ?: 0
+                    val secondStrikerLongGoal = document.getLong("${secondStrikerName.text}_long_goal") ?: 0
+                    val secondStrikerHealGoal = document.getLong("${secondStrikerName.text}_heal_goal") ?: 0
+                    val secondStrikerHealedGoal = document.getLong("${secondStrikerName.text}_healed_goal") ?: 0
+                    val secondStrikerFoulGoal = document.getLong("${secondStrikerName.text}_foul_goal") ?: 0
+                    val secondStrikerValleyGoal = document.getLong("${secondStrikerName.text}_valley_goal") ?: 0
+                    val secondStrikerShootGoalNumber = secondStrikerShootGoal + secondStrikerScissorsGoal + secondStrikerOtherGoal + secondStrikerReverseGoal + secondStrikerLobGoal + secondStrikerLongGoal + secondStrikerHealGoal + secondStrikerHealedGoal + secondStrikerFoulGoal + secondStrikerValleyGoal
+                    secondStrikerGoalNumber.text = secondStrikerShootGoalNumber.toString()
+
+                    
+                }
+            }
+        }
     }
 }

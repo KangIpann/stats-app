@@ -356,7 +356,7 @@ class TambahMatch : AppCompatActivity() {
             .add(match)
             .addOnSuccessListener { documentReference ->
                 println("DocumentSnapshot added with ID: ${documentReference.id}")
-                matchId = documentReference.id
+                val matchId = documentReference.id
 
                 val intent = Intent(this, MatchBerjalan::class.java)
                 intent.putExtra("matchId", matchId)

@@ -786,7 +786,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player4_number"
+                    android:id="@+id/tv_goal_player4_number_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -799,7 +799,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player4_name"
+                    android:id="@+id/tv_goal_player4_name_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
@@ -809,7 +809,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player4_number" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_goal_player4_number_home" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -1119,6 +1119,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_centre_forward"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1178,6 +1179,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_home_second_striker"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1384,6 +1386,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:layout_width="174dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
