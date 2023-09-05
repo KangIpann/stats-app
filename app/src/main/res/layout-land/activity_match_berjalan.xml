@@ -1268,6 +1268,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_left_back"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1327,7 +1328,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/gk_constraint_away_left_back"
+                android:id="@+id/gk_constraint_away_centre_back"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1454,6 +1455,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_right_back"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1513,6 +1515,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_defensive_midfielder"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
