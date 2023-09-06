@@ -162,24 +162,30 @@ class TambahMatch : AppCompatActivity() {
     }
 
     private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                val tanggalLahirEditText = findViewById<TextView>(R.id.tv_tanggal_match)
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, monthOfYear)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                tanggalLahirEditText.text =
-                    dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
-            }
-        val datePickerDialog = DatePickerDialog(
-            this, dateSetListener,
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
-        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+        if (tvTanggalMatch.text.toString() == "DD-MM-YYYY") {
+            val calendar = Calendar.getInstance()
+            val datePickerDialog = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                    val tanggalMatch = findViewById<TextView>(R.id.tv_tanggal_match)
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, month)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    tanggalMatch.text =
+                        String.format("%02d-%02d-%02d", dayOfMonth, month + 1, year) // Format the date
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.show()
+        } else {
+            val tanggalMatch = findViewById<TextView>(R.id.tv_tanggal_match)
+            val calendar = Calendar.getInstance()
+            tanggalMatch.text =
+                String.format("%02d-%02d-%02d", calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)) // Format the date
+
+        }
     }
 
     private fun setStartTime() {
@@ -311,7 +317,8 @@ class TambahMatch : AppCompatActivity() {
 
             return String.format("%02d:%02d:%02d", hours, minutes, seconds)
         } else {
-            return ""
+            //jika waktu tidak diisi maka akan mengisi dengan default 90 menit
+            return "01:30:00"
         }
     }
 
