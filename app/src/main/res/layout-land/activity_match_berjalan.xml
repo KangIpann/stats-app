@@ -1575,6 +1575,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_central_midfielder"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
