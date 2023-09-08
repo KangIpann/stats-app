@@ -32,6 +32,8 @@
     <string name="assist">Assist</string>
     <string name="_10m_fail">10M Fail</string>
     <string name="_10m_goal">10M Goal</string>
+    <string name="valley">Valley</string>
+    <string name="long_">Long</string>
 
     <string-array name="gender_array">
         <item>Pilih Kelamin</item>

@@ -75,7 +75,7 @@
                 android:background="@drawable/button_grey_dialog"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
-                android:text="Valley"
+                android:text="@string/valley"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -86,7 +86,7 @@
                 android:background="@drawable/button_grey_dialog"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
-                android:text="Long"
+                android:text="@string/long_"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -212,6 +212,7 @@ class DetailTeam : AppCompatActivity() {
                         updateData("jersey", newWarnaJersey)
                     }else{
                         etWarnaJersey.setSelection(etWarnaJersey.text.length)
+                        
                     }
                 }
 

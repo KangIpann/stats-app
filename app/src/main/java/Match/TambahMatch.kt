@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import com.example.statsapp.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
@@ -359,6 +360,8 @@ class TambahMatch : AppCompatActivity() {
             "durasi_match" to matchDuration
         )
 
+        Toast.makeText(this, "Match started", Toast.LENGTH_SHORT).show()
+
         db.collection("match")
             .add(match)
             .addOnSuccessListener { documentReference ->
@@ -388,8 +391,6 @@ class TambahMatch : AppCompatActivity() {
             .addOnFailureListener { e ->
                 println("Error adding document: $e")
             }
-
-
 
 
     }

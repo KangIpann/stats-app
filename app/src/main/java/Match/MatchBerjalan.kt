@@ -1,6 +1,7 @@
 package Match
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20650,10 +20651,12 @@ class MatchBerjalan : AppCompatActivity() {
                     val awayPenalty = currentPenalty + 1
                     val playerPenalty = it.getLong("${tvAwayCentralMidfielderName.text}_penalty") ?: 0
                     val playerPenaltyCount = playerPenalty + 1
+                    val action = "penalty"
                     db.collection(collection).document(documentId)
                         .update(
                             "${tvTeamAway.text}_penalty", awayPenalty,
-                            "${tvAwayCentralMidfielderName.text}_penalty", playerPenaltyCount)
+                            "${tvAwayCentralMidfielderName.text}_penalty", playerPenaltyCount,
+                            "${tvAwayCentralMidfielderName.text}_penalty_times", FieldValue.arrayUnion(time))
                         .addOnSuccessListener(){
                             alertDialog.dismiss()
                         }
@@ -20661,8 +20664,282 @@ class MatchBerjalan : AppCompatActivity() {
                             alertDialog.dismiss()
                             Log.w("Failed", "Failed To Add Penalty Data")
                         }
+
+                    val penaltyData = hashMapOf(
+                        "time" to time,
+                        "player" to "${tvAwayCentralMidfielderName.text}",
+                        "action" to action
+                    )
+                    db.collection(collection).document(documentId)
+                        .collection(collectionBranch)
+                        .add(penaltyData)
+                        .addOnSuccessListener(){
+                            Log.d("Success", "Success Add Penalty Data")
+                        }
+                        .addOnFailureListener(){
+                            Log.d("Failure", "Failure Add Penalty Data")
+                        }
+                    
                 }
         }
+
+        //handler offside
+        val btnOffside = dialogView.findViewById<TextView>(R.id.button_offside)
+        btnOffside.setOnClickListener(){
+            val collectionBranch = "offside"
+            val offsideData = hashMapOf(
+                "time" to time,
+                "player" to "${tvAwayCentralMidfielderName}",
+                "action" to "offside"
+            )
+            db.collection(collection).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val teamOffside = it.getLong("${tvTeamAway.text}_offside") ?: 0
+                    val currentOffside = teamOffside + 1
+                    val playerOffside = it.getLong("${tvAwayCentralMidfielderName.text}_offside") ?: 0
+                    val playerOffsideCount = playerOffside + 1
+                    db.collection(collection).document(documentId)
+                        .update(
+                            "${tvTeamAway.text}_offside", currentOffside,
+                            "${tvAwayCentralMidfielderName.text}_offside", playerOffsideCount,
+                            "${tvAwayCentralMidfielderName.text}_offside_times", FieldValue.arrayUnion(time)
+                        )
+                        .addOnSuccessListener(){
+                            Log.d("Success", "Success Add Offside Data")
+                            alertDialog.dismiss()
+                        }
+                        .addOnFailureListener(){
+                            Log.d("Success", "Success Add Offside Data")
+                        }
+                    db.collection(collection).document(documentId)
+                        .collection(collectionBranch)
+                        .add(offsideData)
+                        .addOnSuccessListener(){
+                            Log.d("Success", "Success Add Offside Data")
+                        }
+                        .addOnFailureListener(){
+                            Log.d("Failure", "Failure Add Offside Data")
+                        }
+
+                }
+        }
+
+        //handler steal
+        val btnSteal = dialogView.findViewById<TextView>(R.id.button_steal)
+        btnSteal.setOnClickListener(){
+            val collectionBranch = "steal"
+            val stealData = hashMapOf(
+                "time" to time,
+                "player" to "${tvAwayCentralMidfielderName.text}",
+                "action" to "steal"
+            )
+            db.collection(collection).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentSteal = it.getLong("${tvTeamAway.text}_steal") ?: 0
+                    val teamSteal = currentSteal + 1
+                    val currentPlayerSteal = it.getLong("${tvAwayCentralMidfielderName.text}_steal") ?: 0
+                    val playerSteal = currentPlayerSteal + 1
+                    db.collection(collection).document(documentId)
+                        .update(
+                            "${tvTeamAway.text}_steal", teamSteal,
+                            "${tvAwayCentralMidfielderName.text}_steal", playerSteal,
+                            "${tvAwayCentralMidfielderName.text}_steal", FieldValue.arrayUnion(time)
+                        )
+                        .addOnSuccessListener(){
+                            db.collection(collection).document(documentId)
+                                .collection(collectionBranch)
+                                .add(stealData)
+                            Log.d("Success", "Success Add Steal Data")
+                            alertDialog.dismiss()
+                        }
+                }
+        }
+
+        //handler redCard
+        val btnRedCard = dialogView.findViewById<TextView>(R.id.button_redCard)
+        btnRedCard.setOnClickListener(){
+            val collectionBranch = "violations_Card"
+            db.collection(collection).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val currentRedCard = it.getLong("${tvTeamAway.text}_red_card") ?: 0
+                    val awayRedCard = currentRedCard + 1
+                    val currentPlayerRedCard = it.getLong("${tvAwayCentralMidfielderName.text}_red_card") ?: 0
+                    val playerRedCard = currentPlayerRedCard + 1
+                    db.collection(collection).document(documentId)
+                        .update(
+                            "${tvTeamAway.text}_red_card", awayRedCard,
+                            "${tvAwayCentralMidfielderName.text}_red_card", playerRedCard,
+                            "${tvAwayCentralMidfielderName.text}_red_card_times", FieldValue.arrayUnion(time)
+                        )
+                        .addOnSuccessListener(){
+                            alertDialog.dismiss()
+                            Log.d("Success", "Success Add Red Card Data")
+                        }
+                    val action = "red_card"
+                    val redCardData = hashMapOf(
+                        "time" to time,
+                        "player" to "${tvAwayCentralMidfielderName.text}",
+                        "action" to action
+                    )
+                    db.collection(collection).document(documentId)
+                        .collection(collectionBranch)
+                        .add(redCardData)
+                        .addOnSuccessListener(){
+                            Log.d("Success", "Success Add Red Card Data")
+                        }
+                }
+        }
+
+        //handler 10mFail
+        val btnTenMeterFail = dialogView.findViewById<TextView>(R.id.button_10mfail)
+        btnTenMeterFail.setOnClickListener(){
+            val collectionBranch = "10m_fail"
+            db.collection(collection).document(documentId)
+                .get()
+                .addOnSuccessListener(){
+                    val current10mFail = it.getLong("${tvTeamAway.text}_10m_fail") ?: 0
+                    val team10mFail = current10mFail + 1
+                    val curplay10mfail = it.getLong("${tvAwayCentralMidfielderName.text}_10m_fail") ?: 0
+                    val player10mFail = curplay10mfail + 1
+                    db.collection(collection).document(documentId)
+                        .update(
+                            "${tvTeamAway.text}_10m_fail", team10mFail,
+                            "${tvAwayCentralMidfielderName.text}_10m_fail", player10mFail,
+                            "${tvAwayCentralMidfielderName.text}_10m_fail_times", FieldValue.arrayUnion(time)
+                        )
+                        .addOnSuccessListener(){
+
+                            val tenMeterFailData = hashMapOf(
+                                "time" to time,
+                                "player" to "${tvAwayCentralMidfielderName.text}",
+                                "action" to "10m_fail"
+                            )
+                            db.collection(collection).document(documentId)
+                                .collection(collectionBranch)
+                                .add(tenMeterFailData)
+                            Log.d("Success", "Success Add 10M Fail")
+                            alertDialog.dismiss()
+                        }
+                }
+        }
+
+        //handler toogleShoot
+        val toogleShootDialog = dialogView.findViewById<TextView>(R.id.button_shootGoal)
+        toogleShootDialog.setOnClickListener(){
+            val dialogBuilder = AlertDialog.Builder(this)
+            val inflater = this.layoutInflater
+            val dialogView = inflater.inflate(R.layout.dialog_match_goal ,null)
+            dialogBuilder.setView(dialogView)
+            val alertDialog = dialogBuilder.create()
+            alertDialog.show()
+
+            val teamName = "${tvTeamAway.text}"
+            val playerName = "${tvAwayCentralMidfielderName.text}"
+            val collectionBranch = "goals"
+
+            //handler shootGoal
+            val shootGoal = dialogView.findViewById<TextView>(R.id.button_goal_shoot)
+            shootGoal.setOnClickListener(){
+                val goalData = hashMapOf(
+                    "time" to time,
+                    "player" to playerName,
+                    "action" to "shoot_goal"
+                )
+                db.collection(collection).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${teamName}_goal") ?: 0
+                        val awayGoal = currentGoal + 1
+                        val currentPlayer = it.getLong("${playerName}_goal") ?: 0
+                        val playerGoal = currentPlayer + 1
+                        db.collection(collection).document(documentId)
+                            .update(
+                                "${teamName}_goal", awayGoal,
+                                "${playerName}_goal", playerGoal,
+                                "${playerName}_goal_times", FieldValue.arrayUnion(time)
+                            )
+                            .addOnSuccessListener(){
+                                db.collection(collection).document(documentId)
+                                    .collection(collectionBranch)
+                                    .add(goalData)
+                                    .addOnSuccessListener(){
+                                        Log.d("Success", "Success Add Goal Data")
+                                        alertDialog.dismiss()
+                                    }
+                            }
+                    }
+            }
+
+            //handler valleyGoal
+            val btnValleyGoal = dialogView.findViewById<TextView>(R.id.button_goal_valley)
+            btnValleyGoal.setOnClickListener(){
+                val goalData = hashMapOf(
+                    "time" to time,
+                    "player" to playerName,
+                    "action" to "valley_goal"
+                )
+                db.collection(collection).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${teamName}_goal") ?: 0
+                        val awayGoal = currentGoal + 1
+                        val currentPlayer = it.getLong("${playerName}_goal") ?: 0
+                        val playerGoal = currentPlayer + 1
+                        db.collection(collection).document(documentId)
+                            .update(
+                                "${teamName}_goal", awayGoal,
+                                "${playerName}_goal", playerGoal,
+                                "${playerName}_goal_times", FieldValue.arrayUnion(time)
+                            )
+                            .addOnSuccessListener(){
+                                db.collection(collection).document(documentId)
+                                    .collection(collectionBranch)
+                                    .add(goalData)
+                                    .addOnSuccessListener(){
+                                        Log.d("Success", "Success Add Goal Data")
+                                        alertDialog.dismiss()
+                                    }
+                            }
+                    }
+            }
+
+            //handler healedGoal
+            val btnHealedGoal = dialogView.findViewById<TextView>(R.id.button_goal_healed)
+            btnHealedGoal.setOnClickListener(){
+                val goalData = hashMapOf(
+                    "time" to time,
+                    "player" to playerName,
+                    "action" to "healed_goal"
+                )
+                db.collection(collection).document(documentId)
+                    .get()
+                    .addOnSuccessListener(){
+                        val currentGoal = it.getLong("${teamName}_goal") ?: 0
+                        val awayGoal = currentGoal + 1
+                        val currentPlayer = it.getLong("${playerName}_goal") ?: 0
+                        val playerGoal = currentPlayer + 1
+                        db.collection(collection).document(documentId)
+                            .update(
+                                "${teamName}_goal", awayGoal,
+                                "${playerName}_goal", playerGoal,
+                                "${playerName}_goal_times", FieldValue.arrayUnion(time)
+                            )
+                            .addOnSuccessListener(){
+                                db.collection(collection).document(documentId)
+                                    .collection(collectionBranch)
+                                    .add(goalData)
+                                    .addOnSuccessListener(){
+                                        Log.d("Success", "Success Add Goal Data")
+                                        alertDialog.dismiss()
+                                    }
+                            }
+                    }
+            }
+        }
+
     }
 
     private fun getAwayTeamAttackingMidfielder(teamAwayDocId: String) {
