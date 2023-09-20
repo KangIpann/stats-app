@@ -210,7 +210,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold"/>
                 <TextView
-                    android:id="@+id/tv_redCard_away"
+                    android:id="@+id/tv_yellowCard_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
@@ -220,7 +220,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold"/>
                 <TextView
-                    android:id="@+id/tv_yellowCard_away"
+                    android:id="@+id/tv_redCard_away"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
@@ -336,6 +336,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_change_home"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/button_black"
@@ -1635,6 +1636,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_attacking_midfielde"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1701,6 +1703,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_attacking_left_winger"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1760,6 +1763,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_attacking_right_winger"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1819,6 +1823,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_attacking_centre_forward"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
@@ -1878,6 +1883,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gk_constraint_away_attacking_second_striker"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
