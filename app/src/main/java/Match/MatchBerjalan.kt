@@ -25191,7 +25191,7 @@ class MatchBerjalan : AppCompatActivity() {
                     val name = tvAwayCentreForwardName.text
                     val changePlayerButton = findViewById<ConstraintLayout>(R.id.constraint_change_home)
                     changePlayerButton.setOnClickListener(){
-                        changePlayer(name)
+                        changePlayer(name.toString())
                     }
                     val documentId = documentId
                     val teamAwayDocumentId = teamAwayDocId
@@ -25224,7 +25224,7 @@ class MatchBerjalan : AppCompatActivity() {
     private fun changePlayer(name: String?) {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
-        val dialogView = inflater.inflate(R.layout.dia)
+//        val dialogView = inflater.inflate(R.layout.dia)
     }
 
     private fun CentreForwardAwayDialog() {

@@ -18,31 +18,13 @@ class MatchListAdapter(private val query: com.google.firebase.firestore.Query)
         private val TimHomeTextView: TextView = itemView.findViewById(R.id.tim_home)
         private val TimGuestTextView: TextView = itemView.findViewById(R.id.tim_guest)
         private val TanggalMatchTextView: TextView = itemView.findViewById(R.id.tgl_match)
-        private val TanggalMatchSecondTextView: TextView = itemView.findViewById(R.id.tgl_match2)
         private val namaMatchTextViewFirst: TextView = itemView.findViewById(R.id.urutan_match)
-        private val namaMatchTextViewSecond: TextView = itemView.findViewById(R.id.urutan_match2)
-        private val llMatch2: LinearLayout = itemView.findViewById(R.id.ll_match2)
 
         fun bind(match: matchData) {
             TimHomeTextView.text = match.tim_home
             TimGuestTextView.text = match.tim_guest
             TanggalMatchTextView.text = match.tgl_match
-            TanggalMatchSecondTextView.text = match.tgl_match2
             namaMatchTextViewFirst.text = match.nama_match
-            namaMatchTextViewSecond.text = match.nama_match_second
-
-            if (match.nama_match_second.isNullOrEmpty()) {
-                llMatch2.visibility = View.GONE
-            } else {
-                llMatch2.visibility = View.VISIBLE
-            }
-
-            if(match.tgl_match2.isNullOrEmpty()) {
-                TanggalMatchSecondTextView.text = "--------"
-                TanggalMatchSecondTextView.setTextColor(itemView.resources.getColor(R.color.grey_body))
-            } else {
-                TanggalMatchSecondTextView.visibility = View.VISIBLE
-            }
         }
     }
 

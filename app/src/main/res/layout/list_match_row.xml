@@ -89,45 +89,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_match2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/klik"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_match1">
-
-            <TextView
-                android:id="@+id/urutan_match2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingStart="16dp"
-                android:paddingEnd="8dp"
-                android:text="@string/match_1"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/tgl_match2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingStart="8dp"
-                android:paddingEnd="16dp"
-                android:text="@string/_18_03_2003"
-                android:textColor="@color/grey_body"
-                android:textSize="16sp" />
-
-        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
