@@ -1,214 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_tendangan_goal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/aksi_pemain_pemain"
-        android:textAlignment="center"
-        android:fontFamily="@font/poppins_semibold"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tendangan_goal">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_tendangan_goal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/aksi_pemain_pemain"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tendangan_goal">
 
-            <TextView
-                android:id="@+id/button_shootFail"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="Shoot Fail"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/button_shootGoal"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
+                <TextView
+                    android:id="@+id/button_shootFail"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Shoot Fail"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/button_shootGoal"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Shoot Goal"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:text="Shoot Goal"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/button_assist"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Assist"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/button_10mfail"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="10M Fail"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/button_10mGoal"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="10M Goal"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/button_redCard"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Red Card"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/button_yellowCard"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Yellow Card"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/button_steal"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Steal"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/button_penalty"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Penalty"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/button_offside"
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_grey_dialog"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Offside"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/button_assist"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Assist"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/button_10mfail"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="10M Fail"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/button_10mGoal"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="10M Goal"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/button_redCard"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Red Card"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/button_yellowCard"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Yellow Card"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/button_steal"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Steal"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/button_penalty"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Penalty"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/button_offside"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_grey_dialog"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Offside"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_cancel_actionPlayer"
-        android:layout_width="175dp"
-        android:layout_marginTop="20dp"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_red"
-        android:fontFamily="@font/poppins_semibold"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="Batal"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_cancel_actionPlayer"
+            android:layout_width="175dp"
+            android:layout_marginVertical="20dp"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_red"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Batal"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
