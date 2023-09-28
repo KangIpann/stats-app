@@ -34,6 +34,7 @@
     <string name="_10m_goal">10M Goal</string>
     <string name="valley">Valley</string>
     <string name="long_">Long</string>
+    <string name="detail_match">Detail Match</string>
 
     <string-array name="gender_array">
         <item>Pilih Kelamin</item>

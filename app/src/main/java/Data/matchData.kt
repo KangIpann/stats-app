@@ -8,13 +8,11 @@ data class matchData(
     val tim_home: String?,
     val tim_guest: String?,
     val tgl_match: String?,
-    val tgl_match2: String?,
     val nama_match: String?,
     val nama_match_second: String?,
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -28,7 +26,6 @@ data class matchData(
         parcel.writeString(tim_home)
         parcel.writeString(tim_guest)
         parcel.writeString(tgl_match)
-        parcel.writeString(tgl_match2)
         parcel.writeString(nama_match)
         parcel.writeString(nama_match_second)
     }

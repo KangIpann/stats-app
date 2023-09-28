@@ -30,5 +30,15 @@ class MatchList : AppCompatActivity() {
             val intent = Intent(this, TambahMatch::class.java)
             startActivity(intent)
         }
+
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_match_list)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+        val db = FirebaseFirestore.getInstance()
+        val dataOwner = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+        val query = db.collection("match").whereEqualTo("data_owner", dataOwner)
+        val matchAdapter = MatchListAdapter(query)
+        recyclerView.adapter = matchAdapter
+        matchAdapter.startListening()
     }
 }

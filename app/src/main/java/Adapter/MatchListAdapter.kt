@@ -1,6 +1,9 @@
 package Adapter
 
 import Data.matchData
+import Match.DetailMatch
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +28,8 @@ class MatchListAdapter(private val query: com.google.firebase.firestore.Query)
             TimGuestTextView.text = match.tim_guest
             TanggalMatchTextView.text = match.tgl_match
             namaMatchTextViewFirst.text = match.nama_match
+
+
         }
     }
 
@@ -44,10 +49,9 @@ class MatchListAdapter(private val query: com.google.firebase.firestore.Query)
                 for (document in snapshot) {
                     val matchs = matchData(
                         document.id,
-                        document.getString("tim_home"),
-                        document.getString("tim_guest"),
-                        document.getString("tgl_match"),
-                        document.getString("tgl_match2"),
+                        document.getString("tim_home_match"),
+                        document.getString("tim_away_match"),
+                        document.getString("tanggal_match"),
                         document.getString("nama_match"),
                         document.getString("nama_match_second"),
                     )
@@ -61,6 +65,18 @@ class MatchListAdapter(private val query: com.google.firebase.firestore.Query)
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         val match = matches[position]
         holder.bind(match)
+
+        holder.itemView.setOnClickListener{
+            val documentId = matches[position].id_match
+            val homeTeam = matches[position].tim_home
+            val awayTeam = matches[position].tim_guest
+            val intent = Intent(holder.itemView.context, DetailMatch::class.java)
+            intent.putExtra("documentId", documentId)
+            intent.putExtra("homeTeam", homeTeam)
+            intent.putExtra("awayTeam", awayTeam)
+            holder.itemView.context.startActivity(intent)
+            println("DocumentId match yang dikirim: $documentId")
+        }
     }
 
     override fun getItemCount(): Int {

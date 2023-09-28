@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.statsapp.R
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
 
@@ -336,6 +337,7 @@ class TambahMatch : AppCompatActivity() {
         val matchStartTime = etStartTime.text.toString()
         val matchEndTime = etEndTime.text.toString()
         val matchDuration = getMatchDuration()
+        val data_owner = FirebaseAuth.getInstance().currentUser?.uid
 
         //print variabel untuk mengecek apa yang diambil
         println("Match Name: $matchName")
@@ -357,7 +359,8 @@ class TambahMatch : AppCompatActivity() {
             "tim_away_match" to matchAwayTeam,
             "waktu_mulai_match" to matchStartTime,
             "waktu_selesai_match" to matchEndTime,
-            "durasi_match" to matchDuration
+            "durasi_match" to matchDuration,
+            "data_owner" to data_owner
         )
 
         Toast.makeText(this, "Match started", Toast.LENGTH_SHORT).show()
