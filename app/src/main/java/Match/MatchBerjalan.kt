@@ -105,6 +105,7 @@ class MatchBerjalan : AppCompatActivity() {
         getAwayTeamDocumentId()
         setDatabase()
         setHomePlayerGoal()
+        setPlayerFoul()
     }
 
     private fun setDatabase() {
@@ -26637,8 +26638,6 @@ class MatchBerjalan : AppCompatActivity() {
         }
     }
 
-
-
     private fun setHomePlayerGoal(){
 
         //variabel untuk menampilkan data jumlah goal setiap pemain
@@ -26680,7 +26679,7 @@ class MatchBerjalan : AppCompatActivity() {
         val centreForwardGoalNumberAway = findViewById<TextView>(R.id.tv_goal_player10_away)
         val secondStrikerGoalNumberAway = findViewById<TextView>(R.id.tv_goal_player11_away)
 
-        //variabel untuk menyimpan nama pemain away
+        //variabel untuk menyimpan nama pemain home
         val goalKeeperName = findViewById<TextView>(R.id.tv_goal_player1_name_home)
         val centreBackName = findViewById<TextView>(R.id.tv_goal_player2_name_home)
         val leftBackName = findViewById<TextView>(R.id.tv_goal_player3_name_home)
@@ -26695,10 +26694,8 @@ class MatchBerjalan : AppCompatActivity() {
 
 
         val matchDocumentId = intent.getStringExtra("matchId")
-        Toast.makeText(this, matchDocumentId, Toast.LENGTH_SHORT).show()
-
         val docRef = db.collection("matchStats").whereEqualTo("match_id", matchDocumentId)
-        docRef.addSnapshotListener() { snapshot, e ->
+        docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w("Error", "Listen failed.", e)
                 return@addSnapshotListener
@@ -26802,6 +26799,89 @@ class MatchBerjalan : AppCompatActivity() {
                     val tvRedCardAway = findViewById<TextView>(R.id.tv_redCard_away)
                     tvRedCardAway.text = awayRedCard.toString()
 
+                }
+            }
+        }
+    }
+
+    private fun setPlayerFoul(){
+
+        //variabel untuk menyimpan nama pemain Away
+        val goalKeeperNameAway = findViewById<TextView>(R.id.tv_goal_player1_name_away)
+        val centreBackNameAway = findViewById<TextView>(R.id.tv_goal_player2_name_away)
+        val leftBackNameAway = findViewById<TextView>(R.id.tv_goal_player3_name_away)
+        val rightBackNameAway = findViewById<TextView>(R.id.tv_goal_player4_name_away)
+        val defensiveMidfielderNameAway = findViewById<TextView>(R.id.tv_goal_player5_name_away)
+        val centralMidfielderNameAway = findViewById<TextView>(R.id.tv_goal_player6_name_away)
+        val attackingMidfielderNameAway = findViewById<TextView>(R.id.tv_goal_player7_name_away)
+        val leftWingerNameAway = findViewById<TextView>(R.id.tv_goal_player8_name_away)
+        val rightWingerNameAway = findViewById<TextView>(R.id.tv_goal_player9_name_away)
+        val centreForwardNameAway = findViewById<TextView>(R.id.tv_goal_player10_name_away)
+        val secondStrikerNameAway = findViewById<TextView>(R.id.tv_goal_player11_name_away)
+
+        //variabel untuk menampilkan data jumlah foul setiap pemain away
+        val goalKeeperFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player1_away)
+        val centreBackFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player2_away)
+        val leftBackFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player3_away)
+        val rightBackFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player4_away)
+        val defensiveMidfielderFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player5_away)
+        val centralMidfielderFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player6_away)
+        val attackingMidfielderFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player7_away)
+        val leftWingerFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player8_away)
+        val rightWingerFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player9_away)
+        val centreForwardFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player10_away)
+        val secondStrikerFoulNumberAway = findViewById<TextView>(R.id.tv_foul_player11_away)
+
+        //variabel untuk menyimpan nama pemain home
+        val goalKeeperName = findViewById<TextView>(R.id.tv_goal_player1_name_home)
+        val centreBackName = findViewById<TextView>(R.id.tv_goal_player2_name_home)
+        val leftBackName = findViewById<TextView>(R.id.tv_goal_player3_name_home)
+        val rightBackName = findViewById<TextView>(R.id.tv_goal_player4_name_home)
+        val defensiveMidfielderName = findViewById<TextView>(R.id.tv_goal_player5_name_home)
+        val centralMidfielderName = findViewById<TextView>(R.id.tv_goal_player6_name_home)
+        val attackingMidfielderName = findViewById<TextView>(R.id.tv_goal_player7_name_home)
+        val leftWingerName = findViewById<TextView>(R.id.tv_goal_player8_name_home)
+        val rightWingerName = findViewById<TextView>(R.id.tv_goal_player9_name_home)
+        val centreForwardName = findViewById<TextView>(R.id.tv_goal_player10_name_home)
+        val secondStrikerName = findViewById<TextView>(R.id.tv_goal_player11_name_home)
+
+        //variabel menyimpan jumlah foul setiap pemain Home
+        val goalKeeperFoulNumber = findViewById<TextView>(R.id.tv_foul_player1_home)
+        val centreBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player2_home)
+        val leftBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player3_home)
+        val rightBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player4_home)
+        val defensiveMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player5_home)
+        val centralMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player6_home)
+        val attackingMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player7_home)
+        val leftWingerFoulNumber = findViewById<TextView>(R.id.tv_foul_player8_home)
+        val rightWingerFoulNumber = findViewById<TextView>(R.id.tv_foul_player9_home)
+        val centreForwardFoulNumber = findViewById<TextView>(R.id.tv_foul_player10_home)
+        val secondStrikerFoulNumber = findViewById<TextView>(R.id.tv_foul_player11_home)
+
+        val matchDocumentId = intent.getStringExtra("matchId")
+        val docRef = db.collection("matchStats").whereEqualTo("match_id", matchDocumentId)
+
+        docRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w("Error", "Listen failed.", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null) {
+                for (document in snapshot){
+
+                    //handler homeGoalKeeperFoul
+                    val homeGoalKeeper = goalKeeperName.text
+                    val gk_shootFail = document.getLong("${homeGoalKeeper}_shoot_fail") ?: 0
+                    val gk_assist = document.getLong("${homeGoalKeeper}_assist") ?: 0
+                    val gk_10mGoal = document.getLong("${homeGoalKeeper}_10m_goal") ?: 0
+                    val gk_yellowCard = document.getLong("${homeGoalKeeper}_yellow_card") ?: 0
+                    val gk_penalty = document.getLong("${homeGoalKeeper}_penalty") ?: 0
+                    val gk_10mFail = document.getLong("${homeGoalKeeper}_10m_fail") ?: 0
+                    val gk_redCard = document.getLong("${homeGoalKeeper}_red_card") ?: 0
+                    val gk_steal = document.getLong("${homeGoalKeeper}_steal") ?: 0
+                    val gk_offside = document.getLong("${homeGoalKeeper}_offside") ?: 0
+                    val gk_foul = gk_shootFail + gk_assist +gk_10mGoal + gk_yellowCard + gk_penalty + gk_10mFail + gk_redCard +gk_steal + gk_offside
+                    goalKeeperFoulNumber.text = gk_foul.toString()
                 }
             }
         }

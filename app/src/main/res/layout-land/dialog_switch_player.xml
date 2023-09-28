@@ -759,7 +759,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView6"
             app:layout_constraintVertical_bias="0.138" />
     </LinearLayout>
-<ScrollView
+<LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="26dp"
@@ -777,7 +777,7 @@
             tools:listitem="@layout/list_change_row">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>
 
 
 
