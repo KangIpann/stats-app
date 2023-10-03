@@ -26952,6 +26952,135 @@ class MatchBerjalan : AppCompatActivity() {
                     val cm_offside = document.getLong("${homeCentralMidfielder}_offside") ?: 0
                     val cm_foul = cm_shootFail + cm_assist +cm_10mGoal + cm_yellowCard + cm_penalty + cm_10mFail + cm_redCard +cm_steal + cm_offside
                     centralMidfielderFoulNumber.text = cm_foul.toString()
+
+                    //handler attackingMidfielder
+                    val homeAttackingMidfielder = attackingMidfielderName.text
+                    val am_shootFail = document.getLong("${homeAttackingMidfielder}_shoot_fail") ?: 0
+                    val am_assist = document.getLong("${homeAttackingMidfielder}_assist") ?: 0
+                    val am_10mGoal = document.getLong("${homeAttackingMidfielder}_10m_goal") ?: 0
+                    val am_yellowCard = document.getLong("${homeAttackingMidfielder}_yellow_card") ?: 0
+                    val am_penalty = document.getLong("${homeAttackingMidfielder}_penalty") ?: 0
+                    val am_10mFail = document.getLong("${homeAttackingMidfielder}_10m_fail") ?: 0
+                    val am_redCard = document.getLong("${homeAttackingMidfielder}_red_card") ?: 0
+                    val am_steal = document.getLong("${homeAttackingMidfielder}_steal") ?: 0
+                    val am_offside = document.getLong("${homeAttackingMidfielder}_offside") ?: 0
+                    val am_foul = am_shootFail + am_assist +am_10mGoal + am_yellowCard + am_penalty + am_10mFail + am_redCard +am_steal + am_offside
+                    attackingMidfielderFoulNumber.text = am_foul.toString()
+
+                    //handler leftWinger
+                    val homeLeftWinger = leftWingerName.text
+                    val lw_shootFail = document.getLong("${homeLeftWinger}_shoot_fail") ?: 0
+                    val lw_assist = document.getLong("${homeLeftWinger}_assist") ?: 0
+                    val lw_10mGoal = document.getLong("${homeLeftWinger}_10m_goal") ?: 0
+                    val lw_yellowCard = document.getLong("${homeLeftWinger}_yellow_card") ?: 0
+                    val lw_penalty = document.getLong("${homeLeftWinger}_penalty") ?: 0
+                    val lw_10mFail = document.getLong("${homeLeftWinger}_10m_fail") ?: 0
+                    val lw_redCard = document.getLong("${homeLeftWinger}_red_card") ?: 0
+                    val lw_steal = document.getLong("${homeLeftWinger}_steal") ?: 0
+                    val lw_offside = document.getLong("${homeLeftWinger}_offside") ?: 0
+                    val lw_foul = lw_shootFail + lw_assist +lw_10mGoal + lw_yellowCard + lw_penalty + lw_10mFail + lw_redCard +lw_steal + lw_offside
+                    leftWingerFoulNumber.text = lw_foul.toString()
+
+                    //handler rigthWinger
+                    val homeRigthWinger = rightWingerName.text
+                    val rw_shootFail = document.getLong("${homeRigthWinger}_shoot_fail") ?: 0
+                    val rw_assist = document.getLong("${homeRigthWinger}_assist") ?: 0
+                    val rw_10mGoal = document.getLong("${homeRigthWinger}_10m_goal") ?: 0
+                    val rw_yellowCard = document.getLong("${homeRigthWinger}_yellow_card") ?: 0
+                    val rw_penalty = document.getLong("${homeRigthWinger}_penalty") ?: 0
+                    val rw_10mFail = document.getLong("${homeRigthWinger}_10m_fail") ?: 0
+                    val rw_redCard = document.getLong("${homeRigthWinger}_red_card") ?: 0
+                    val rw_steal = document.getLong("${homeRigthWinger}_steal") ?: 0
+                    val rw_offside = document.getLong("${homeRigthWinger}_offside") ?: 0
+                    val rw_foul = rw_shootFail + rw_assist +rw_10mGoal + rw_yellowCard + rw_penalty + rw_10mFail + rw_redCard +rw_steal + rw_offside
+                    rightWingerFoulNumber.text = rw_foul.toString()
+
+                    //handler centreForward
+                    val homeCentreForward = centreForwardName.text
+                    val cf_shootFail = document.getLong("${homeCentreForward}_shoot_fail") ?: 0
+                    val cf_assist = document.getLong("${homeCentreForward}_assist") ?: 0
+                    val cf_10mGoal = document.getLong("${homeCentreForward}_10m_goal") ?: 0
+                    val cf_yellowCard = document.getLong("${homeCentreForward}_yellow_card") ?: 0
+                    val cf_penalty = document.getLong("${homeCentreForward}_penalty") ?: 0
+                    val cf_10mFail = document.getLong("${homeCentreForward}_10m_fail") ?: 0
+                    val cf_redCard = document.getLong("${homeCentreForward}_red_card") ?: 0
+                    val cf_steal = document.getLong("${homeCentreForward}_steal") ?: 0
+                    val cf_offside = document.getLong("${homeCentreForward}_offside") ?: 0
+                    val cf_foul = cf_shootFail + cf_assist +cf_10mGoal + cf_yellowCard + cf_penalty + cf_10mFail + cf_redCard +cf_steal + cf_offside
+                    centreForwardFoulNumber.text = cf_foul.toString()
+
+                    //handler secondStriker
+                    val homeSecondStriker = secondStrikerName.text
+                    val sc_shootFail = document.getLong("${homeSecondStriker}_shoot_fail") ?: 0
+                    val sc_assist = document.getLong("${homeSecondStriker}_assist") ?: 0
+                    val sc_10mGoal = document.getLong("${homeSecondStriker}_10m_goal") ?: 0
+                    val sc_yellowCard = document.getLong("${homeSecondStriker}_yellow_card") ?: 0
+                    val sc_penalty = document.getLong("${homeSecondStriker}_penalty") ?: 0
+                    val sc_10mFail = document.getLong("${homeSecondStriker}_10m_fail") ?: 0
+                    val sc_redCard = document.getLong("${homeSecondStriker}_red_card") ?: 0
+                    val sc_steal = document.getLong("${homeSecondStriker}_steal") ?: 0
+                    val sc_offside = document.getLong("${homeSecondStriker}_offside") ?: 0
+                    val sc_foul = sc_shootFail + sc_assist +sc_10mGoal + sc_yellowCard + sc_penalty + sc_10mFail + sc_redCard +sc_steal + sc_offside
+                    secondStrikerFoulNumber.text = sc_foul.toString()
+
+                    //handler awayGoalKeeperFoul
+                    val homeGoalKeeperNameAway = goalKeeperNameAway.text
+                    val gk_away_shootFail = document.getLong("${homeGoalKeeperNameAway}_shoot_fail") ?: 0
+                    val gk_away_assist = document.getLong("${homeGoalKeeperNameAway}_assist") ?: 0
+                    val gk_away_10mGoal = document.getLong("${homeGoalKeeperNameAway}_10m_goal") ?: 0
+                    val gk_away_yellowCard = document.getLong("${homeGoalKeeperNameAway}_yellow_card") ?: 0
+                    val gk_away_penalty = document.getLong("${homeGoalKeeperNameAway}_penalty") ?: 0
+                    val gk_away_10mFail = document.getLong("${homeGoalKeeperNameAway}_10m_fail") ?: 0
+                    val gk_away_redCard = document.getLong("${homeGoalKeeperNameAway}_red_card") ?: 0
+                    val gk_away_steal = document.getLong("${homeGoalKeeperNameAway}_steal") ?: 0
+                    val gk_away_offside = document.getLong("${homeGoalKeeperNameAway}_offside") ?: 0
+                    val gk_away_foul = gk_away_shootFail + gk_away_assist +gk_away_10mGoal + gk_away_yellowCard + gk_away_penalty + gk_away_10mFail + gk_away_redCard +gk_away_steal + gk_away_offside
+                    goalKeeperFoulNumberAway.text = gk_away_foul.toString()
+
+                    //handler awayCentreBack
+                    val homeCentreBackNameAway = centreBackName.text
+                    val cb_away_shootFail = document.getLong("${homeCentreBackNameAway}_shoot_fail") ?: 0
+                    val cb_away_assist = document.getLong("${homeCentreBackNameAway}_assist") ?: 0
+                    val cb_away_10mGoal = document.getLong("${homeCentreBackNameAway}_10m_goal") ?: 0
+                    val cb_away_yellowCard = document.getLong("${homeCentreBackNameAway}_yellow_card") ?: 0
+                    val cb_away_penalty = document.getLong("${homeCentreBackNameAway}_penalty") ?: 0
+                    val cb_away_10mFail = document.getLong("${homeCentreBackNameAway}_10m_fail") ?: 0
+                    val cb_away_redCard = document.getLong("${homeCentreBackNameAway}_red_card") ?: 0
+                    val cb_away_steal = document.getLong("${homeCentreBackNameAway}_steal") ?: 0
+                    val cb_away_offside = document.getLong("${homeCentreBackNameAway}_offside") ?: 0
+                    val cb_away_foul = cb_away_shootFail + cb_away_assist +cb_away_10mGoal + cb_away_yellowCard + cb_away_penalty + cb_away_10mFail + cb_away_redCard +cb_away_steal + cb_away_offside
+                    centreBackFoulNumberAway.text = cb_away_foul.toString()
+
+                    //handler homeLeftBackAway
+                    val homeLeftBackAwayName = leftBackNameAway.text
+                    val lb_away_shootFail = document.getLong("${homeLeftBackAwayName}_shoot_fail") ?: 0
+                    val lb_away_assist = document.getLong("${homeLeftBackAwayName}_assist") ?: 0
+                    val lb_away_10mGoal = document.getLong("${homeLeftBackAwayName}_10m_goal") ?: 0
+                    val lb_away_yellowCard = document.getLong("${homeLeftBackAwayName}_yellow_card") ?: 0
+                    val lb_away_penalty = document.getLong("${homeLeftBackAwayName}_penalty") ?: 0
+                    val lb_away_10mFail = document.getLong("${homeLeftBackAwayName}_10m_fail") ?: 0
+                    val lb_away_redCard = document.getLong("${homeLeftBackAwayName}_red_card") ?: 0
+                    val lb_away_steal = document.getLong("${homeLeftBackAwayName}_steal") ?: 0
+                    val lb_away_offside = document.getLong("${homeLeftBackAwayName}_offside") ?: 0
+                    val lb_away_foul = lb_away_shootFail + lb_away_assist +lb_away_10mGoal + lb_away_yellowCard + lb_away_penalty + lb_away_10mFail + lb_away_redCard +lb_away_steal + lb_away_offside
+                    leftBackFoulNumberAway.text = lb_away_foul.toString()
+
+                    //handler homeRightBackAway
+                    val homeRightBackAwayName = rightBackNameAway.text
+                    val rb_away_shootFail = document.getLong("${homeRightBackAwayName}_shoot_fail") ?: 0
+                    val rb_away_assist = document.getLong("${homeRightBackAwayName}_assist") ?: 0
+                    val rb_away_10mGoal = document.getLong("${homeRightBackAwayName}_10m_goal") ?: 0
+                    val rb_away_yellowCard = document.getLong("${homeRightBackAwayName}_yellow_card") ?: 0
+                    val rb_away_penalty = document.getLong("${homeRightBackAwayName}_penalty") ?: 0
+                    val rb_away_10mFail = document.getLong("${homeRightBackAwayName}_10m_fail") ?: 0
+                    val rb_away_redCard = document.getLong("${homeRightBackAwayName}_red_card") ?: 0
+                    val rb_away_steal = document.getLong("${homeRightBackAwayName}_steal") ?: 0
+                    val rb_away_offside = document.getLong("${homeRightBackAwayName}_offside") ?: 0
+                    val rb_away_foul = rb_away_shootFail + rb_away_assist +rb_away_10mGoal + rb_away_yellowCard + rb_away_penalty + rb_away_10mFail + rb_away_redCard +rb_away_steal + rb_away_offside
+                    rightBackFoulNumberAway.text = rb_away_foul.toString()
+
+
+
                 }
             }
         }
