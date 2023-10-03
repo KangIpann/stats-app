@@ -881,7 +881,7 @@
                 android:background="@drawable/select_green">
 
                 <TextView
-                    android:id="@+id/tv_foul_player6_home"
+                    android:id="@+id/tv_foul_player6_home_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
