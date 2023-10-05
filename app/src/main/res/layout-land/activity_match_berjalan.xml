@@ -454,6 +454,7 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_change_away"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/button_black"

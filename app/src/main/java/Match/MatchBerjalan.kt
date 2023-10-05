@@ -88,6 +88,19 @@ class MatchBerjalan : AppCompatActivity() {
     private lateinit var tvAwayCentreForwardName: TextView
     private lateinit var tvAwaySecondStrikerName: TextView
 
+    //variabel global untuk foul
+    private lateinit var goalKeeperFoulNumber : TextView
+    private lateinit var centreBackFoulNumber : TextView
+    private lateinit var leftBackFoulNumber : TextView
+    private lateinit var rightBackFoulNumber : TextView
+    private lateinit var attackingMidfielderFoulNumber : TextView
+    private lateinit var centralMidfielderFoulNumber : TextView
+    private lateinit var defensiveMidfielderFoulNumber : TextView
+    private lateinit var leftWingerFoulNumber : TextView
+    private lateinit var rightWingerFoulNumber : TextView
+    private lateinit var centreForwardFoulNumber : TextView
+    private lateinit var secondStrikerFoulNumber : TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +119,8 @@ class MatchBerjalan : AppCompatActivity() {
         setDatabase()
         setHomePlayerGoal()
         setPlayerFoul()
+
+        changePlayerHome()
     }
 
     private fun setDatabase() {
@@ -25190,10 +25205,6 @@ class MatchBerjalan : AppCompatActivity() {
                     }
 
                     val name = tvAwayCentreForwardName.text
-                    val changePlayerButton = findViewById<ConstraintLayout>(R.id.constraint_change_home)
-                    changePlayerButton.setOnClickListener(){
-                        changePlayer(name.toString())
-                    }
                     val documentId = documentId
                     val teamAwayDocumentId = teamAwayDocId
                     val role = "Centre Forward"
@@ -25221,12 +25232,7 @@ class MatchBerjalan : AppCompatActivity() {
                 Log.w("Error", "Error getting documents: ", exception)
             }
     }
-
-    private fun changePlayer(name: String?) {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.layoutInflater
-//        val dialogView = inflater.inflate(R.layout.dia)
-    }
+    
 
     private fun CentreForwardAwayDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
@@ -26846,17 +26852,17 @@ class MatchBerjalan : AppCompatActivity() {
         val secondStrikerName = findViewById<TextView>(R.id.tv_goal_player11_name_home)
 
         //variabel menyimpan jumlah foul setiap pemain Home
-        val goalKeeperFoulNumber = findViewById<TextView>(R.id.tv_foul_player1_home)
-        val centreBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player2_home)
-        val leftBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player3_home)
-        val rightBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player4_home)
-        val defensiveMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player5_home)
-        val centralMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player6_home_match)
-        val attackingMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player7_home)
-        val leftWingerFoulNumber = findViewById<TextView>(R.id.tv_foul_player8_home)
-        val rightWingerFoulNumber = findViewById<TextView>(R.id.tv_foul_player9_home)
-        val centreForwardFoulNumber = findViewById<TextView>(R.id.tv_foul_player10_home)
-        val secondStrikerFoulNumber = findViewById<TextView>(R.id.tv_foul_player11_home)
+        goalKeeperFoulNumber = findViewById<TextView>(R.id.tv_foul_player1_home)
+        centreBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player2_home)
+        leftBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player3_home)
+        rightBackFoulNumber = findViewById<TextView>(R.id.tv_foul_player4_home)
+        defensiveMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player5_home)
+        centralMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player6_home_match)
+        attackingMidfielderFoulNumber = findViewById<TextView>(R.id.tv_foul_player7_home)
+        leftWingerFoulNumber = findViewById<TextView>(R.id.tv_foul_player8_home)
+        rightWingerFoulNumber = findViewById<TextView>(R.id.tv_foul_player9_home)
+        centreForwardFoulNumber = findViewById<TextView>(R.id.tv_foul_player10_home)
+        secondStrikerFoulNumber = findViewById<TextView>(R.id.tv_foul_player11_home)
 
         val matchDocumentId = intent.getStringExtra("matchId")
         val docRef = db.collection("matchStats").whereEqualTo("match_id", matchDocumentId)
@@ -27181,7 +27187,23 @@ class MatchBerjalan : AppCompatActivity() {
         }
     }
 
-    private fun changePlayer(){
-        
+    private fun changePlayerHome(){
+        val homeConstraint = findViewById<ConstraintLayout>(R.id.constraint_change_home)
+        homeConstraint.setOnClickListener(){
+            val matchDocumentId = intent.getStringExtra("matchId")
+            Log.d("DocumentId: ", "$matchDocumentId")
+            val docRef = db.collection("matchStats").whereEqualTo("match_id",matchDocumentId)
+            docRef.addSnapshotListener{snapshot, e ->
+                if (e != null){
+                    Log.w("Success", "Success Snapshot", e)
+                    return@addSnapshotListener
+                }
+                if (snapshot != null){
+                    for (document in snapshot){
+                        
+                    }
+                }
+            }
+        }
     }
 }

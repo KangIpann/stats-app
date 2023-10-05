@@ -10,7 +10,6 @@
         android:id="@+id/button_cancel_switchlayer"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-
         android:background="@drawable/button_red"
         android:fontFamily="@font/poppins_semibold"
         android:paddingStart="16dp"
@@ -96,7 +95,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_goal_player1_name_home"
+                    android:id="@+id/tv_goal_player1_name_home_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_bold"
