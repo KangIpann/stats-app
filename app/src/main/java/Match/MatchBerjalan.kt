@@ -27190,9 +27190,17 @@ class MatchBerjalan : AppCompatActivity() {
     private fun changePlayerHome(){
         val homeConstraint = findViewById<ConstraintLayout>(R.id.constraint_change_home)
         homeConstraint.setOnClickListener(){
+            val dialogBuilder = AlertDialog.Builder(this)
+            val inflater = LayoutInflater.from(this)
+            val dialogView = inflater.inflate(R.layout.dialog_switch_player, null)
+            dialogBuilder.setView(dialogView)
+            val alertDialog = dialogBuilder.create()
+
             val matchDocumentId = intent.getStringExtra("matchId")
             Log.d("DocumentId: ", "$matchDocumentId")
             val docRef = db.collection("matchStats").whereEqualTo("match_id",matchDocumentId)
+            alertDialog.show()
+
             docRef.addSnapshotListener{snapshot, e ->
                 if (e != null){
                     Log.w("Success", "Success Snapshot", e)
@@ -27200,7 +27208,7 @@ class MatchBerjalan : AppCompatActivity() {
                 }
                 if (snapshot != null){
                     for (document in snapshot){
-                        
+
                     }
                 }
             }
