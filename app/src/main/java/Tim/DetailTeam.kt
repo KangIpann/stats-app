@@ -3,6 +3,7 @@ package Tim
 import Adapter.CustomSpinnerAdapter
 import Adapter.DetailTeamAdapter
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -16,6 +17,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.statsapp.R
@@ -97,6 +99,8 @@ class DetailTeam : AppCompatActivity() {
 
         alertDialog.show()
     }
+
+    
     private fun PullData() {
         val docRef = db.collection("team").document(documentId)
         docRef.addSnapshotListener { snapshot, exception ->
@@ -378,4 +382,9 @@ class DetailTeam : AppCompatActivity() {
     companion object {
         private const val REQUEST_IMAGE_GALLERY = 1
     }
+
+    private fun println(pesan: String) {
+        kotlin.io.println(pesan)
+    }
+
 }

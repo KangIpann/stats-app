@@ -324,39 +324,39 @@
             app:layout_constraintTop_toBottomOf="@+id/awayYellowCard" />
 
 <!--        -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvHomeShootAccuracy"
-            android:layout_marginStart="75dp"
-            android:layout_marginTop="15dp"
-            android:text="TextView"
-            android:fontFamily="@font/poppins"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHomeOffside" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/tvHomeShootAccuracy"-->
+<!--            android:layout_marginStart="75dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="TextView"-->
+<!--            android:fontFamily="@font/poppins"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvHomeOffside" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView46"
-            android:layout_marginTop="15dp"
-            android:text="Shoot Accuracy"
-            android:fontFamily="@font/poppins_semibold"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView43" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/textView46"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="Shoot Accuracy"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView43" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAwayShootAccuracy"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="75dp"
-            android:text="TextView"
-            android:fontFamily="@font/poppins"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAwayOffside" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/tvAwayShootAccuracy"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:layout_marginEnd="75dp"-->
+<!--            android:text="TextView"-->
+<!--            android:fontFamily="@font/poppins"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvAwayOffside" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

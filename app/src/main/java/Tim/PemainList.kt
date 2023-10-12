@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,29 @@ class PemainList : AppCompatActivity() {
         val adapter = PemainListAdapter(query)
         recyclerView.adapter = adapter
         adapter.startListening()
+    }
+
+    private fun setTeamJumlahPlayer(){
+        documentId = intent.getStringExtra("documentId").toString()
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("team").document(documentId)
+        //hitung jumlah pemain yang memiliki id_tim_pemain = documentId
+        val query = db.collection("pemain").whereEqualTo("id_tim_pemain", documentId)
+        query.get()
+            .addOnSuccessListener { documents ->
+                val jumlahPemain = documents.size()
+                println("Jumlah pemain: $jumlahPemain")
+                docRef.update("jumlah_pemain", jumlahPemain)
+                    .addOnSuccessListener {
+                        println("Jumlah pemain berhasil diupdate")
+                    }
+                    .addOnFailureListener{
+                        println("Jumlah pemain gagal diupdate")
+                    }
+            }
+            .addOnFailureListener{
+                println("Jumlah pemain gagal dihitung")
+            }
     }
 
     private fun showAddPemainDialog(){
@@ -80,6 +104,7 @@ class PemainList : AppCompatActivity() {
                     "",
                 )
                 addPemainToDatabase(newPemain)
+                setTeamJumlahPlayer()
                 alertDialog.dismiss()
             }
         }
@@ -91,6 +116,7 @@ class PemainList : AppCompatActivity() {
     private fun addPemainToDatabase(newPemain: pemainData) {
         val db = FirebaseFirestore.getInstance()
         val pemainCollection: CollectionReference = db.collection("pemain")
+        setTeamJumlahPlayer()
         pemainCollection.add(newPemain)
             .addOnSuccessListener {
                 println("Pemain berhasil ditambahkan")

@@ -251,16 +251,13 @@ class DetailPemain : AppCompatActivity() {
                 val EditTextStatusPemain = findViewById<Spinner>(R.id.et_statuspemain_detailpemain)
                 val EditTextNomorPemain = findViewById<EditText>(R.id.et_nomerpunggung_detailpemain)
                 val EditTextTinggiPemain = findViewById<EditText>(R.id.et_tinggibadan_detailpemain)
-                val EditTextLateralitasPemain =
-                    findViewById<Spinner>(R.id.et_lateralitas_detailpemain)
+                val EditTextLateralitasPemain = findViewById<Spinner>(R.id.et_lateralitas_detailpemain)
                 val EditTextBeratPemain = findViewById<EditText>(R.id.et_beratbadan_detailpemain)
                 val EditTextBmiPemain = findViewById<EditText>(R.id.et_bmi_detailpemain)
-                val EditTextTanggalLahirPemain =
-                    findViewById<EditText>(R.id.et_tanggallahir_detailpemain)
+                val EditTextTanggalLahirPemain = findViewById<EditText>(R.id.et_tanggallahir_detailpemain)
                 val EditTextKelaminPemain = findViewById<Spinner>(R.id.et_jeniskelamin_detailpemain)
                 val EditTextDomisiliPemain = findViewById<EditText>(R.id.et_domisili_detailpemain)
-                val EditTextNomorHandphonePemain =
-                    findViewById<EditText>(R.id.et_nomorhp_detailpemain)
+                val EditTextNomorHandphonePemain = findViewById<EditText>(R.id.et_nomorhp_detailpemain)
                 val EditTextEmailPemain = findViewById<EditText>(R.id.et_emailpemain_detailpemain)
 
                 //set value dari database ke xml
